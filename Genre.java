@@ -1,0 +1,19 @@
+public enum Genre 
+{
+    ACTION,
+    ADVENTURE,
+    COMEDY,
+    CRIME,
+    DOCUMENTARY,
+    DRAMA,
+    FANTASY,
+    HISTORICAL_FICTION,
+    HORROR,
+    MUSIC,
+    MYSTERY,
+    PSYCHOLOGICAL,
+    ROMANCE,
+    SCIENCE_FICTION,
+    SPORTS,
+    THRILLER
+}
