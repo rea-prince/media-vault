@@ -1,10 +1,12 @@
-public class Anime 
+package mediavault.models;
+
+public class Anime
 {
     Details episodes = new Details();
     private String studio;
     private String alternativeTitle;
 
-    public Anime (int release, String title, String synopsis, Genre[] genre, 
+    public Anime (int release, String title, String synopsis, Genre[] genre,
                   String publisher, String studio, Status status)
     {
 

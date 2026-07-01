@@ -1,4 +1,5 @@
-public class User 
+package mediavault.models;
+public class User
 {
     MediaVault vault = new MediaVault();
     private int ID;

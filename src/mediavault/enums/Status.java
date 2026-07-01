@@ -1,4 +1,5 @@
-public enum Status 
+package mediavault.enums;
+public enum Status
 {
     PLANNED,
     IN_PROGRESS,

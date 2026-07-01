@@ -1,9 +1,12 @@
-public class VideoGame 
+package mediavault.models;
+import mediavault.enums.Status;
+
+public class VideoGame
 {
     private String publisher;
     private String studio;
 
-    public VideoGame (int release, String title, String synopsis, Genre[] genre, 
+    public VideoGame (int release, String title, String synopsis, Genre[] genre,
                       String publisher, String studio, Status status)
     {
 

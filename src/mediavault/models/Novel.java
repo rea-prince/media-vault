@@ -1,9 +1,11 @@
-public class Novel 
+package mediavault.models;
+
+public class Novel
 {
     private String publisher;
     private String author;
 
-    public Novel (int release, String title, String synopsis, Genre[] genre, 
+    public Novel (int release, String title, String synopsis, Genre[] genre,
                   String publisher, String studio, Status status)
     {
 

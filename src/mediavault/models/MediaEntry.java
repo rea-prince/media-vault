@@ -1,13 +1,22 @@
+package mediavault.models;
+
 import java.util.ArrayList;
 
-public class MediaEntry 
+import mediavault.enums.Genre;
+import mediavault.enums.MediaType;
+import mediavault.enums.Status;
+
+public class MediaEntry
 {
     private int ID;
     private int lastModified;
-    MediaType TYPE;
-    Details details = new Details();
-    ArrayList<Genre> genre = new ArrayList<>();
-    Status status;
+
+    private MediaType TYPE;
+    private Details details = new Details();
+
+    private ArrayList<Genre> genre = new ArrayList<>();
+
+    private Status status;
     private float rating;
     private String review;
 

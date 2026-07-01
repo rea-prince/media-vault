@@ -1,4 +1,5 @@
-public enum Genre 
+package mediavault.enums;
+public enum Genre
 {
     ACTION,
     ADVENTURE,

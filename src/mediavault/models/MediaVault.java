@@ -1,8 +1,21 @@
-import java.util.ArrayList;
+package mediavault.models;
+import java.util.Arra
+
+import main.enums.Status;
+
+
+import main.enums.MediaType;
+
+
+import main.enums.Genre;
+
 import java.util.Map;
+
+import MediaEntry;
+
 import java.util.HashMap;
 
-public class MediaVault 
+public class MediaVault
 {
     Map<int, MediaType> entries = new Map<int, MediaType>();
 

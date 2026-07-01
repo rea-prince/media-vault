@@ -1,4 +1,5 @@
-public class Details 
+package mediavault.models;
+public class Details
 {
     private int release;
     private String title;
