@@ -8,7 +8,8 @@ public class User
 
     public User (String name, MediaVault vault)
     {
-
+        username = name;
+        this.vault = vault;
     }
 
     public void setUsername (String name)
