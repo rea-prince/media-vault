@@ -23,19 +23,23 @@ abstract public class MediaEntry
 
     /* SETTERS */
 
-    public void rate(float rating)
+    public void setLastModified(LocalDateTime now) {
+        lastModified = now;
+    }
+
+    public void setRating(float rating)
     {
         this.rating = rating;
         lastModified = LocalDateTime.now();
     }
 
-    public void makeReview(String review)
+    public void setReview(String review)
     {
         this.review = review;
         lastModified = LocalDateTime.now();
     }
 
-    public void updateStatus(Status status)
+    public void setStatus(Status status)
     {
         this.status = status;
         lastModified = LocalDateTime.now();

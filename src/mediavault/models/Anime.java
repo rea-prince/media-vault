@@ -1,5 +1,6 @@
 package mediavault.models;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import mediavault.enums.*;
 
@@ -26,10 +27,12 @@ public class Anime extends MediaEntry
     public void addEpisode(int release, String title, String synopsis)
     {
         episodes.add(new Details(release, title, synopsis));
+        setLastModified(LocalDateTime.now());
     }
 
     public void setStudio(String newStudio) {
         studio = newStudio;
+        setLastModified(LocalDateTime.now());
     }
 
     public String getStudio()

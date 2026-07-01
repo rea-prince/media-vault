@@ -45,30 +45,23 @@ public class MediaVault
         }
     }
 
-    public void updateEntry(String title, int year, Status status)
-    {
-        for (MediaEntry entry : entries) {
-            if (entry.getDetails().getTitle().equals(title) &&
-                entry.getDetails().getYear() == year) {
-                    entry.updateStatus(status);
-                    return;
-                }
-        }
-        throw new IllegalArgumentException("Entry not found.");
-    }
-
     public ArrayList<MediaEntry> getAll() {
         return entries;
     }
 
-    public ArrayList<MediaEntry> getEntries(Details details, MediaType type,
+    public MediaEntry getEntry(String title, int year) {
+        return entries.stream().filter(entry ->
+            (title != null) && entry.getDetails().getTitle().equals(title) &&
+            (year > 0) && entry.getDetails().getYear() == year).toList().get(0);
+    }
+
+    public ArrayList<MediaEntry> getEntries(String title, int year, MediaType type,
                                             Status status, ArrayList<Genre> genres)
     {
         return new ArrayList<MediaEntry>(entries.stream().filter(
             entry ->
-                (details != null &&
-                    (entry.getDetails().getTitle().contains(details.getTitle()) ||
-                     entry.getDetails().getYear() == details.getYear())) ||
+                (title != null && entry.getDetails().getTitle().contains(title)) ||
+                (year > 0 && entry.getDetails().getYear() == year) ||
                 (type != null && entry.getMediaType() == type) ||
                 (status != null && entry.getStatus() == status) ||
                 (genres != null && entry.getGenres().containsAll(genres))
