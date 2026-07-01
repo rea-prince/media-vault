@@ -1,15 +1,15 @@
 package mediavault.models;
 
 import java.util.ArrayList;
+import java.time.LocalDateTime;
 
 import mediavault.enums.Genre;
 import mediavault.enums.MediaType;
 import mediavault.enums.Status;
 
-public class MediaEntry
+abstract public class MediaEntry
 {
-    private int ID;
-    private int lastModified;
+    private LocalDateTime lastModified;
 
     private MediaType TYPE;
     private Details details = new Details();
@@ -22,17 +22,24 @@ public class MediaEntry
 
     public void rate (float rating)
     {
-
+        this.rating = rating;
+        lastModified = LocalDateTime.now();
     }
 
     public void makeReview (String review)
     {
-
+        this.review = review;
+        lastModified = LocalDateTime.now();
     }
 
     public void updateStatus (Status status)
     {
+        this.status = status;
+        lastModified = LocalDateTime.now();
+    }
 
+    public MediaType getMediaType() {
+        return TYPE;
     }
 
     public Details getDetails ()

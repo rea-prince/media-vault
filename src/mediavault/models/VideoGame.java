@@ -1,12 +1,14 @@
 package mediavault.models;
-import mediavault.enums.Status;
+
+import java.util.ArrayList;
+import mediavault.enums.*;
 
 public class VideoGame
 {
     private String publisher;
     private String studio;
 
-    public VideoGame (int release, String title, String synopsis, Genre[] genre,
+    public VideoGame (int release, String title, String synopsis, ArrayList<Genre> genres,
                       String publisher, String studio, Status status)
     {
 

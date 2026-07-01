@@ -1,13 +1,13 @@
 package mediavault.models;
 public class Details
 {
-    private int release;
+    private int year;
     private String title;
     private String synopsis;
 
-    public void setRelease (int release)
+    public void setYear (int year)
     {
-        this.release = release;
+        this.year = year;
     }
 
     public void setTitle (String title)
@@ -20,9 +20,9 @@ public class Details
         this.synopsis = synopsis;
     }
 
-    public int getRelease ()
+    public int getYear ()
     {
-        return release;
+        return year;
     }
 
     public String getTitle ()

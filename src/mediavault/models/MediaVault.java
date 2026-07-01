@@ -1,66 +1,93 @@
 package mediavault.models;
-import java.util.Arra
+import java.util.ArrayList;
 
-import main.enums.Status;
-
-
-import main.enums.MediaType;
-
-
-import main.enums.Genre;
-
-import java.util.Map;
-
-import MediaEntry;
-
-import java.util.HashMap;
+import mediavault.enums.Status;
+import mediavault.enums.MediaType;
+import mediavault.enums.Genre;
 
 public class MediaVault
 {
-    Map<int, MediaType> entries = new Map<int, MediaType>();
+    ArrayList<MediaEntry> entries;
 
-    public MediaVault ()
+    public MediaVault()
     {
-
+        entries = new ArrayList<MediaEntry>();
     }
 
-    public void addEntry (MediaEntry entry, Status status)
+    /**
+     * Adds an entry to the list of entries, and maps it to a unique
+     * @param title Title of the entry
+     * @param year  Release year of an entry
+     */
+    public void addEntry(MediaEntry entry)
     {
-
+        if (!entries.contains(entry)) {
+            entries.add(entry);
+            return;
+        }
+        throw new IllegalArgumentException("Entry is already in vault.");
     }
 
-    public void removeEntry (MediaEntry entry)
+    /**
+     * Removes all instances of an entry with a given title released on a
+     * specific year
+     * @param title Title of the entry
+     * @param year  Release year of an entry
+     */
+    public void removeEntry(String title, int year)
     {
-
+        if (!entries.removeIf(entry ->
+            entry.getDetails().getTitle().equals(title) &&
+            entry.getDetails().getYear() == year)
+        )
+        {
+            throw new IllegalArgumentException("Entry not found.");
+        }
     }
 
-    public void updateEntry (MediaEntry entry, Status status)
+    public void updateEntry(String title, int year, Status status)
     {
-
+        for (MediaEntry entry : entries) {
+            if (entry.getDetails().getTitle().equals(title) &&
+                entry.getDetails().getYear() == year) {
+                    entry.updateStatus(status);
+                    return;
+                }
+        }
+        throw new IllegalArgumentException("Entry not found.");
     }
 
-    public MediaEntry getEntryByID (int ID)
+    public ArrayList<MediaEntry> getEntries(Details details, MediaType type,
+                                            Status status, ArrayList<Genre> genres)
     {
-        return entry;
+        return new ArrayList<MediaEntry>(entries.stream().filter(
+            entry ->
+                (details != null &&
+                    (entry.getDetails().getTitle().contains(details.getTitle()) ||
+                     entry.getDetails().getYear() == details.getYear())) ||
+                (type != null && entry.getMediaType() == type) ||
+                (status != null && entry.getStatus() == status) ||
+                (genres != null && entry.getGenres().containsAll(genres))
+        ).toList());
     }
 
-    public ArrayList<MediaEntry> getEntriesByID (int ID)
+    public long getTotalByAttributes(MediaType type, Status status,
+                                     ArrayList<Genre> genres)
     {
-        return entries;
+        return entries.stream().filter(entry ->
+            (type != null && entry.getMediaType() == type) ||
+            (status != null && entry.getStatus() == status) ||
+            (genres != null && entry.getGenres().containsAll(genres))
+        ).count();
     }
 
-    public ArrayList<MediaEntry> getEntriesByAttributes (MediaType type, Status status, Genre genre)
+    public float getAverageRating()
     {
-        return entries;
-    }
+        if (entries.isEmpty())
+            return 0;
 
-    public int getTotalByAttributes (MediaType type, Status status, Genre genre)
-    {
-        return ;
-    }
+        float sum = entries.stream().mapToDouble(entry -> entry.getRating()).count();
 
-    public float getAverageRating ()
-    {
-        return ;
+        return (sum / entries.size());
     }
 }
