@@ -3,23 +3,36 @@ package mediavault.models;
 import java.util.ArrayList;
 import mediavault.enums.*;
 
-public class Novel
+public class Novel extends MediaEntry
 {
-    private String publisher;
-    private String author;
+    private final int chapters;
+    private final String publisher;
+    private final String author;
 
-    public Novel (int release, String title, String synopsis, ArrayList<Genre> genres,
-                  String publisher, String studio, Status status)
+    public Novel (int release, String title, String synopsis,
+                  ArrayList<Genre> genres, String publisher,
+                  String author, Status status, int chapters)
     {
+        setDetails(new Details(release, title, synopsis));
+        setGenres(genres);
+        updateStatus(status);
 
+        this.publisher = publisher;
+        this.author = author;
+        this.chapters = chapters;
     }
 
-    public String getPublisher ()
+    public int getChapters()
+    {
+        return chapters;
+    }
+
+    public String getPublisher()
     {
         return publisher;
     }
 
-    public String getAuthor ()
+    public String getAuthor()
     {
         return author;
     }

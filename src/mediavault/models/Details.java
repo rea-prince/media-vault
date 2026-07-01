@@ -5,6 +5,12 @@ public class Details
     private String title;
     private String synopsis;
 
+    public Details(int year, String title, String synopsis) {
+        this.year = year;
+        this.title = title;
+        this.synopsis = synopsis;
+    }
+
     public void setYear (int year)
     {
         this.year = year;

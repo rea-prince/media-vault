@@ -3,24 +3,41 @@ package mediavault.models;
 import java.util.ArrayList;
 import mediavault.enums.*;
 
-public class Anime
+public class Anime extends MediaEntry
 {
-    Details episodes = new Details();
+    ArrayList<Details> episodes;
     private String studio;
-    private String alternativeTitle;
+    private final String alternativeTitle;
 
-    public Anime (int release, String title, String synopsis, ArrayList<Genre> genres,
-                  String publisher, String studio, Status status)
+    public Anime (int release, String title, String synopsis,
+                  ArrayList<Genre> genres, String alternativeTitle,
+                  String studio, Status status)
     {
+        setDetails(new Details(release, title, synopsis));
+        setGenres(genres);
+        updateStatus(status);
 
+        this.alternativeTitle = alternativeTitle;
+        this.studio = studio;
+
+        episodes = new ArrayList<Details>();
     }
 
-    public String getStudio ()
+    public void addEpisode(int release, String title, String synopsis)
+    {
+        episodes.add(new Details(release, title, synopsis));
+    }
+
+    public void setStudio(String newStudio) {
+        studio = newStudio;
+    }
+
+    public String getStudio()
     {
         return studio;
     }
 
-    public String getAlternativeTitle ()
+    public String getAlternativeTitle()
     {
         return alternativeTitle;
     }

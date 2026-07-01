@@ -12,57 +12,71 @@ abstract public class MediaEntry
     private LocalDateTime lastModified;
 
     private MediaType TYPE;
-    private Details details = new Details();
+    private Details details;
 
-    private ArrayList<Genre> genre = new ArrayList<>();
+    private ArrayList<Genre> genres;
 
     private Status status;
     private float rating;
     private String review;
 
-    public void rate (float rating)
+
+    /* SETTERS */
+
+    public void rate(float rating)
     {
         this.rating = rating;
         lastModified = LocalDateTime.now();
     }
 
-    public void makeReview (String review)
+    public void makeReview(String review)
     {
         this.review = review;
         lastModified = LocalDateTime.now();
     }
 
-    public void updateStatus (Status status)
+    public void updateStatus(Status status)
     {
         this.status = status;
         lastModified = LocalDateTime.now();
     }
 
+    public void setDetails(Details details) {
+        this.details = details;
+        lastModified = LocalDateTime.now();
+    }
+    public void setGenres(ArrayList<Genre> genres) {
+        this.genres = genres;
+        lastModified = LocalDateTime.now();
+    }
+
+    /* GETTERS */
+
     public MediaType getMediaType() {
         return TYPE;
     }
 
-    public Details getDetails ()
+    public Details getDetails()
     {
         return details;
     }
 
-    public ArrayList<Genre> getGenres ()
+    public ArrayList<Genre> getGenres()
     {
-        return genre;
+        return genres;
     }
 
-    public Status getStatus ()
+    public Status getStatus()
     {
         return status;
     }
 
-    public float getRating ()
+    public float getRating()
     {
         return rating;
     }
 
-    public String getReview ()
+    public String getReview()
     {
         return review;
     }

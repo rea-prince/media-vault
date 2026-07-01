@@ -57,6 +57,10 @@ public class MediaVault
         throw new IllegalArgumentException("Entry not found.");
     }
 
+    public ArrayList<MediaEntry> getAll() {
+        return entries;
+    }
+
     public ArrayList<MediaEntry> getEntries(Details details, MediaType type,
                                             Status status, ArrayList<Genre> genres)
     {
