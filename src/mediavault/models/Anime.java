@@ -16,7 +16,7 @@ public class Anime extends MediaEntry
     {
         setDetails(new Details(release, title, synopsis));
         setGenres(genres);
-        updateStatus(status);
+        setStatus(status);
 
         this.alternativeTitle = alternativeTitle;
         this.studio = studio;

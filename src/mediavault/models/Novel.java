@@ -15,7 +15,7 @@ public class Novel extends MediaEntry
     {
         setDetails(new Details(release, title, synopsis));
         setGenres(genres);
-        updateStatus(status);
+        setStatus(status);
 
         this.publisher = publisher;
         this.author = author;

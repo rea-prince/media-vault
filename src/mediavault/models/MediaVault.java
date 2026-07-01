@@ -18,6 +18,8 @@ public class MediaVault
      * Adds an entry to the list of entries, and maps it to a unique
      * @param title Title of the entry
      * @param year  Release year of an entry
+     *
+     * @return void
      */
     public void addEntry(MediaEntry entry)
     {
@@ -33,6 +35,8 @@ public class MediaVault
      * specific year
      * @param title Title of the entry
      * @param year  Release year of an entry
+     *
+     * @return void
      */
     public void removeEntry(String title, int year)
     {
@@ -45,16 +49,46 @@ public class MediaVault
         }
     }
 
+    /**
+     * Returns entire ArrayList of entries in the vault
+     *
+     * @return ArrayList<MediaEntry>
+     */
+
     public ArrayList<MediaEntry> getAll() {
         return entries;
     }
 
+    /**
+     * Returns the first entry with an exact match to
+     *
+     * @return ArrayList<MediaEntry>
+     */
     public MediaEntry getEntry(String title, int year) {
-        return entries.stream().filter(entry ->
+        ArrayList<MediaEntry> matchingEntries = new ArrayList<MediaEntry>(
+            entries.stream().filter(entry ->
             (title != null) && entry.getDetails().getTitle().equals(title) &&
-            (year > 0) && entry.getDetails().getYear() == year).toList().get(0);
+            (year > 0) && entry.getDetails().getYear() == year).toList()
+        );
+
+        if (matchingEntries.isEmpty()) {
+            throw new IllegalArgumentException("Entry not found.");
+        }
+
+        return matchingEntries.get(0);
     }
 
+    /**
+     * Returns an ArrayList with all entries that match the parameters;
+     * parameters can be null if only some are needed
+     * @param title  Title of the media to be searched for
+     * @param year   Release year of the media to be searched for
+     * @param type   Type of media to be searched for
+     * @param status Progress status to be searched for
+     * @param genres List of genres to be searched for
+     *
+     * @return ArrayList<MediaEntry> All entries that match the parameter
+     */
     public ArrayList<MediaEntry> getEntries(String title, int year, MediaType type,
                                             Status status, ArrayList<Genre> genres)
     {
@@ -68,6 +102,16 @@ public class MediaVault
         ).toList());
     }
 
+    /**
+     * Tallies the amount of entries that match the Parameters
+     *
+     * @param type   Type of media to be searched for
+     * @param status Progress status to be searched for
+     * @param genres List of genres to be searched for
+     *
+     * @return long Total number of entries that match the parameters
+     */
+
     public long getTotalByAttributes(MediaType type, Status status,
                                      ArrayList<Genre> genres)
     {
@@ -78,13 +122,14 @@ public class MediaVault
         ).count();
     }
 
-    public float getAverageRating()
-    {
-        if (entries.isEmpty())
-            return 0;
+    // PROBABLY NOT THE JOB OF THIS CLASS
+    // public float getAverageRating()
+    // {
+    //     if (entries.isEmpty())
+    //         return 0;
 
-        float sum = entries.stream().mapToDouble(entry -> entry.getRating()).count();
+    //     float sum = entries.stream().mapToDouble(entry -> entry.getRating()).count();
 
-        return (sum / entries.size());
-    }
+    //     return (sum / entries.size());
+    // }
 }
