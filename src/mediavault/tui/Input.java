@@ -15,17 +15,17 @@ import java.util.Scanner;
 
 public class Input
 {
-    Scanner scanner = new Scanner(System.in);
-
     public void promptAdd (MediaVault vault)
     {
+        Scanner scanner = new Scanner(System.in);
+
         System.out.println("*********************** Add ***********************");
         System.out.println("[A] - Anime");
         System.out.println("[N] - Novel");
         System.out.println("[V] - Video Game");
         System.out.println("Media type: ");
         String entryType = scanner.nextLine();
-        while(entryType != "A" || entryType != "N" || entryType != "V")
+        while(entryType != "A" && entryType != "N" && entryType != "V")
         {
             System.out.println("Invalid option, please try again.");
             System.out.print("Media type: ");
@@ -37,8 +37,8 @@ public class Input
         System.out.print("Title: ");
         String title = scanner.nextLine();
 
-        String alternative, publisher, author, studio;
-        int chapters;
+        String alternative = null, publisher = null, author = null, studio = null;
+        int chapters = 0;
 
         if(entryType == "A")
         {
@@ -70,24 +70,10 @@ public class Input
         System.out.print("Synopsis: ");
         String synopsis = scanner.nextLine();
 
-        ArrayList<Genre> genreList;
+        ArrayList<Genre> genreList = new ArrayList<>();
         System.out.println("Genres:");
-        System.out.println("[1] ACTION");
-        System.out.println("[2] ADVENTURE");
-        System.out.println("[3] COMEDY");
-        System.out.println("[4] CRIME");
-        System.out.println("[5] DOCUMENTARY");
-        System.out.println("[6] DRAMA");
-        System.out.println("[7] FANTASY");
-        System.out.println("[8] HISTORICAL_FICTION");
-        System.out.println("[9] HORROR");
-        System.out.println("[10] MUSIC");
-        System.out.println("[11] MYSTERY");
-        System.out.println("[12] PSYCHOLOGICAL");
-        System.out.println("[13] ROMANCE");
-        System.out.println("[14] SCIENCE_FICTION");
-        System.out.println("[15] SPORTS");
-        System.out.println("[16] THRILLER");
+        for(int i = 1; i <= 16; i++)
+            System.out.println("[i] " + Genre.values());
         System.out.println("Choose genres based on their numbers: ");
         System.out.println("Put spaces between each number (e.g. 1 2 3 4)");
         do {
@@ -134,61 +120,68 @@ public class Input
         System.out.println("[C] - Completed");
         System.out.print("Type according to letters above: ");
         String status = scanner.nextLine();
-        while(status != "P" || status != "I" || status != "C")
+        while(status != "P" && status != "I" && status != "C")
         {
             System.out.print("Invalid option, please try again: ");
             status = scanner.nextLine();
         }
 
-        if(entryType == "A")
+        if (entryType == "A")
         {
             Anime anime = new Anime(release, title, synopsis, genreList, alternative, studio, null);
-            if(status == "P")
+            if (status == "P")
                 anime.setStatus(Status.PLANNED);
-            else if(status == "I")
+            else if (status == "I")
                 anime.setStatus(Status.IN_PROGRESS);
-            else if(status == "C")
+            else if (status == "C")
                 anime.setStatus(Status.COMPLETED);
             vault.addEntry(anime);
         }
 
-        else if(entryType == "N")
+        else if (entryType == "N")
         {
             Novel novel = new Novel(release, title, synopsis, genreList, publisher, author, null, chapters);
-            if(status == "P")
+            if (status == "P")
                 novel.setStatus(Status.PLANNED);
-            else if(status == "I")
+            else if (status == "I")
                 novel.setStatus(Status.IN_PROGRESS);
-            else if(status == "C")
+            else if (status == "C")
                 novel.setStatus(Status.COMPLETED);
             vault.addEntry(novel);
         }
 
-        else if(entryType == "V")
+        else if (entryType == "V")
         {
             VideoGame videoGame = new VideoGame(release, title, synopsis, genreList, publisher, studio, null);
-            if(status == "P")
+            if (status == "P")
                 videoGame.setStatus(Status.PLANNED);
-            else if(status == "I")
+            else if (status == "I")
                 videoGame.setStatus(Status.IN_PROGRESS);
-            else if(status == "C")
+            else if (status == "C")
                 videoGame.setStatus(Status.COMPLETED);
             vault.addEntry(videoGame);
         }
+
+        scanner.close();
     }
 
     public void promptUpdate (MediaVault vault)
     {
+        Scanner scanner = new Scanner(System.in);
+
         System.out.println("********************* Update *********************");
-        for(int a = 0; a < vault.getEntries(null, 0, null, null, null).size(); a++)
+        for (int a = 0; a < vault.getEntries(null, 0, null, null, null).size(); a++)
             System.out.println(vault.getEntries(null, 0, null, null, null).get(a));
         System.out.print("Choose which entry to change the status of: ");
         String media = scanner.nextLine();
+        System.out.print("Enter year: ");
+        int year = scanner.nextInt();
         int b = 0;
         boolean isFound = false;
         while (isFound == false)
         {
-            if(media == vault.getEntries(null, 0, null, null, null).get(b).getDetails().getTitle())
+            if (media == vault.getEntries(null, 0, null, null, null).get(b).getDetails().getTitle() && 
+                year == vault.getEntries(null, 0, null, null, null).get(b).getDetails().getYear())
             {
                 isFound = true;
                 System.out.println("Status:");
@@ -202,43 +195,52 @@ public class Input
                     System.out.print("Invalid option, please try again: ");
                     changeStatus = scanner.nextLine();
                 }
-                if(changeStatus == "P")
-                    vault.getEntries(null, 0, null, null, null).get(b).setStatus(Status.PLANNED);
-                else if(changeStatus == "I")
-                    vault.getEntries(null, 0, null, null, null).get(b).setStatus(Status.IN_PROGRESS);
-                else if(changeStatus == "C")
-                    vault.getEntries(null, 0, null, null, null).get(b).setStatus(Status.COMPLETED);
+                if (changeStatus == "P")
+                    vault.getEntry(media, 0).setStatus(Status.PLANNED);
+                else if (changeStatus == "I")
+                    vault.getEntry(media, 0).setStatus(Status.IN_PROGRESS);
+                else if (changeStatus == "C")
+                    vault.getEntry(media, 0).setStatus(Status.COMPLETED);
             }
             b++;
         }
         if (isFound == false)
             System.out.println("Entry not found.");
+
+        scanner.close();
     }
 
     public void promptAssign (MediaVault vault)
     {
+        Scanner scanner = new Scanner(System.in);
+
         System.out.println("***************** Rate and Review *****************");
-        for(int a = 0; a < vault.getEntries(null, 0, null, Status.COMPLETED, null).size(); a++)
+        for (int a = 0; a < vault.getEntries(null, 0, null, Status.COMPLETED, null).size(); a++)
             System.out.println(vault.getEntries(null, 0, null, Status.COMPLETED, null).get(a));
         System.out.print("Choose completed entry: ");
         String media = scanner.nextLine();
+        System.out.print("Enter year: ");
+        int year = scanner.nextInt();
         int b = 0;
         boolean isFound = false;
         while (isFound == false && b < vault.getEntries(null, 0, null, Status.COMPLETED, null).size())
         {
-            if(media == vault.getEntries(null, 0, null, null, null).get(b).getDetails().getTitle())
+            if (media == vault.getEntries(null, 0, null, Status.COMPLETED, null).get(b).getDetails().getTitle() && 
+                year == vault.getEntries(null, 0, null, Status.COMPLETED, null).get(b).getDetails().getYear())
             {
                 isFound = true;
                 System.out.println("Rating: ");
                 float changeRating = scanner.nextFloat();
-                vault.getEntries(null, 0, null, null, null).get(b).setRating(changeRating);
+                vault.getEntry(media, 0).setRating(changeRating);
                 System.out.println("Review: ");
                 String changeReview = scanner.nextLine();
-                vault.getEntries(null, 0, null, null, null).get(b).setReview(changeReview);
+                vault.getEntry(media, 0).setReview(changeReview);
             }
             b++;
         }
         if (isFound == false)
             System.out.println("Entry not found or status not COMPLETED.");
+
+        scanner.close();
     }
 }
