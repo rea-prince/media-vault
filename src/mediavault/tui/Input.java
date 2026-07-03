@@ -15,7 +15,7 @@ import java.util.Scanner;
 
 public class Input
 {
-    public void promptAdd (MediaVault vault)
+    public static void promptAdd (MediaVault vault)
     {
         Scanner scanner = new Scanner(System.in);
 
@@ -23,7 +23,7 @@ public class Input
         System.out.println("[A] - Anime");
         System.out.println("[N] - Novel");
         System.out.println("[V] - Video Game");
-        System.out.println("Media type: ");
+        System.out.print("Media type: ");
         String entryType = scanner.nextLine();
         while(entryType != "A" && entryType != "N" && entryType != "V")
         {
@@ -40,7 +40,7 @@ public class Input
         String alternative = null, publisher = null, author = null, studio = null;
         int chapters = 0;
 
-        if(entryType == "A")
+        if (entryType == "A")
         {
             System.out.print("Alternative title: ");
             alternative = scanner.nextLine();
@@ -51,7 +51,7 @@ public class Input
             publisher = scanner.nextLine();
         }
 
-        if(entryType == "N")
+        if (entryType == "N")
         {
             System.out.print("Author: ");
             author = scanner.nextLine();
@@ -78,37 +78,37 @@ public class Input
         System.out.println("Put spaces between each number (e.g. 1 2 3 4)");
         do {
             int genre = scanner.nextInt();
-            if(genre == 1)
+            if (genre == 1)
                 genreList.add(Genre.ACTION);
-            else if(genre == 2)
+            else if (genre == 2)
                 genreList.add(Genre.ADVENTURE);
-            else if(genre == 3)
+            else if (genre == 3)
                 genreList.add(Genre.COMEDY);
-            else if(genre == 4)
+            else if (genre == 4)
                 genreList.add(Genre.CRIME);
-            else if(genre == 5)
+            else if (genre == 5)
                 genreList.add(Genre.DOCUMENTARY);
-            else if(genre == 6)
+            else if (genre == 6)
                 genreList.add(Genre.DRAMA);
-            else if(genre == 7)
+            else if (genre == 7)
                 genreList.add(Genre.FANTASY);
-            else if(genre == 8)
+            else if (genre == 8)
                 genreList.add(Genre.HISTORICAL_FICTION);
-            else if(genre == 9)
+            else if (genre == 9)
                 genreList.add(Genre.HORROR);
-            else if(genre == 10)
+            else if (genre == 10)
                 genreList.add(Genre.MUSIC);
-            else if(genre == 11)
+            else if (genre == 11)
                 genreList.add(Genre.MYSTERY);
-            else if(genre == 12)
+            else if (genre == 12)
                 genreList.add(Genre.PSYCHOLOGICAL);
-            else if(genre == 13)
+            else if (genre == 13)
                 genreList.add(Genre.ROMANCE);
-            else if(genre == 14)
+            else if (genre == 14)
                 genreList.add(Genre.SCIENCE_FICTION);
-            else if(genre == 15)
+            else if (genre == 15)
                 genreList.add(Genre.SPORTS);
-            else if(genre == 16)
+            else if (genre == 16)
                 genreList.add(Genre.THRILLER);
             else
                 System.out.println(genre + " is invalid.");
@@ -165,13 +165,13 @@ public class Input
         scanner.close();
     }
 
-    public void promptUpdate (MediaVault vault)
+    public static void promptUpdate (MediaVault vault)
     {
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("********************* Update *********************");
         for (int a = 0; a < vault.getEntries(null, 0, null, null, null).size(); a++)
-            System.out.println(vault.getEntries(null, 0, null, null, null).get(a));
+            System.out.println(vault.getEntries(null, 0, null, null, null).get(a).getDetails().getTitle());
         System.out.print("Choose which entry to change the status of: ");
         String media = scanner.nextLine();
         System.out.print("Enter year: ");
@@ -210,13 +210,13 @@ public class Input
         scanner.close();
     }
 
-    public void promptAssign (MediaVault vault)
+    public static void promptAssign (MediaVault vault)
     {
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("***************** Rate and Review *****************");
         for (int a = 0; a < vault.getEntries(null, 0, null, Status.COMPLETED, null).size(); a++)
-            System.out.println(vault.getEntries(null, 0, null, Status.COMPLETED, null).get(a));
+            System.out.println(vault.getEntries(null, 0, null, Status.COMPLETED, null).get(a).getDetails().getTitle());
         System.out.print("Choose completed entry: ");
         String media = scanner.nextLine();
         System.out.print("Enter year: ");
