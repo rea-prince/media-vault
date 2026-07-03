@@ -45,7 +45,7 @@ public class Display
 
         System.out.println("Do you want to filter entries? Y/N");
         String yesOrNo = scanner.nextLine();
-        while (yesOrNo != "Y" && yesOrNo != "N")
+        while (!yesOrNo.equals("Y") && !yesOrNo.equals("N"))
         {
             System.out.print("Invalid input, please try again. ");
             yesOrNo = scanner.nextLine();
@@ -56,7 +56,7 @@ public class Display
         ArrayList<Genre> genres = null;
         Status status = null;
 
-        if(yesOrNo == "N")
+        if(yesOrNo.equals("N"))
         {
             System.out.println("Filter entries by ...");
             System.out.println("[1] Media type");
@@ -73,17 +73,17 @@ public class Display
                     System.out.println("[V] - Video Game");
                     System.out.print("Media type: ");
                     String type = scanner.nextLine();
-                    while(type != "A" && type != "N" && type != "V")
+                    while(!type.equals("A") && !type.equals("N") && !type.equals("V"))
                     {
                         System.out.println("Invalid option, please try again.");
                         System.out.print("Media type: ");
                         type = scanner.nextLine();
                     }
-                    if(type == "A")
+                    if(type.equals("A"))
                         media = MediaType.ANIME;
-                    else if(type == "N")
+                    else if(type.equals("N"))
                         media = MediaType.NOVEL;
-                    else if(type == "V")
+                    else if(type.equals("V"))
                         media = MediaType.VIDEOGAME;
                 }
                 else if (filter == 2)

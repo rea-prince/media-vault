@@ -25,7 +25,7 @@ public class Input
         System.out.println("[V] - Video Game");
         System.out.print("Media type: ");
         String entryType = scanner.nextLine();
-        while(entryType != "A" && entryType != "N" && entryType != "V")
+        while(!entryType.equals("A") && !entryType.equals("N") && !entryType.equals("V"))
         {
             System.out.println("Invalid option, please try again.");
             System.out.print("Media type: ");
@@ -40,25 +40,25 @@ public class Input
         String alternative = null, publisher = null, author = null, studio = null;
         int chapters = 0;
 
-        if (entryType == "A")
+        if (entryType.equals("A"))
         {
             System.out.print("Alternative title: ");
             alternative = scanner.nextLine();
         }
-        else    // if(entryType == "N" || entryType == "V")
+        else    // if(entryType.equals("N") || entryType.equals("V"))
         {
             System.out.print("Publisher: ");
             publisher = scanner.nextLine();
         }
 
-        if (entryType == "N")
+        if (entryType.equals("N"))
         {
             System.out.print("Author: ");
             author = scanner.nextLine();
             System.out.print("Chapter count: ");
             chapters = scanner.nextInt();
         }
-        else    // if(entryType == "A" || entryType == "V")
+        else    // if (entryType.equals("A") || entryType.equals("V"))
         {
             System.out.print("Studio: ");
             studio = scanner.nextLine();
@@ -72,7 +72,7 @@ public class Input
 
         ArrayList<Genre> genreList = new ArrayList<>();
         System.out.println("Genres:");
-        for(int i = 1; i <= 16; i++)
+        for (int i = 1; i <= 16; i++)
             System.out.println("[i] " + Genre.values());
         System.out.println("Choose genres based on their numbers: ");
         System.out.println("Put spaces between each number (e.g. 1 2 3 4)");
@@ -120,44 +120,44 @@ public class Input
         System.out.println("[C] - Completed");
         System.out.print("Type according to letters above: ");
         String status = scanner.nextLine();
-        while(status != "P" && status != "I" && status != "C")
+        while (!status.equals("P") && !status.equals("I") && !status.equals("C"))
         {
             System.out.print("Invalid option, please try again: ");
             status = scanner.nextLine();
         }
 
-        if (entryType == "A")
+        if (entryType.equals("A"))
         {
             Anime anime = new Anime(release, title, synopsis, genreList, alternative, studio, null);
-            if (status == "P")
+            if (status.equals("P"))
                 anime.setStatus(Status.PLANNED);
-            else if (status == "I")
+            else if (status.equals("I"))
                 anime.setStatus(Status.IN_PROGRESS);
-            else if (status == "C")
+            else if (status.equals("C"))
                 anime.setStatus(Status.COMPLETED);
             vault.addEntry(anime);
         }
 
-        else if (entryType == "N")
+        else if (entryType.equals("N"))
         {
             Novel novel = new Novel(release, title, synopsis, genreList, publisher, author, null, chapters);
-            if (status == "P")
+            if (status.equals("P"))
                 novel.setStatus(Status.PLANNED);
-            else if (status == "I")
+            else if (status.equals("I"))
                 novel.setStatus(Status.IN_PROGRESS);
-            else if (status == "C")
+            else if (status.equals("C"))
                 novel.setStatus(Status.COMPLETED);
             vault.addEntry(novel);
         }
 
-        else if (entryType == "V")
+        else if (entryType.equals("V"))
         {
             VideoGame videoGame = new VideoGame(release, title, synopsis, genreList, publisher, studio, null);
-            if (status == "P")
+            if (status.equals("P"))
                 videoGame.setStatus(Status.PLANNED);
-            else if (status == "I")
+            else if (status.equals("I"))
                 videoGame.setStatus(Status.IN_PROGRESS);
-            else if (status == "C")
+            else if (status.equals("C"))
                 videoGame.setStatus(Status.COMPLETED);
             vault.addEntry(videoGame);
         }
@@ -190,16 +190,16 @@ public class Input
                 System.out.println("[C] - Completed");
                 System.out.print("Type according to letters above: ");
                 String changeStatus = scanner.nextLine();
-                while(changeStatus != "P" || changeStatus != "I" || changeStatus != "C")
+                while(changeStatus.equals("P") && changeStatus.equals("I") && changeStatus.equals("C"))
                 {
                     System.out.print("Invalid option, please try again: ");
                     changeStatus = scanner.nextLine();
                 }
-                if (changeStatus == "P")
+                if (changeStatus.equals("P"))
                     vault.getEntry(media, 0).setStatus(Status.PLANNED);
-                else if (changeStatus == "I")
+                else if (changeStatus.equals("I"))
                     vault.getEntry(media, 0).setStatus(Status.IN_PROGRESS);
-                else if (changeStatus == "C")
+                else if (changeStatus.equals("C"))
                     vault.getEntry(media, 0).setStatus(Status.COMPLETED);
             }
             b++;
