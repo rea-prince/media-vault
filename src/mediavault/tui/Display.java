@@ -53,7 +53,7 @@ public class Display
 
         MediaType media = null;
         int year = 0;
-        ArrayList<Genre> genres = null;
+        ArrayList<Genre> genre = new ArrayList<>();
         Status status = null;
 
         if(yesOrNo.equals("N"))
@@ -88,17 +88,75 @@ public class Display
                 }
                 else if (filter == 2)
                 {
-
+                    System.out.print("Year: ");
+                    year = scanner.nextInt();
+                }
+                else if (filter == 3)
+                {
+                    System.out.print("Genre: ");
+                    year = scanner.nextInt();
+                }
+                else if (filter == 4)
+                {
+                    for (int i = 1; i <= 16; i++)
+                        System.out.println("[i] " + Genre.values());
+                    System.out.print("Genre: ");
+                    int genreNumber = scanner.nextInt();
+                    while(!(genreNumber >= 1 && genreNumber <= 16))
+                    {
+                        System.out.println("Invalid option, please try again.");
+                        System.out.print("Genre: ");
+                        genreNumber = scanner.nextInt();
+                    }
+                    if (genreNumber == 1)
+                        genre.add(Genre.ACTION);
+                    else if (genreNumber == 2)
+                        genre.add(Genre.ADVENTURE);
+                    else if (genreNumber == 3)
+                        genre.add(Genre.COMEDY);
+                    else if (genreNumber == 4)
+                        genre.add(Genre.CRIME);
+                    else if (genreNumber == 5)
+                        genre.add(Genre.DOCUMENTARY);
+                    else if (genreNumber == 6)
+                        genre.add(Genre.DRAMA);
+                    else if (genreNumber == 7)
+                        genre.add(Genre.FANTASY);
+                    else if (genreNumber == 8)
+                        genre.add(Genre.HISTORICAL_FICTION);
+                    else if (genreNumber == 9)
+                        genre.add(Genre.HORROR);
+                    else if (genreNumber == 10)
+                        genre.add(Genre.MUSIC);
+                    else if (genreNumber == 11)
+                        genre.add(Genre.MYSTERY);
+                    else if (genreNumber == 12)
+                        genre.add(Genre.PSYCHOLOGICAL);
+                    else if (genreNumber == 13)
+                        genre.add(Genre.ROMANCE);
+                    else if (genreNumber == 14)
+                        genre.add(Genre.SCIENCE_FICTION);
+                    else if (genreNumber == 15)
+                        genre.add(Genre.SPORTS);
+                    else if (genreNumber == 16)
+                        genre.add(Genre.THRILLER);
                 }
             } while (scanner.hasNextInt());
         }
         
-        for (int a = 0; a < vault.getEntries(null, year, media, status, genres).size(); a++)
+        for (int a = 0; a < vault.getEntries(null, year, media, status, genre).size(); a++)
         {
-            System.out.println(vault.getEntries(null, year, media, status, genres).get(a).getDetails().getTitle());
+            System.out.println(vault.getEntries(null, year, media, status, genre).get(a).getDetails().getTitle());
+            System.out.println("Release year: " + vault.getEntries(null, year, media, status, genre).get(a).
+                               getDetails().getYear());
+            System.out.println("Synopsis: " + vault.getEntries(null, year, media, status, genre).get(a).
+                               getDetails().getSynopsis());
+            System.out.println("Status: " + vault.getEntries(null, year, media, status, genre).get(a).getStatus());
+
             System.out.print("\nView next entry? Press 'B' to go back, 'N' to proceed, or 'X' to exit. ");
         }
         
+        genre.remove(0);
         scanner.close();
     }
 
