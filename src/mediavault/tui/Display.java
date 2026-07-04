@@ -19,18 +19,25 @@ public class Display
 
     public static void mainMenu()
     {
-        System.out.println("Media Vault");
+        System.out.println("******************* Media Vault *******************");
         System.out.println("[A] Add a new entry");
+        System.out.println("[B] Add anime episodes");
         System.out.println("[D] Delete an entry");
         System.out.println("[U] Update an entry");
         System.out.println("[R] Rate and review an entry");
         System.out.println("[E] Display the entire library");
         System.out.println("[S] Summarize the library");
+        System.out.println("[X] Exit");
     }
 
     public static void addEntry(MediaVault vault) 
     {
         Input.promptAdd(vault);
+    }
+
+    public static void addAnimeEpisodes(MediaVault vault) 
+    {
+        Input.promptAddAnimeEpisodes(vault);
     }
 
     public static void deleteEntry(MediaVault vault) 
@@ -212,7 +219,7 @@ public class Display
         scanner.close();
     }
 
-    public void summarize(MediaVault vault)
+    public static void summarize(MediaVault vault)
     {
         System.out.println("Total number of entries: " + vault.getTotalByAttributes(null, null, null));
         

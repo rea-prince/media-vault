@@ -165,7 +165,28 @@ public class Input
         scanner.close();
     }
 
-    public static void addAnimeEpisodes (MediaVault vault)
+    public static void promptDelete (MediaVault vault)
+    {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("********************* Delete *********************");
+        ArrayList<MediaEntry> mediaList = vault.getEntries(null, 0, null, null, null);
+        for (MediaEntry entry : mediaList)
+            System.out.println(entry.getDetails().getTitle());
+        System.out.print("Enter entry to delete: ");
+        String media = scanner.nextLine();
+        System.out.print("Enter year: ");
+        int year = scanner.nextInt();
+
+        if (vault.getEntry(media, year) != null)
+            vault.removeEntry(media, year);
+        else
+            System.out.println("Entry not found.");
+
+        scanner.close();
+    }
+
+    public static void promptAddAnimeEpisodes (MediaVault vault)
     {
         Scanner scanner = new Scanner(System.in);
 
@@ -217,7 +238,7 @@ public class Input
             System.out.println("[C] - Completed");
             System.out.print("Type according to letters above: ");
             String changeStatus = scanner.nextLine();
-            while(changeStatus.equals("P") && changeStatus.equals("I") && changeStatus.equals("C"))
+            while(!(changeStatus.equals("P") || changeStatus.equals("I") || changeStatus.equals("C")))
             {
                 System.out.print("Invalid option, please try again: ");
                 changeStatus = scanner.nextLine();
@@ -259,27 +280,6 @@ public class Input
         }
         else
             System.out.println("Entry not found or status not complete.");
-
-        scanner.close();
-    }
-
-    public static void promptDelete (MediaVault vault)
-    {
-        Scanner scanner = new Scanner(System.in);
-
-        System.out.println("********************* Delete *********************");
-        ArrayList<MediaEntry> mediaList = vault.getEntries(null, 0, null, null, null);
-        for (MediaEntry entry : mediaList)
-            System.out.println(entry.getDetails().getTitle());
-        System.out.print("Enter entry to delete: ");
-        String media = scanner.nextLine();
-        System.out.print("Enter year: ");
-        int year = scanner.nextInt();
-
-        if (vault.getEntry(media, year) != null)
-            vault.removeEntry(media, year);
-        else
-            System.out.println("Entry not found.");
 
         scanner.close();
     }
