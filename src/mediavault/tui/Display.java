@@ -17,32 +17,38 @@ public class Display
 {
     MediaVault vault = new MediaVault();
 
-    public void mainMenu()
+    public static void mainMenu()
     {
         System.out.println("Media Vault");
         System.out.println("[A] Add a new entry");
+        System.out.println("[D] Delete an entry");
         System.out.println("[U] Update an entry");
         System.out.println("[R] Rate and review an entry");
         System.out.println("[E] Display the entire library");
         System.out.println("[S] Summarize the library");
     }
 
-    public void addEntry(MediaVault vault) 
+    public static void addEntry(MediaVault vault) 
     {
         Input.promptAdd(vault);
     }
 
-    public void updateEntry(MediaVault vault) 
+    public static void deleteEntry(MediaVault vault) 
+    {
+        Input.promptDelete(vault);
+    }
+
+    public static void updateEntry(MediaVault vault) 
     {
         Input.promptUpdate(vault);
     }
 
-    public void rateEntry(MediaVault vault) 
+    public static void rateEntry(MediaVault vault) 
     {
         Input.promptAssign(vault);
     }
 
-    public void showEntries(MediaVault vault)
+    public static void showEntries(MediaVault vault)
     {
         Scanner scanner = new Scanner(System.in);
 
