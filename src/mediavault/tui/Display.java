@@ -6,6 +6,11 @@ import java.util.Scanner;
 import mediavault.enums.Genre;
 import mediavault.enums.MediaType;
 import mediavault.enums.Status;
+
+import mediavault.models.Anime;
+import mediavault.models.MediaEntry;
+import mediavault.models.Novel;
+import mediavault.models.VideoGame;
 import mediavault.models.MediaVault;
 
 public class Display
@@ -93,11 +98,6 @@ public class Display
                 }
                 else if (filter == 3)
                 {
-                    System.out.print("Genre: ");
-                    year = scanner.nextInt();
-                }
-                else if (filter == 4)
-                {
                     for (int i = 1; i <= 16; i++)
                         System.out.println("[i] " + Genre.values());
                     System.out.print("Genre: ");
@@ -141,18 +141,64 @@ public class Display
                     else if (genreNumber == 16)
                         genre.add(Genre.THRILLER);
                 }
+                else if (filter == 4)
+                {
+                    System.out.println("[P] - Planned");
+                    System.out.println("[I] - In-progress");
+                    System.out.println("[C] - Completed");
+                    System.out.print("Status: ");
+                    String stat = scanner.nextLine();
+                    while (!stat.equals("P") && !stat.equals("I") && !stat.equals("C"))
+                    {
+                        System.out.println("Invalid option, please try again.");
+                        System.out.print("Status: ");
+                        stat = scanner.nextLine();
+                    }
+                    if (stat.equals("P"))
+                        status = Status.PLANNED;
+                    else if (stat.equals("I"))
+                        status = Status.IN_PROGRESS;
+                    else if (stat.equals("C"))
+                        status = Status.COMPLETED;
+                }
             } while (scanner.hasNextInt());
         }
         
-        for (int a = 0; a < vault.getEntries(null, year, media, status, genre).size(); a++)
+        ArrayList<MediaEntry> mediaList = vault.getEntries(null, year, media, status, genre);
+        for (MediaEntry entry : mediaList)
         {
-            System.out.println(vault.getEntries(null, year, media, status, genre).get(a).getDetails().getTitle());
-            System.out.println("Release year: " + vault.getEntries(null, year, media, status, genre).get(a).
-                               getDetails().getYear());
-            System.out.println("Synopsis: " + vault.getEntries(null, year, media, status, genre).get(a).
-                               getDetails().getSynopsis());
-            System.out.println("Status: " + vault.getEntries(null, year, media, status, genre).get(a).getStatus());
-
+            System.out.println(entry.getDetails().getTitle());
+            System.out.println("Release year: " + entry.getDetails().getYear());
+            System.out.println("Synopsis: " + entry.getDetails().getSynopsis());
+            System.out.print("Genres: ");
+            ArrayList<Genre> genreList = entry.getGenres();
+            for (Genre entryGenre : genreList)
+                System.out.print(entryGenre + ", ");
+            System.out.println("Status: " + entry.getStatus());
+            
+            if(entry instanceof Anime)
+            {
+                Anime anime = new Anime(entry.getDetails().getYear(), entry.getDetails().getTitle(), entry.getDetails().getSynopsis(), 
+                                        entry.getGenres(), null, null, entry.getStatus());
+                System.out.println("Alternate title: " + anime.getAlternativeTitle());
+                System.out.println("Studio: " + anime.getStudio());
+            }
+            else if(entry instanceof Novel)
+            {
+                Novel novel = new Novel(entry.getDetails().getYear(), entry.getDetails().getTitle(), entry.getDetails().getSynopsis(), 
+                                        entry.getGenres(), null, null, entry.getStatus(), 0);
+                System.out.println("Author: " + novel.getAuthor());
+                System.out.println("Publisher: " + novel.getPublisher());
+                System.out.println("Number of chapters: " + novel.getChapters());
+            }
+            else if(entry instanceof VideoGame)
+            {
+                VideoGame videoGame = new VideoGame(entry.getDetails().getYear(), entry.getDetails().getTitle(), 
+                                                    entry.getDetails().getSynopsis(), entry.getGenres(), 
+                                                    null, null, entry.getStatus());
+                System.out.println("Studio: " + videoGame.getStudio());
+                System.out.println("Publisher: " + videoGame.getPublisher());
+            }
             System.out.print("\nView next entry? Press 'B' to go back, 'N' to proceed, or 'X' to exit. ");
         }
         
@@ -162,6 +208,32 @@ public class Display
 
     public void summarize(MediaVault vault)
     {
+        System.out.println("Total number of entries: " + vault.getTotalByAttributes(null, null, null));
+        
+        System.out.println("\nNumber of entries by media type: ");
+        MediaType[] types = MediaType.values();
+        for (MediaType type : types)
+            System.out.println(type + ": " + vault.getTotalByAttributes(type, null, null));
+        
+        System.out.println("\nNumber of entries by genre: ");
+        Genre[] genreList = Genre.values();
+        for (Genre genre : genreList)
+        {
+            ArrayList<Genre> genreDisp = new ArrayList<>();
+            genreDisp.add(genre);
+            if (vault.getTotalByAttributes(null, null, genreDisp) > 0)
+                System.out.println(genre + ": " + vault.getTotalByAttributes(null, null, genreDisp));
+        }
+        
+        System.out.println("\nNumber of entries by status: ");
+        Status[] statusList = Status.values();
+        for (Status status : statusList)
+            System.out.println(status + ": " + vault.getTotalByAttributes(null, status, null));
 
+        float totalRating = 0;
+        for (MediaEntry entry : vault.getEntries(null, 0, null, Status.COMPLETED, null))
+            totalRating += vault.getEntry(entry.getDetails().getTitle(), 0).getRating();
+        float averageRating = totalRating / vault.getTotalByAttributes(null, Status.COMPLETED, null);
+        System.out.println("\nAverage rating: " + averageRating);
     }
 }
