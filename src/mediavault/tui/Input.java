@@ -11,165 +11,117 @@ import mediavault.models.MediaEntry;
 import mediavault.models.MediaVault;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 
-public class Input
+abstract public class Input
 {
+	private static String getInput(String prompt, String... valid) {
+		Scanner scanner = new Scanner(System.in);
+		String input = "";
+
+		List<String> validIn = Arrays.asList(valid);
+		do {
+			if (!input.equals(""))
+				System.out.println("Invalid option, please try again.");
+
+			System.out.print(prompt + ": ");
+			input = scanner.nextLine().trim().toUpperCase();
+		} while(!input.equals("") && ((valid.length > 0) && !validIn.contains(input)));
+
+		return input;
+	}
+
     public static void promptAdd (MediaVault vault)
     {
-        Scanner scanner = new Scanner(System.in);
+        System.out.println("======================= Add =======================");
+	    System.out.println("[A] - Anime");
+	    System.out.println("[N] - Novel");
+	    System.out.println("[V] - Video Game");
+        String entryType = getInput("Media type", "A", "N", "V");
 
-        System.out.println("*********************** Add ***********************");
-        System.out.println("[A] - Anime");
-        System.out.println("[N] - Novel");
-        System.out.println("[V] - Video Game");
-        System.out.print("Media type: ");
-        String entryType = scanner.nextLine();
-        while(!entryType.equals("A") && !entryType.equals("N") && !entryType.equals("V"))
-        {
-            System.out.println("Invalid option, please try again.");
-            System.out.print("Media type: ");
-            entryType = scanner.nextLine();
-        }
+        System.out.println("Entry details");
 
-        System.out.println("\nEntry details");
-
-        System.out.print("Title: ");
-        String title = scanner.nextLine();
+        String title = getInput("Title");
 
         String alternative = null, publisher = null, author = null, studio = null;
         int chapters = 0;
 
-        if (entryType.equals("A"))
-        {
-            System.out.print("Alternative title: ");
-            alternative = scanner.nextLine();
-        }
-        else    // if(entryType.equals("N") || entryType.equals("V"))
-        {
-            System.out.print("Publisher: ");
-            publisher = scanner.nextLine();
-        }
+        int release = Integer.parseInt(getInput("Release Year"));
 
-        if (entryType.equals("N"))
-        {
-            System.out.print("Author: ");
-            author = scanner.nextLine();
-            System.out.print("Chapter count: ");
-            chapters = scanner.nextInt();
-        }
-        else    // if (entryType.equals("A") || entryType.equals("V"))
-        {
-            System.out.print("Studio: ");
-            studio = scanner.nextLine();
-        }
-
-        System.out.print("Release year: ");
-        int release = scanner.nextInt();
-
-        System.out.print("Synopsis: ");
-        String synopsis = scanner.nextLine();
+        String synopsis = getInput("Synopsis");
 
         ArrayList<Genre> genreList = new ArrayList<>();
-        System.out.println("Genres:");
-        for (int i = 1; i <= 16; i++)
-            System.out.println("[i] " + Genre.values());
-        System.out.println("Choose genres based on their numbers: ");
-        System.out.println("Put spaces between each number (e.g. 1 2 3 4)");
-        do {
-            int genre = scanner.nextInt();
-            if (genre == 1)
-                genreList.add(Genre.ACTION);
-            else if (genre == 2)
-                genreList.add(Genre.ADVENTURE);
-            else if (genre == 3)
-                genreList.add(Genre.COMEDY);
-            else if (genre == 4)
-                genreList.add(Genre.CRIME);
-            else if (genre == 5)
-                genreList.add(Genre.DOCUMENTARY);
-            else if (genre == 6)
-                genreList.add(Genre.DRAMA);
-            else if (genre == 7)
-                genreList.add(Genre.FANTASY);
-            else if (genre == 8)
-                genreList.add(Genre.HISTORICAL_FICTION);
-            else if (genre == 9)
-                genreList.add(Genre.HORROR);
-            else if (genre == 10)
-                genreList.add(Genre.MUSIC);
-            else if (genre == 11)
-                genreList.add(Genre.MYSTERY);
-            else if (genre == 12)
-                genreList.add(Genre.PSYCHOLOGICAL);
-            else if (genre == 13)
-                genreList.add(Genre.ROMANCE);
-            else if (genre == 14)
-                genreList.add(Genre.SCIENCE_FICTION);
-            else if (genre == 15)
-                genreList.add(Genre.SPORTS);
-            else if (genre == 16)
-                genreList.add(Genre.THRILLER);
-            else
-                System.out.println(genre + " is invalid.");
-        } while (scanner.hasNextInt());
 
-        System.out.println("Status:");
+
+        /* GENRES */
+
+        System.out.println("--- Genres Options");
+
+        String[] validIds = new String[Genre.values().length - 1];
+        int index = 0;
+        for (Genre g : Genre.values()) {
+            if (g != Genre.INVALID) {
+                System.out.println("[" + g.getId() + "] " + g.name());
+                validIds[index++] = String.valueOf(g.getId());
+            }
+        }
+        String choice = getInput("Genre", validIds);
+
+        genreList.add(Genre.fromId(Integer.parseInt(choice)));
+
+
+        /* STATUS */
+
+        System.out.println("--- Status Options");
         System.out.println("[P] - Planned");
         System.out.println("[I] - In-progress");
         System.out.println("[C] - Completed");
         System.out.print("Type according to letters above: ");
-        String status = scanner.nextLine();
-        while (!status.equals("P") && !status.equals("I") && !status.equals("C"))
-        {
-            System.out.print("Invalid option, please try again: ");
-            status = scanner.nextLine();
+        String status = getInput("Type according to letters above", "P", "I", "C");
+
+        MediaEntry entry = null;
+
+        switch (entryType) {
+	       	case "A":
+	      		studio = getInput("Studio");
+				publisher = getInput("Publisher");
+				entry = new Anime(release, title, synopsis, genreList, alternative, studio, null);
+				break;
+			case "N":
+				author = getInput("Author");
+				publisher = getInput("Publisher");
+				entry = new Novel(release, title, synopsis, genreList, publisher, author, null, chapters);
+				break;
+			case "V":
+				studio = getInput("Studio");
+				publisher = getInput("Publisher");
+				entry = new VideoGame(release, title, synopsis, genreList, publisher, studio, null);
+				break;
         }
 
-        if (entryType.equals("A"))
-        {
-            Anime anime = new Anime(release, title, synopsis, genreList, alternative, studio, null);
-            if (status.equals("P"))
-                anime.setStatus(Status.PLANNED);
-            else if (status.equals("I"))
-                anime.setStatus(Status.IN_PROGRESS);
-            else if (status.equals("C"))
-                anime.setStatus(Status.COMPLETED);
-            vault.addEntry(anime);
+        if (entry != null) {
+            switch (status) {
+            	case "P":
+	      		entry.setStatus(Status.PLANNED);
+	          	break;
+			case "I":
+	      		entry.setStatus(Status.IN_PROGRESS);
+	          	break;
+			case "C":
+	      		entry.setStatus(Status.COMPLETED);
+	          	break;
+            }
         }
 
-        else if (entryType.equals("N"))
-        {
-            Novel novel = new Novel(release, title, synopsis, genreList, publisher, author, null, chapters);
-            if (status.equals("P"))
-                novel.setStatus(Status.PLANNED);
-            else if (status.equals("I"))
-                novel.setStatus(Status.IN_PROGRESS);
-            else if (status.equals("C"))
-                novel.setStatus(Status.COMPLETED);
-            vault.addEntry(novel);
-        }
-
-        else if (entryType.equals("V"))
-        {
-            VideoGame videoGame = new VideoGame(release, title, synopsis, genreList, publisher, studio, null);
-            if (status.equals("P"))
-                videoGame.setStatus(Status.PLANNED);
-            else if (status.equals("I"))
-                videoGame.setStatus(Status.IN_PROGRESS);
-            else if (status.equals("C"))
-                videoGame.setStatus(Status.COMPLETED);
-            vault.addEntry(videoGame);
-        }
-
-        scanner.close();
+        vault.addEntry(entry);
     }
 
     public static void promptDelete (MediaVault vault)
     {
         Scanner scanner = new Scanner(System.in);
-
-        System.out.println("********************* Delete *********************");
+        System.out.println("===================== Delete =====================");
         ArrayList<MediaEntry> mediaList = vault.getEntries(null, 0, null, null, null);
         for (MediaEntry entry : mediaList)
             System.out.println(entry.getDetails().getTitle());
@@ -189,8 +141,7 @@ public class Input
     public static void promptAddAnimeEpisodes (MediaVault vault)
     {
         Scanner scanner = new Scanner(System.in);
-
-        System.out.println("*************** Add Anime Episodes ***************");
+        System.out.println("=============== Add Anime Episodes ***************");
         ArrayList<MediaEntry> animeList = vault.getEntries(null, 0, MediaType.ANIME, null, null);
         for (MediaEntry anime : animeList)
             System.out.println(anime);
@@ -209,8 +160,8 @@ public class Input
         System.out.print("Synopsis: ");
         String synopsis = scanner.nextLine();
 
-        Anime anime = new Anime(chosenAnime.getDetails().getYear(), chosenAnime.getDetails().getTitle(), 
-                                chosenAnime.getDetails().getSynopsis(), chosenAnime.getGenres(), 
+        Anime anime = new Anime(chosenAnime.getDetails().getYear(), chosenAnime.getDetails().getTitle(),
+                                chosenAnime.getDetails().getSynopsis(), chosenAnime.getGenres(),
                                 null, null, chosenAnime.getStatus());
         anime.addEpisode(release, title, synopsis);
 
@@ -221,7 +172,7 @@ public class Input
     {
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("********************* Update *********************");
+        System.out.println("===================== Update =====================");
         ArrayList<MediaEntry> mediaList = vault.getEntries(null, 0, null, null, null);
         for (MediaEntry entry : mediaList)
             System.out.println(entry.getDetails().getTitle());
@@ -237,11 +188,11 @@ public class Input
             System.out.println("[I] - In-progress");
             System.out.println("[C] - Completed");
             System.out.print("Type according to letters above: ");
-            String changeStatus = scanner.nextLine();
+            String changeStatus = scanner.nextLine().toUpperCase();
             while(!(changeStatus.equals("P") || changeStatus.equals("I") || changeStatus.equals("C")))
             {
                 System.out.print("Invalid option, please try again: ");
-                changeStatus = scanner.nextLine();
+                changeStatus = scanner.nextLine().toUpperCase();
             }
             if (changeStatus.equals("P"))
                 vault.getEntry(media, year).setStatus(Status.PLANNED);
@@ -260,7 +211,7 @@ public class Input
     {
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("***************** Rate and Review *****************");
+        System.out.println("================= Rate and Review =================");
         ArrayList<MediaEntry> mediaList = vault.getEntries(null, 0, null, Status.COMPLETED, null);
         for (MediaEntry entry : mediaList)
             System.out.println(entry.getDetails().getTitle());

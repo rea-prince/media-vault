@@ -14,10 +14,10 @@ public class Main
 
         Display.mainMenu();
         System.out.print("Choose what to do: ");
-        String option = scanner.nextLine();
+        String option = scanner.nextLine().toUpperCase();
         while (!option.equals("X"))
         {
-            while (!(option.equals("A") || option.equals("B") || option.equals("D") || option.equals("U") || 
+            while (!(option.equals("A") || option.equals("B") || option.equals("D") || option.equals("U") ||
                      option.equals("R") || option.equals("E") || option.equals("S")))
             {
                 System.out.print("Invalid option, please try again: ");
@@ -39,20 +39,20 @@ public class Main
 
                     else if(option.equals("U"))
                         Display.updateEntry(vault);
-                    
+
                     else if(option.equals("R"))
                         Display.rateEntry(vault);
 
                     else if(option.equals("E"))
                         Display.showEntries(vault);
-                    
+
                     else if(option.equals("S"))
                         Display.summarize(vault);
                 }
                 else
                     System.out.println("No existing items to edit.");
             }
-            
+
             Display.mainMenu();
             System.out.print("Choose what to do: ");
             option = scanner.nextLine();

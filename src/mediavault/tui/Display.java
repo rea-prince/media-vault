@@ -13,13 +13,13 @@ import mediavault.models.Novel;
 import mediavault.models.VideoGame;
 import mediavault.models.MediaVault;
 
-public class Display
+abstract public class Display
 {
     MediaVault vault = new MediaVault();
 
     public static void mainMenu()
     {
-        System.out.println("******************* Media Vault *******************");
+        System.out.println("=================== Media Vault ===================");
         System.out.println("[A] Add a new entry");
         System.out.println("[B] Add anime episodes");
         System.out.println("[D] Delete an entry");
@@ -30,27 +30,28 @@ public class Display
         System.out.println("[X] Exit");
     }
 
-    public static void addEntry(MediaVault vault) 
+    public static void addEntry(MediaVault vault)
     {
+
         Input.promptAdd(vault);
     }
 
-    public static void addAnimeEpisodes(MediaVault vault) 
+    public static void addAnimeEpisodes(MediaVault vault)
     {
         Input.promptAddAnimeEpisodes(vault);
     }
 
-    public static void deleteEntry(MediaVault vault) 
+    public static void deleteEntry(MediaVault vault)
     {
         Input.promptDelete(vault);
     }
 
-    public static void updateEntry(MediaVault vault) 
+    public static void updateEntry(MediaVault vault)
     {
         Input.promptUpdate(vault);
     }
 
-    public static void rateEntry(MediaVault vault) 
+    public static void rateEntry(MediaVault vault)
     {
         Input.promptAssign(vault);
     }
@@ -176,7 +177,7 @@ public class Display
                 }
             } while (scanner.hasNextInt());
         }
-        
+
         ArrayList<MediaEntry> mediaList = vault.getEntries(null, year, media, status, genre);
         for (MediaEntry entry : mediaList)
         {
@@ -188,17 +189,17 @@ public class Display
             for (Genre entryGenre : genreList)
                 System.out.print(entryGenre + ", ");
             System.out.println("Status: " + entry.getStatus());
-            
+
             if(entry instanceof Anime)
             {
-                Anime anime = new Anime(entry.getDetails().getYear(), entry.getDetails().getTitle(), entry.getDetails().getSynopsis(), 
+                Anime anime = new Anime(entry.getDetails().getYear(), entry.getDetails().getTitle(), entry.getDetails().getSynopsis(),
                                         entry.getGenres(), null, null, entry.getStatus());
                 System.out.println("Alternate title: " + anime.getAlternativeTitle());
                 System.out.println("Studio: " + anime.getStudio());
             }
             else if(entry instanceof Novel)
             {
-                Novel novel = new Novel(entry.getDetails().getYear(), entry.getDetails().getTitle(), entry.getDetails().getSynopsis(), 
+                Novel novel = new Novel(entry.getDetails().getYear(), entry.getDetails().getTitle(), entry.getDetails().getSynopsis(),
                                         entry.getGenres(), null, null, entry.getStatus(), 0);
                 System.out.println("Author: " + novel.getAuthor());
                 System.out.println("Publisher: " + novel.getPublisher());
@@ -206,15 +207,15 @@ public class Display
             }
             else if(entry instanceof VideoGame)
             {
-                VideoGame videoGame = new VideoGame(entry.getDetails().getYear(), entry.getDetails().getTitle(), 
-                                                    entry.getDetails().getSynopsis(), entry.getGenres(), 
+                VideoGame videoGame = new VideoGame(entry.getDetails().getYear(), entry.getDetails().getTitle(),
+                                                    entry.getDetails().getSynopsis(), entry.getGenres(),
                                                     null, null, entry.getStatus());
                 System.out.println("Studio: " + videoGame.getStudio());
                 System.out.println("Publisher: " + videoGame.getPublisher());
             }
             System.out.print("\nView next entry? Press 'B' to go back, 'N' to proceed, or 'X' to exit. ");
         }
-        
+
         genre.remove(0);
         scanner.close();
     }
@@ -222,12 +223,12 @@ public class Display
     public static void summarize(MediaVault vault)
     {
         System.out.println("Total number of entries: " + vault.getTotalByAttributes(null, null, null));
-        
+
         System.out.println("\nNumber of entries by media type: ");
         MediaType[] types = MediaType.values();
         for (MediaType type : types)
             System.out.println(type + ": " + vault.getTotalByAttributes(type, null, null));
-        
+
         System.out.println("\nNumber of entries by genre: ");
         Genre[] genreList = Genre.values();
         for (Genre genre : genreList)
@@ -237,7 +238,7 @@ public class Display
             if (vault.getTotalByAttributes(null, null, genreDisp) > 0)
                 System.out.println(genre + ": " + vault.getTotalByAttributes(null, null, genreDisp));
         }
-        
+
         System.out.println("\nNumber of entries by status: ");
         Status[] statusList = Status.values();
         for (Status status : statusList)
