@@ -2,6 +2,7 @@ package mediavault.tui;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.List;
 
 import mediavault.enums.Genre;
 import mediavault.enums.MediaType;
@@ -17,17 +18,41 @@ abstract public class Display
 {
     MediaVault vault = new MediaVault();
 
+    public static void createBoard(String title, List<String> options) {
+        if (title.startsWith("---")) {
+            /* for options */
+            System.out.println(title);
+        } else {
+            /* for headers(?) */
+            int totalWidth = 50;
+            int titleLength = title.length();
+
+            int paddingSize = (totalWidth - titleLength - 2) / 2;
+            paddingSize = Math.max(0, paddingSize);
+
+            String padding = "=".repeat(paddingSize);
+            System.out.printf("%s %s %s\n", padding, title, padding);
+        }
+        for (String option : options) {
+            if (option == null || option.trim().isEmpty())
+                continue;
+
+            System.out.println(option);
+        }
+    }
+
     public static void mainMenu()
     {
-        System.out.println("=================== Media Vault ===================");
-        System.out.println("[A] Add a new entry");
-        System.out.println("[B] Add anime episodes");
-        System.out.println("[D] Delete an entry");
-        System.out.println("[U] Update an entry");
-        System.out.println("[R] Rate and review an entry");
-        System.out.println("[E] Display the entire library");
-        System.out.println("[S] Summarize the library");
-        System.out.println("[X] Exit");
+        createBoard("Media Vault", List.of(
+            "[A] Add a new entry",
+            "[B] Add anime episodes",
+            "[D] Delete an entry",
+            "[U] Update an entry",
+            "[R] Rate and review an entry",
+            "[E] Display the entire library",
+            "[S] Summarize the library",
+            "[X] Exit"
+        ));
     }
 
     public static void addEntry(MediaVault vault)

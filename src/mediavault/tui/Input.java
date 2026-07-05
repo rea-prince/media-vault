@@ -17,101 +17,112 @@ import java.util.Scanner;
 
 abstract public class Input
 {
-	private static String getInput(String prompt, String... valid) {
-		Scanner scanner = new Scanner(System.in);
-		String input = "";
+    private static String getStrInput(String prompt, String... valid) {
+        Scanner scanner = new Scanner(System.in);
+        String input = "";
 
-		List<String> validIn = Arrays.asList(valid);
-		do {
-			if (!input.equals(""))
-				System.out.println("Invalid option, please try again.");
+        List<String> validIn = Arrays.asList(valid);
+        do {
+            if (!input.equals(""))
+            System.out.println("Invalid option, please try again.");
 
-			System.out.print(prompt + ": ");
-			input = scanner.nextLine().trim().toUpperCase();
-		} while(!input.equals("") && ((valid.length > 0) && !validIn.contains(input)));
+            System.out.print(prompt + ": ");
+            input = scanner.nextLine().trim().toUpperCase();
+        } while(!input.equals("") && ((valid.length > 0) && !validIn.contains(input)));
 
-		return input;
-	}
+        return input;
+    }
 
     public static void promptAdd (MediaVault vault)
     {
-        System.out.println("======================= Add =======================");
-	    System.out.println("[A] - Anime");
-	    System.out.println("[N] - Novel");
-	    System.out.println("[V] - Video Game");
-        String entryType = getInput("Media type", "A", "N", "V");
-
-        System.out.println("Entry details");
-
-        String title = getInput("Title");
-
+        String entryType;
+        String title;
+        String synopsis;
+        ArrayList<Genre> genres;
         String alternative = null, publisher = null, author = null, studio = null;
         int chapters = 0;
+        int release;
 
-        int release = Integer.parseInt(getInput("Release Year"));
+        Display.createBoard("Add", List.of(
+            "[A] - Anime",
+            "[N] - Novel",
+            "[V] - Video Game"
+        ));
+        entryType = getStrInput("Media type", "A", "N", "V");
 
-        String synopsis = getInput("Synopsis");
+        Display.createBoard("Entry Details", List.of());
+        title = getStrInput("Title");
 
-        ArrayList<Genre> genreList = new ArrayList<>();
+        release = Integer.parseInt(getStrInput("Release Year"));
+        synopsis = getStrInput("Synopsis");
 
 
         /* GENRES */
 
-        System.out.println("--- Genres Options");
-
-        String[] validIds = new String[Genre.values().length - 1];
-        int index = 0;
+        ArrayList<String> genreList = new ArrayList<String>();
+        ArrayList<String> validIds = new ArrayList<String>();
         for (Genre g : Genre.values()) {
             if (g != Genre.INVALID) {
-                System.out.println("[" + g.getId() + "] " + g.name());
-                validIds[index++] = String.valueOf(g.getId());
+                genreList.add(String.format("[%d] - %s", g.getId(), g.name()));
+                validIds.add(String.valueOf(g.getId()));
             }
         }
-        String choice = getInput("Genre", validIds);
 
-        genreList.add(Genre.fromId(Integer.parseInt(choice)));
+        Display.createBoard("--- Genre options", genreList);
+        String rawIn = getStrInput("Genre");
+        String[] genreChoices = rawIn.split("[,\\.\\s]+");
 
+        genres = new ArrayList<Genre>();
+
+        for (String choice : genreChoices) {
+            if (validIds.contains(choice)) {
+                genres.add(Genre.fromId(Integer.parseInt(choice)));
+            } else {
+                System.out.println("Skipping invalid option: " + choice);
+            }
+        }
 
         /* STATUS */
 
-        System.out.println("--- Status Options");
-        System.out.println("[P] - Planned");
-        System.out.println("[I] - In-progress");
-        System.out.println("[C] - Completed");
-        System.out.print("Type according to letters above: ");
-        String status = getInput("Type according to letters above", "P", "I", "C");
+        Display.createBoard("--- Status Options", List.of(
+            "[P] - Planned",
+            "[I] - In-progress",
+            "[C] - Completed"
+        ));
+        String status = getStrInput("Status", "P", "I", "C");
 
         MediaEntry entry = null;
 
         switch (entryType) {
-	       	case "A":
-	      		studio = getInput("Studio");
-				publisher = getInput("Publisher");
-				entry = new Anime(release, title, synopsis, genreList, alternative, studio, null);
-				break;
-			case "N":
-				author = getInput("Author");
-				publisher = getInput("Publisher");
-				entry = new Novel(release, title, synopsis, genreList, publisher, author, null, chapters);
-				break;
-			case "V":
-				studio = getInput("Studio");
-				publisher = getInput("Publisher");
-				entry = new VideoGame(release, title, synopsis, genreList, publisher, studio, null);
-				break;
+            case "A":
+                studio = getStrInput("Studio");
+                alternative = getStrInput("Alternative Title");
+                entry = new Anime(release, title, synopsis, genres, alternative, studio, null);
+                break;
+            case "N":
+                author = getStrInput("Author");
+                publisher = getStrInput("Publisher");
+                chapters = Integer.parseInt(getStrInput("Chapters")); // TO DO: Add safety
+                entry = new Novel(release, title, synopsis, genres, publisher, author, null, chapters);
+                break;
+            case "V":
+                studio = getStrInput("Studio");
+                publisher = getStrInput("Publisher");
+                entry = new VideoGame(release, title, synopsis, genres, publisher, studio, null);
+                break;
         }
 
         if (entry != null) {
             switch (status) {
-            	case "P":
-	      		entry.setStatus(Status.PLANNED);
-	          	break;
-			case "I":
-	      		entry.setStatus(Status.IN_PROGRESS);
-	          	break;
-			case "C":
-	      		entry.setStatus(Status.COMPLETED);
-	          	break;
+               	case "P":
+                    entry.setStatus(Status.PLANNED);
+                    break;
+                case "I":
+                    entry.setStatus(Status.IN_PROGRESS);
+                    break;
+                case "C":
+                    entry.setStatus(Status.COMPLETED);
+                    break;
             }
         }
 
@@ -195,14 +206,14 @@ abstract public class Input
                 changeStatus = scanner.nextLine().toUpperCase();
             }
             if (changeStatus.equals("P"))
-                vault.getEntry(media, year).setStatus(Status.PLANNED);
+            vault.getEntry(media, year).setStatus(Status.PLANNED);
             else if (changeStatus.equals("I"))
-                vault.getEntry(media, year).setStatus(Status.IN_PROGRESS);
+            vault.getEntry(media, year).setStatus(Status.IN_PROGRESS);
             else if (changeStatus.equals("C"))
-                vault.getEntry(media, year).setStatus(Status.COMPLETED);
+            vault.getEntry(media, year).setStatus(Status.COMPLETED);
         }
         else
-            System.out.println("Entry not found.");
+        System.out.println("Entry not found.");
 
         scanner.close();
     }
@@ -214,7 +225,7 @@ abstract public class Input
         System.out.println("================= Rate and Review =================");
         ArrayList<MediaEntry> mediaList = vault.getEntries(null, 0, null, Status.COMPLETED, null);
         for (MediaEntry entry : mediaList)
-            System.out.println(entry.getDetails().getTitle());
+        System.out.println(entry.getDetails().getTitle());
         System.out.print("Choose completed entry: ");
         String media = scanner.nextLine();
         System.out.print("Enter year: ");
@@ -230,7 +241,7 @@ abstract public class Input
             vault.getEntry(media, year).setReview(changeReview);
         }
         else
-            System.out.println("Entry not found or status not complete.");
+        System.out.println("Entry not found or status not complete.");
 
         scanner.close();
     }
