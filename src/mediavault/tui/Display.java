@@ -19,7 +19,8 @@ abstract public class Display
     /* Displays a pre-formatted board with a header and a list of strings
      *
      */
-    public static void createBoard(String title, List<String> options) {
+    public static void createBoard(String title, List<String> options)
+    {
         if (title.startsWith("---")) {
             /* for options */
             System.out.println(title);
@@ -58,7 +59,6 @@ abstract public class Display
 
     public static void addEntry(MediaVault vault)
     {
-
         Input.promptAdd(vault);
     }
 

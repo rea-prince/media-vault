@@ -4,7 +4,6 @@ import java.util.Scanner;
 import mediavault.models.MediaVault;
 import mediavault.tui.*;
 
-
 public class Main
 {
     public static void main(String[] args)
