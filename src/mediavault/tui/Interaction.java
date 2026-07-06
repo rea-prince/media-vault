@@ -13,7 +13,6 @@ import mediavault.models.MediaVault;
 import java.util.ArrayList;
 import java.util.List;
 
-
 abstract public class Interaction {
 
     public static void promptAdd(MediaVault vault)
@@ -33,7 +32,7 @@ abstract public class Interaction {
         ));
         entryType = Input.getStrInput("Media type", "A", "N", "V");
 
-        Display.createBoard("Entry Details", List.of());
+        Display.createBoard("Entry Details", null);
         title = Input.getStrInput("Title");
 
         release = Integer.parseInt(Input.getStrInput("Release Year"));
@@ -168,7 +167,7 @@ abstract public class Interaction {
             return;
         }
 
-        Display.createBoard("--- Episode Details", List.of());
+        Display.createBoard("--- Episode Details", null);
 
         String title = Input.getStrInput("Title");
         int release =Input.getIntInput("Release Year");
@@ -254,5 +253,172 @@ abstract public class Interaction {
 
         entry.setRating(Input.getFloatInput("Rating"));
         entry.setReview(Input.getStrInput("Review"));
+    }
+
+
+    /* FILTERS */
+
+    private static MediaType filterByMediaType()
+    {
+        Display.createBoard("Media Type", List.of(
+            "[A] - Anime",
+            "[N] - Novel",
+            "[V] - Video Game"
+        ));
+
+        MediaType media = null;
+
+        switch (Input.getStrInput("Media Type", "A", "N", "V")) {
+            case "A":
+                media = MediaType.ANIME;
+                break;
+
+            case "N":
+                media = MediaType.NOVEL;
+                break;
+
+            case "V":
+                media = MediaType.VIDEOGAME;
+                break;
+        }
+
+        return media;
+    }
+
+    private static ArrayList<Genre>  filterByGenre()
+    {
+        ArrayList<String> validIds = new ArrayList<>();
+
+        Display.displayGenres();
+
+        ArrayList<Genre> genre = new ArrayList<Genre>();
+
+        for (String choice : Input.getStrInput("Genre").split("[,\\.\\s]+")) {
+            if (validIds.contains(choice))
+                genre.add(Genre.fromId(Integer.parseInt(choice)));
+        }
+
+        if (genre.size() == 0)
+            return null;
+
+        return genre;
+    }
+
+    private static Status filterByStatus()
+    {
+        Display.createBoard("Status", List.of(
+            "[P] - Planned",
+            "[I] - In-progress",
+            "[C] - Completed"
+        ));
+
+        Status status = null;
+
+        switch (Input.getStrInput("Status", "P", "I", "C")) {
+            case "P":
+                status = Status.PLANNED;
+                break;
+
+            case "I":
+                status = Status.IN_PROGRESS;
+                break;
+
+            case "C":
+                status = Status.COMPLETED;
+                break;
+        }
+
+        return status;
+    }
+
+    public static void showEntries(MediaVault vault)
+    {
+
+        Display.createBoard("Full Library Display", null);
+        String yesOrNo = Input.getStrInput(
+            "Do you want to filter entries? (Y/N)",
+            "Y", "N"
+        );
+
+        MediaType media = null;
+        int year = 0;
+        ArrayList<Genre> genre = new ArrayList<>();
+        Status status = null;
+
+        if(yesOrNo.equals("Y")) {
+
+            Display.createBoard("Filter entries by ...", List.of(
+                "[1] Media type",
+                "[2] Year",
+                "[3] Genre",
+                "[4] Status"
+            ));
+
+            String[] filters = Input.getStrInput(
+                "Filters (space/coma separated)"
+            ).split("[,\\.\\s]+");
+
+            for (String filter : filters) {
+                switch (filter) {
+                    case "1": {
+                        filterByMediaType();
+                    } break;
+
+                    case "2": {
+                        year = Input.getIntInput("Year");
+                    } break;
+
+                    case "3": {
+                        genre = filterByGenre();
+                    } break;
+
+                    case "4": {
+                        status = filterByStatus();
+                    } break;
+                }
+            }
+
+        }
+
+        ArrayList<MediaEntry> mediaList = vault.getEntries(null, year, media, status, genre);
+        for (MediaEntry entry : mediaList)
+        {
+            System.out.println(entry.getDetails().getTitle());
+            System.out.println("Release year: " + entry.getDetails().getYear());
+            System.out.println("Synopsis: " + entry.getDetails().getSynopsis());
+            System.out.print("Genres: ");
+            ArrayList<Genre> genreList = entry.getGenres();
+            for (Genre entryGenre : genreList)
+                System.out.print(entryGenre + ", ");
+            System.out.println("Status: " + entry.getStatus());
+
+            if(entry instanceof Anime)
+            {
+                Anime anime = new Anime(entry.getDetails().getYear(), entry.getDetails().getTitle(), entry.getDetails().getSynopsis(),
+                                        entry.getGenres(), null, null, entry.getStatus());
+                System.out.println("Alternate title: " + anime.getAlternativeTitle());
+                System.out.println("Studio: " + anime.getStudio());
+            }
+            else if(entry instanceof Novel)
+            {
+                Novel novel = new Novel(entry.getDetails().getYear(), entry.getDetails().getTitle(), entry.getDetails().getSynopsis(),
+                                        entry.getGenres(), null, null, entry.getStatus(), 0);
+                System.out.println("Author: " + novel.getAuthor());
+                System.out.println("Publisher: " + novel.getPublisher());
+                System.out.println("Number of chapters: " + novel.getChapters());
+            }
+            else if(entry instanceof VideoGame)
+            {
+                VideoGame videoGame = new VideoGame(entry.getDetails().getYear(), entry.getDetails().getTitle(),
+                                                    entry.getDetails().getSynopsis(), entry.getGenres(),
+                                                    null, null, entry.getStatus());
+                System.out.println("Studio: " + videoGame.getStudio());
+                System.out.println("Publisher: " + videoGame.getPublisher());
+            }
+            System.out.print("\nView next entry? Press 'B' to go back, 'N' to proceed, or 'X' to exit. ");
+        }
+
+        genre.remove(0);
+        scanner.close();
     }
 }
