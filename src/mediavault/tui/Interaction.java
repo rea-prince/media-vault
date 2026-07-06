@@ -22,6 +22,8 @@ abstract public class Interaction {
                 System.out.println("ERROR: Could not load vault.");
             }
 
+            // TO DO: Add anime episodes view
+
             Display.createBoard("Media Vault", List.of(
                 "[A] Add a new entry",
                 "[B] Add anime episodes",
@@ -85,7 +87,7 @@ abstract public class Interaction {
         Display.createBoard("Entry Details", null);
         title = Input.getStrInput("Title");
 
-        release = Integer.parseInt(Input.getStrInput("Release Year"));
+        release = Input.getIntInput("Release Year");
         synopsis = Input.getStrInput("Synopsis");
 
 
@@ -208,8 +210,9 @@ abstract public class Interaction {
 
         /* option */
 
-        String media = Input.getStrInput("Anime");
-        MediaEntry chosenAnime = vault.getEntry(media, 0);
+        String anime = Input.getStrInput("Title");
+        int releaseYear = Input.getIntInput("Release Year");
+        Anime chosenAnime = (Anime) vault.getEntry(anime, releaseYear);
 
         if (chosenAnime == null) {
             System.out.println("Anime not found.");
@@ -219,19 +222,9 @@ abstract public class Interaction {
         Display.createBoard("--- Episode Details", null);
 
         String title = Input.getStrInput("Title");
-        int release =Input.getIntInput("Release Year");
+        int release = Input.getIntInput("Release Year");
         String synopsis = Input.getStrInput("Synopsis");
-
-        Anime anime = new Anime(
-            chosenAnime.getDetails().getYear(),
-            chosenAnime.getDetails().getTitle(),
-            chosenAnime.getDetails().getSynopsis(),
-            chosenAnime.getGenres(),
-            null, null,
-            chosenAnime.getStatus()
-        );
-
-        anime.addEpisode(release, title, synopsis);
+        chosenAnime.addEpisode(release, title, synopsis);
     }
 
     public static void promptUpdate(MediaVault vault)
@@ -245,7 +238,7 @@ abstract public class Interaction {
             ));
         }
 
-        Display.createBoard("Update Status", entries);
+        Display.createBoard("Update Available Entries", entries);
 
         String media = Input.getStrInput("Title");
         int year = Input.getIntInput("Release Year");
@@ -254,6 +247,7 @@ abstract public class Interaction {
 
         if (entry == null) {
             System.out.println("Entry not found.");
+            Input.holdScreen("Press ENTER to exit this view.");
             return;
         }
 
@@ -409,26 +403,16 @@ abstract public class Interaction {
 
             for (String filter : filters) {
                 switch (filter) {
-                    case "1": {
-                        filterByMediaType();
-                    } break;
-
-                    case "2": {
-                        year = Input.getIntInput("Year");
-                    } break;
-
-                    case "3": {
-                        genre = filterByGenre();
-                    } break;
-
-                    case "4": {
-                        status = filterByStatus();
-                    } break;
+                    case "1": { filterByMediaType(); } break;
+                    case "2": { year = Input.getIntInput("Year"); } break;
+                    case "3": { genre = filterByGenre(); } break;
+                    case "4": { status = filterByStatus(); } break;
                 }
             }
-
         }
 
         Display.showEntries(vault.getEntries(null, year, media, status, genre));
+
+        Input.holdScreen("Press ENTER to exit this view.");
     }
 }

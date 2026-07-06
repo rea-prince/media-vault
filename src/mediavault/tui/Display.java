@@ -61,13 +61,17 @@ abstract public class Display
     }
 
     public static void displayEntryDetails(MediaEntry entry) {
+
+        // TO DO: Add lastModified
+
         System.out.println(entry.getDetails().getTitle());
-        System.out.println("Release year: " + entry.getDetails().getYear());
-        System.out.println("Synopsis: " + entry.getDetails().getSynopsis());
-        System.out.print("Genres: ");
+        System.out.println(" > Release: " + entry.getDetails().getYear());
+        System.out.println(" > Synopsis: " + entry.getDetails().getSynopsis());
+        System.out.print(" > Genres: ");
         for (Genre entryGenre : entry.getGenres())
             System.out.print(entryGenre.getName() + ", ");
-        System.out.println("Status: " + entry.getStatus());
+        System.out.println();
+        System.out.println(" > Status: " + entry.getStatus().getName());
     }
 
     public static void showEntries(ArrayList<MediaEntry> entries)
@@ -78,20 +82,20 @@ abstract public class Display
 
             if(entry instanceof Anime) {
                 Anime anime = (Anime) entry;
-                System.out.println("Alternate title: " + anime.getAlternativeTitle());
-                System.out.println("Studio: " + anime.getStudio());
+                System.out.println(" > Alternate title: " + anime.getAlternativeTitle());
+                System.out.println(" > Studio: " + anime.getStudio());
             }
             else if(entry instanceof Novel) {
                 Novel novel = (Novel) entry;
-                System.out.println("Author: " + novel.getAuthor());
-                System.out.println("Publisher: " + novel.getPublisher());
-                System.out.println("Number of chapters: " + novel.getChapters());
+                System.out.println(" > Author: " + novel.getAuthor());
+                System.out.println(" > Publisher: " + novel.getPublisher());
+                System.out.println(" > Number of chapters: " + novel.getChapters());
             }
             else if(entry instanceof VideoGame) {
                 VideoGame videoGame = (VideoGame) entry;
 
-                System.out.println("Studio: " + videoGame.getStudio());
-                System.out.println("Publisher: " + videoGame.getPublisher());
+                System.out.println(" > Studio: " + videoGame.getStudio());
+                System.out.println(" > Publisher: " + videoGame.getPublisher());
             }
         }
     }
@@ -151,7 +155,7 @@ abstract public class Display
             totalRating += vault.getEntry(entry.getDetails().getTitle(), 0).getRating();
         float averageRating = totalRating / vault.getTotalByAttributes(null, Status.COMPLETED, null);
 
-        tempEntries = List.of(Float.toString(averageRating));
+        tempEntries = List.of(String.format("%.2f", averageRating));
 
         createBoard("--- Average Rating", tempEntries);
 

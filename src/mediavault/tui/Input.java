@@ -8,7 +8,6 @@ abstract public class Input
 
     private static Scanner scanner = new Scanner(System.in);
 
-
     /* helper funcs */
 
     private static String readLine(String prompt)
@@ -25,6 +24,11 @@ abstract public class Input
     }
 
     /* strings */
+
+    public static void holdScreen(String prompt) {
+        System.out.print(prompt);
+        scanner.nextLine();
+    }
 
     public static String getStrInput(String prompt, String... valid)
     {
