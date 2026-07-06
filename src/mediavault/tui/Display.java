@@ -1,7 +1,7 @@
 package mediavault.tui;
 
 import java.util.ArrayList;
-import java.util.Scanner;
+import java.util.List;
 
 import mediavault.enums.Genre;
 import mediavault.enums.MediaType;
@@ -13,240 +13,152 @@ import mediavault.models.Novel;
 import mediavault.models.VideoGame;
 import mediavault.models.MediaVault;
 
-public class Display
+abstract public class Display
 {
-    MediaVault vault = new MediaVault();
-
-    public static void mainMenu()
+    /* Displays a pre-formatted board with a header and a list of strings
+     *
+     */
+    public static void createBoard(String title, List<String> options)
     {
-        System.out.println("******************* Media Vault *******************");
-        System.out.println("[A] Add a new entry");
-        System.out.println("[B] Add anime episodes");
-        System.out.println("[D] Delete an entry");
-        System.out.println("[U] Update an entry");
-        System.out.println("[R] Rate and review an entry");
-        System.out.println("[E] Display the entire library");
-        System.out.println("[S] Summarize the library");
-        System.out.println("[X] Exit");
+        if (title.startsWith("---")) {
+            /* for options */
+            System.out.println(title);
+        } else {
+            /* for headers(?) */
+            int totalWidth = 50;
+            int titleLength = title.length();
+
+            int paddingSize = (totalWidth - titleLength - 2) / 2;
+            paddingSize = Math.max(0, paddingSize);
+
+            String padding = "=".repeat(paddingSize);
+
+            System.out.print("\033[H\033[2J");
+            System.out.flush();
+            System.out.printf("%s %s %s\n", padding, title, padding);
+        }
+        if (options != null) {
+            for (String option : options) {
+                if (option == null || option.trim().isEmpty())
+                    continue;
+                System.out.println(option);
+            }
+        }
     }
 
-    public static void addEntry(MediaVault vault) 
-    {
-        Input.promptAdd(vault);
-    }
+    public static void displayGenres() {
+        ArrayList<String> genreOptions = new ArrayList<>();
+        ArrayList<String> validIds = new ArrayList<>();
 
-    public static void addAnimeEpisodes(MediaVault vault) 
-    {
-        Input.promptAddAnimeEpisodes(vault);
-    }
-
-    public static void deleteEntry(MediaVault vault) 
-    {
-        Input.promptDelete(vault);
-    }
-
-    public static void updateEntry(MediaVault vault) 
-    {
-        Input.promptUpdate(vault);
-    }
-
-    public static void rateEntry(MediaVault vault) 
-    {
-        Input.promptAssign(vault);
-    }
-
-    public static void showEntries(MediaVault vault)
-    {
-        Scanner scanner = new Scanner(System.in);
-
-        System.out.println("************** Full library display **************");
-
-        System.out.println("Do you want to filter entries? Y/N");
-        String yesOrNo = scanner.nextLine();
-        while (!yesOrNo.equals("Y") && !yesOrNo.equals("N"))
-        {
-            System.out.print("Invalid input, please try again. ");
-            yesOrNo = scanner.nextLine();
+        for (Genre g : Genre.values()) {
+            if (g != Genre.INVALID) {
+                genreOptions.add(String.format("[%d] - %s", g.getId(), g.getName()));
+                validIds.add(String.valueOf(g.getId()));
+            }
         }
 
-        MediaType media = null;
-        int year = 0;
-        ArrayList<Genre> genre = new ArrayList<>();
-        Status status = null;
+        Display.createBoard("Genre", genreOptions);
+    }
 
-        if(yesOrNo.equals("N"))
+    public static void displayEntryDetails(MediaEntry entry) {
+
+        // TO DO: Add lastModified
+
+        System.out.println(entry.getDetails().getTitle());
+        System.out.println(" > Release: " + entry.getDetails().getYear());
+        System.out.println(" > Synopsis: " + entry.getDetails().getSynopsis());
+        System.out.print(" > Genres: ");
+        for (Genre entryGenre : entry.getGenres())
+            System.out.print(entryGenre.getName() + ", ");
+        System.out.println();
+        System.out.println(" > Status: " + entry.getStatus().getName());
+    }
+
+    public static void showEntries(ArrayList<MediaEntry> entries)
+    {
+        for (MediaEntry entry : entries)
         {
-            System.out.println("Filter entries by ...");
-            System.out.println("[1] Media type");
-            System.out.println("[2] Year");
-            System.out.println("[3] Genre");
-            System.out.println("[4] Status");
-            System.out.println("Put spaces between each number (e.g. 1 2 3 4)");
-            do {
-                int filter = scanner.nextInt();
-                if (filter == 1)
-                {
-                    System.out.println("[A] - Anime");
-                    System.out.println("[N] - Novel");
-                    System.out.println("[V] - Video Game");
-                    System.out.print("Media type: ");
-                    String type = scanner.nextLine();
-                    while(!type.equals("A") && !type.equals("N") && !type.equals("V"))
-                    {
-                        System.out.println("Invalid option, please try again.");
-                        System.out.print("Media type: ");
-                        type = scanner.nextLine();
-                    }
-                    if(type.equals("A"))
-                        media = MediaType.ANIME;
-                    else if(type.equals("N"))
-                        media = MediaType.NOVEL;
-                    else if(type.equals("V"))
-                        media = MediaType.VIDEOGAME;
-                }
-                else if (filter == 2)
-                {
-                    System.out.print("Year: ");
-                    year = scanner.nextInt();
-                }
-                else if (filter == 3)
-                {
-                    for (int i = 1; i <= 16; i++)
-                        System.out.println("[i] " + Genre.values());
-                    System.out.print("Genre: ");
-                    int genreNumber = scanner.nextInt();
-                    while(!(genreNumber >= 1 && genreNumber <= 16))
-                    {
-                        System.out.println("Invalid option, please try again.");
-                        System.out.print("Genre: ");
-                        genreNumber = scanner.nextInt();
-                    }
-                    if (genreNumber == 1)
-                        genre.add(Genre.ACTION);
-                    else if (genreNumber == 2)
-                        genre.add(Genre.ADVENTURE);
-                    else if (genreNumber == 3)
-                        genre.add(Genre.COMEDY);
-                    else if (genreNumber == 4)
-                        genre.add(Genre.CRIME);
-                    else if (genreNumber == 5)
-                        genre.add(Genre.DOCUMENTARY);
-                    else if (genreNumber == 6)
-                        genre.add(Genre.DRAMA);
-                    else if (genreNumber == 7)
-                        genre.add(Genre.FANTASY);
-                    else if (genreNumber == 8)
-                        genre.add(Genre.HISTORICAL_FICTION);
-                    else if (genreNumber == 9)
-                        genre.add(Genre.HORROR);
-                    else if (genreNumber == 10)
-                        genre.add(Genre.MUSIC);
-                    else if (genreNumber == 11)
-                        genre.add(Genre.MYSTERY);
-                    else if (genreNumber == 12)
-                        genre.add(Genre.PSYCHOLOGICAL);
-                    else if (genreNumber == 13)
-                        genre.add(Genre.ROMANCE);
-                    else if (genreNumber == 14)
-                        genre.add(Genre.SCIENCE_FICTION);
-                    else if (genreNumber == 15)
-                        genre.add(Genre.SPORTS);
-                    else if (genreNumber == 16)
-                        genre.add(Genre.THRILLER);
-                }
-                else if (filter == 4)
-                {
-                    System.out.println("[P] - Planned");
-                    System.out.println("[I] - In-progress");
-                    System.out.println("[C] - Completed");
-                    System.out.print("Status: ");
-                    String stat = scanner.nextLine();
-                    while (!stat.equals("P") && !stat.equals("I") && !stat.equals("C"))
-                    {
-                        System.out.println("Invalid option, please try again.");
-                        System.out.print("Status: ");
-                        stat = scanner.nextLine();
-                    }
-                    if (stat.equals("P"))
-                        status = Status.PLANNED;
-                    else if (stat.equals("I"))
-                        status = Status.IN_PROGRESS;
-                    else if (stat.equals("C"))
-                        status = Status.COMPLETED;
-                }
-            } while (scanner.hasNextInt());
+            Display.displayEntryDetails(entry);
+
+            if(entry instanceof Anime) {
+                Anime anime = (Anime) entry;
+                System.out.println(" > Alternate title: " + anime.getAlternativeTitle());
+                System.out.println(" > Studio: " + anime.getStudio());
+            }
+            else if(entry instanceof Novel) {
+                Novel novel = (Novel) entry;
+                System.out.println(" > Author: " + novel.getAuthor());
+                System.out.println(" > Publisher: " + novel.getPublisher());
+                System.out.println(" > Number of chapters: " + novel.getChapters());
+            }
+            else if(entry instanceof VideoGame) {
+                VideoGame videoGame = (VideoGame) entry;
+
+                System.out.println(" > Studio: " + videoGame.getStudio());
+                System.out.println(" > Publisher: " + videoGame.getPublisher());
+            }
         }
-        
-        ArrayList<MediaEntry> mediaList = vault.getEntries(null, year, media, status, genre);
-        for (MediaEntry entry : mediaList)
-        {
-            System.out.println(entry.getDetails().getTitle());
-            System.out.println("Release year: " + entry.getDetails().getYear());
-            System.out.println("Synopsis: " + entry.getDetails().getSynopsis());
-            System.out.print("Genres: ");
-            ArrayList<Genre> genreList = entry.getGenres();
-            for (Genre entryGenre : genreList)
-                System.out.print(entryGenre + ", ");
-            System.out.println("Status: " + entry.getStatus());
-            
-            if(entry instanceof Anime)
-            {
-                Anime anime = new Anime(entry.getDetails().getYear(), entry.getDetails().getTitle(), entry.getDetails().getSynopsis(), 
-                                        entry.getGenres(), null, null, entry.getStatus());
-                System.out.println("Alternate title: " + anime.getAlternativeTitle());
-                System.out.println("Studio: " + anime.getStudio());
-            }
-            else if(entry instanceof Novel)
-            {
-                Novel novel = new Novel(entry.getDetails().getYear(), entry.getDetails().getTitle(), entry.getDetails().getSynopsis(), 
-                                        entry.getGenres(), null, null, entry.getStatus(), 0);
-                System.out.println("Author: " + novel.getAuthor());
-                System.out.println("Publisher: " + novel.getPublisher());
-                System.out.println("Number of chapters: " + novel.getChapters());
-            }
-            else if(entry instanceof VideoGame)
-            {
-                VideoGame videoGame = new VideoGame(entry.getDetails().getYear(), entry.getDetails().getTitle(), 
-                                                    entry.getDetails().getSynopsis(), entry.getGenres(), 
-                                                    null, null, entry.getStatus());
-                System.out.println("Studio: " + videoGame.getStudio());
-                System.out.println("Publisher: " + videoGame.getPublisher());
-            }
-            System.out.print("\nView next entry? Press 'B' to go back, 'N' to proceed, or 'X' to exit. ");
-        }
-        
-        genre.remove(0);
-        scanner.close();
     }
 
     public static void summarize(MediaVault vault)
     {
-        System.out.println("Total number of entries: " + vault.getTotalByAttributes(null, null, null));
-        
-        System.out.println("\nNumber of entries by media type: ");
-        MediaType[] types = MediaType.values();
-        for (MediaType type : types)
-            System.out.println(type + ": " + vault.getTotalByAttributes(type, null, null));
-        
-        System.out.println("\nNumber of entries by genre: ");
-        Genre[] genreList = Genre.values();
-        for (Genre genre : genreList)
-        {
+        List<String> tempEntries = new ArrayList<String>();
+
+        createBoard("Library Summary", List.of());
+
+        tempEntries = List.of(
+            Long.toString(vault.getTotalByAttributes(null, null, null))
+        );
+
+        createBoard("--- Total Number of Entries", tempEntries);
+
+        tempEntries.clear();
+
+        for (MediaType type : MediaType.values()) {
+            tempEntries.add(String.format("%s: %d",
+                type.getName(),
+                vault.getTotalByAttributes(type, null, null)
+            ));
+        }
+
+        createBoard("--- Number of entries by media type", tempEntries);
+
+        tempEntries.clear();
+
+        for (Genre genre : Genre.values()) {
+            if (genre == Genre.INVALID)
+                continue;
+
             ArrayList<Genre> genreDisp = new ArrayList<>();
             genreDisp.add(genre);
-            if (vault.getTotalByAttributes(null, null, genreDisp) > 0)
-                System.out.println(genre + ": " + vault.getTotalByAttributes(null, null, genreDisp));
+            long total = vault.getTotalByAttributes(null, null, genreDisp);
+            if (total > 0)
+                tempEntries.add(String.format("%s: %d",
+                    genre.getName(), total
+                ));
         }
-        
-        System.out.println("\nNumber of entries by status: ");
-        Status[] statusList = Status.values();
-        for (Status status : statusList)
-            System.out.println(status + ": " + vault.getTotalByAttributes(null, status, null));
+        createBoard("--- Number of entries by genre", tempEntries);
+
+        tempEntries.clear();
+
+        for (Status status : Status.values()) {
+            tempEntries.add(String.format("%s: %d",
+                status.getName(), vault.getTotalByAttributes(null, status, null)
+            ));
+        }
+        createBoard("--- Number of entries by status", tempEntries);
+
+        tempEntries.clear();
 
         float totalRating = 0;
         for (MediaEntry entry : vault.getEntries(null, 0, null, Status.COMPLETED, null))
             totalRating += vault.getEntry(entry.getDetails().getTitle(), 0).getRating();
         float averageRating = totalRating / vault.getTotalByAttributes(null, Status.COMPLETED, null);
-        System.out.println("\nAverage rating: " + averageRating);
+
+        tempEntries = List.of(String.format("%.2f", averageRating));
+
+        createBoard("--- Average Rating", tempEntries);
+
+        tempEntries.clear();
     }
 }
