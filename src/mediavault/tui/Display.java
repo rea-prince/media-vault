@@ -16,8 +16,9 @@ import mediavault.models.MediaVault;
 
 abstract public class Display
 {
-    MediaVault vault = new MediaVault();
-
+    /* Displays a pre-formatted board with a header and a list of strings
+     *
+     */
     public static void createBoard(String title, List<String> options) {
         if (title.startsWith("---")) {
             /* for options */

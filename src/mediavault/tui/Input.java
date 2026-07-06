@@ -24,7 +24,7 @@ abstract public class Input
         List<String> validIn = Arrays.asList(valid);
         do {
             if (!input.equals(""))
-            System.out.println("Invalid option, please try again.");
+                System.out.println("Invalid option, please try again.");
 
             System.out.print(prompt + ": ");
             input = scanner.nextLine().trim().toUpperCase();
@@ -33,7 +33,7 @@ abstract public class Input
         return input;
     }
 
-    public static void promptAdd (MediaVault vault)
+    public static void promptAdd(MediaVault vault)
     {
         String entryType;
         String title;
@@ -94,155 +94,180 @@ abstract public class Input
         MediaEntry entry = null;
 
         switch (entryType) {
-            case "A":
+            case "A": {
                 studio = getStrInput("Studio");
                 alternative = getStrInput("Alternative Title");
                 entry = new Anime(release, title, synopsis, genres, alternative, studio, null);
-                break;
-            case "N":
+            } break;
+            case "N": {
                 author = getStrInput("Author");
                 publisher = getStrInput("Publisher");
                 chapters = Integer.parseInt(getStrInput("Chapters")); // TO DO: Add safety
                 entry = new Novel(release, title, synopsis, genres, publisher, author, null, chapters);
-                break;
-            case "V":
+            } break;
+            case "V": {
                 studio = getStrInput("Studio");
                 publisher = getStrInput("Publisher");
                 entry = new VideoGame(release, title, synopsis, genres, publisher, studio, null);
-                break;
+            } break;
         }
 
         if (entry != null) {
             switch (status) {
-               	case "P":
+               	case "P": {
                     entry.setStatus(Status.PLANNED);
-                    break;
-                case "I":
+                } break;
+                case "I": {
                     entry.setStatus(Status.IN_PROGRESS);
-                    break;
-                case "C":
+                } break;
+                case "C": {
                     entry.setStatus(Status.COMPLETED);
-                    break;
+                } break;
+
             }
         }
 
         vault.addEntry(entry);
     }
 
-    public static void promptDelete (MediaVault vault)
+    public static void promptDelete(MediaVault vault)
     {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("===================== Delete =====================");
-        ArrayList<MediaEntry> mediaList = vault.getEntries(null, 0, null, null, null);
-        for (MediaEntry entry : mediaList)
-            System.out.println(entry.getDetails().getTitle());
-        System.out.print("Enter entry to delete: ");
-        String media = scanner.nextLine();
-        System.out.print("Enter year: ");
-        int year = scanner.nextInt();
+        ArrayList<String> entries = new ArrayList<>();
 
-        if (vault.getEntry(media, year) != null)
+        /* PRINT */
+
+        for (MediaEntry entry : vault.getAll()) {
+            entries.add(String.format(
+                "%s (%d)",
+                entry.getDetails().getTitle(),
+                entry.getDetails().getYear()
+            ));
+        }
+        Display.createBoard("Delete", entries);
+
+        /* INPUT */
+
+        String media = getStrInput("Title");
+        int year = Integer.parseInt(getStrInput("Release Year"));
+
+        MediaEntry entry = vault.getEntry(media, year);
+
+        /* REMOVE */
+
+        if (entry != null)
             vault.removeEntry(media, year);
         else
             System.out.println("Entry not found.");
-
-        scanner.close();
     }
 
-    public static void promptAddAnimeEpisodes (MediaVault vault)
+    public static void promptAddAnimeEpisodes(MediaVault vault)
     {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("=============== Add Anime Episodes ***************");
-        ArrayList<MediaEntry> animeList = vault.getEntries(null, 0, MediaType.ANIME, null, null);
-        for (MediaEntry anime : animeList)
-            System.out.println(anime);
-        System.out.print("Choose anime: ");
-        String media = scanner.nextLine();
+
+        /* print */
+
+        ArrayList<String> animeTitles = new ArrayList<>();
+
+        for (MediaEntry entry : vault.getEntries(null, 0, MediaType.ANIME, null, null)) {
+            animeTitles.add(entry.getDetails().getTitle());
+        }
+
+        Display.createBoard("Add Anime Episode", animeTitles);
+
+        /* option */
+
+        String media = getStrInput("Anime");
         MediaEntry chosenAnime = vault.getEntry(media, 0);
 
-        System.out.println("\nEpisode details");
+        if (chosenAnime == null) {
+            System.out.println("Anime not found.");
+            return;
+        }
 
-        System.out.print("Title: ");
-        String title = scanner.nextLine();
+        Display.createBoard("--- Episode Details", List.of());
 
-        System.out.print("Release year: ");
-        int release = scanner.nextInt();
+        String title = getStrInput("Title");
+        int release = Integer.parseInt(getStrInput("Release Year"));
+        String synopsis = getStrInput("Synopsis");
 
-        System.out.print("Synopsis: ");
-        String synopsis = scanner.nextLine();
+        Anime anime = new Anime(
+            chosenAnime.getDetails().getYear(),
+            chosenAnime.getDetails().getTitle(),
+            chosenAnime.getDetails().getSynopsis(),
+            chosenAnime.getGenres(),
+            null, null,
+            chosenAnime.getStatus()
+        );
 
-        Anime anime = new Anime(chosenAnime.getDetails().getYear(), chosenAnime.getDetails().getTitle(),
-                                chosenAnime.getDetails().getSynopsis(), chosenAnime.getGenres(),
-                                null, null, chosenAnime.getStatus());
         anime.addEpisode(release, title, synopsis);
-
-        scanner.close();
     }
 
-    public static void promptUpdate (MediaVault vault)
+    public static void promptUpdate(MediaVault vault)
     {
-        Scanner scanner = new Scanner(System.in);
+        ArrayList<String> entries = new ArrayList<>();
 
-        System.out.println("===================== Update =====================");
-        ArrayList<MediaEntry> mediaList = vault.getEntries(null, 0, null, null, null);
-        for (MediaEntry entry : mediaList)
-            System.out.println(entry.getDetails().getTitle());
-        System.out.print("Choose which entry to change the status of: ");
-        String media = scanner.nextLine();
-        System.out.print("Enter year: ");
-        int year = scanner.nextInt();
-
-        if (vault.getEntry(media, year) != null)
-        {
-            System.out.println("Status:");
-            System.out.println("[P] - Planned");
-            System.out.println("[I] - In-progress");
-            System.out.println("[C] - Completed");
-            System.out.print("Type according to letters above: ");
-            String changeStatus = scanner.nextLine().toUpperCase();
-            while(!(changeStatus.equals("P") || changeStatus.equals("I") || changeStatus.equals("C")))
-            {
-                System.out.print("Invalid option, please try again: ");
-                changeStatus = scanner.nextLine().toUpperCase();
-            }
-            if (changeStatus.equals("P"))
-            vault.getEntry(media, year).setStatus(Status.PLANNED);
-            else if (changeStatus.equals("I"))
-            vault.getEntry(media, year).setStatus(Status.IN_PROGRESS);
-            else if (changeStatus.equals("C"))
-            vault.getEntry(media, year).setStatus(Status.COMPLETED);
+        for (MediaEntry entry : vault.getAll()) {
+            entries.add(String.format(
+                "%s (%d)",
+                entry.getDetails().getTitle(), entry.getDetails().getYear()
+            ));
         }
-        else
-        System.out.println("Entry not found.");
 
-        scanner.close();
+        Display.createBoard("Update Status", entries);
+
+        String media = getStrInput("Title");
+        int year = Integer.parseInt(getStrInput("Release Year"));
+
+        MediaEntry entry = vault.getEntry(media, year);
+
+        if (entry == null) {
+            System.out.println("Entry not found.");
+            return;
+        }
+
+        Display.createBoard("Status", List.of(
+            "[P] - Planned",
+            "[I] - In-progress",
+            "[C] - Completed"
+        ));
+
+        switch (getStrInput("Status", "P", "I", "C")) {
+            case "P":
+                entry.setStatus(Status.PLANNED);
+                break;
+
+            case "I":
+                entry.setStatus(Status.IN_PROGRESS);
+                break;
+
+            case "C":
+                entry.setStatus(Status.COMPLETED);
+                break;
+        }
     }
 
-    public static void promptAssign (MediaVault vault)
+    public static void promptAssign(MediaVault vault)
     {
-        Scanner scanner = new Scanner(System.in);
+        ArrayList<String> entries = new ArrayList<>();
 
-        System.out.println("================= Rate and Review =================");
-        ArrayList<MediaEntry> mediaList = vault.getEntries(null, 0, null, Status.COMPLETED, null);
-        for (MediaEntry entry : mediaList)
-        System.out.println(entry.getDetails().getTitle());
-        System.out.print("Choose completed entry: ");
-        String media = scanner.nextLine();
-        System.out.print("Enter year: ");
-        int year = scanner.nextInt();
-
-        if (vault.getEntry(media, year) != null)
-        {
-            System.out.println("Rating: ");
-            float changeRating = scanner.nextFloat();
-            vault.getEntry(media, year).setRating(changeRating);
-            System.out.println("Review: ");
-            String changeReview = scanner.nextLine();
-            vault.getEntry(media, year).setReview(changeReview);
+        for (MediaEntry entry : vault.getEntries(null, 0, null, Status.COMPLETED, null)) {
+            entries.add(String.format(
+                "%s (%d)", entry.getDetails().getTitle(), entry.getDetails().getYear()
+            ));
         }
-        else
-        System.out.println("Entry not found or status not complete.");
 
-        scanner.close();
+        Display.createBoard("Rate and Review", entries);
+
+        String media = getStrInput("Title");
+        int year = Integer.parseInt(getStrInput("Release Year"));
+
+        MediaEntry entry = vault.getEntry(media, year);
+
+        if (entry == null) {
+            System.out.println("Entry not found or status not complete.");
+            return;
+        }
+
+        entry.setRating(Float.parseFloat(getStrInput("Rating")));
+        entry.setReview(getStrInput("Review"));
     }
 }

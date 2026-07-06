@@ -72,7 +72,7 @@ public class MediaVault
         );
 
         if (matchingEntries.isEmpty()) {
-            throw new IllegalArgumentException("Entry not found.");
+            return null;
         }
 
         return matchingEntries.get(0);
