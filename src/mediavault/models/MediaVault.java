@@ -16,8 +16,7 @@ public class MediaVault
 
     /**
      * Adds an entry to the list of entries, and maps it to a unique
-     * @param title Title of the entry
-     * @param year  Release year of an entry
+     * @param entry Container of media item details
      *
      * @return void
      */
@@ -60,7 +59,9 @@ public class MediaVault
     }
 
     /**
-     * Returns the first entry with an exact match to
+     * Returns the first entry with an exact match to a certain name and year
+     * @param title Title of the entry
+     * @param year  Release year of an entry
      *
      * @return ArrayList<MediaEntry>
      */

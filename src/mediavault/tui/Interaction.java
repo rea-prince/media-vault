@@ -25,14 +25,14 @@ abstract public class Interaction {
             // TO DO: Add anime episodes view
 
             Display.createBoard("Media Vault", List.of(
-                "[A] Add a new entry",
-                "[B] Add anime episodes",
-                "[D] Delete an entry",
-                "[U] Update an entry",
-                "[R] Rate and review an entry",
-                "[E] Display the entire library",
-                "[S] Summarize the library",
-                "[X] Exit"
+                "[1] Add a new entry",
+                "[2] Add anime episodes",
+                "[3] Delete an entry",
+                "[4] Update an entry",
+                "[5] Rate and review an entry",
+                "[6] Display the entire library",
+                "[7] Summarize the library",
+                "[0] Exit"
             ));
 
             option = Input.getStrInput(
@@ -67,6 +67,12 @@ abstract public class Interaction {
 
     }
 
+    /**
+     * Prompts the user to add a media entry and its details to the vault
+     * @param vault List of media entries
+     *
+     * @return void
+     */
     public static void promptAdd(MediaVault vault)
     {
         String entryType;
@@ -165,6 +171,12 @@ abstract public class Interaction {
         vault.addEntry(entry);
     }
 
+    /**
+     * Prompts the user to delete a media entry of their choice
+     * @param vault List of media entries
+     *
+     * @return void
+     */
     public static void promptDelete(MediaVault vault)
     {
         ArrayList<String> entries = new ArrayList<>();
@@ -195,6 +207,12 @@ abstract public class Interaction {
             System.out.println("Entry not found.");
     }
 
+    /**
+     * Prompts the user to add episodes and its details to their anime of choice
+     * @param vault List of media entries
+     *
+     * @return void
+     */
     public static void promptAddAnimeEpisodes(MediaVault vault)
     {
 
@@ -277,6 +295,12 @@ abstract public class Interaction {
         }
     }
 
+    /**
+     * Allows the user to rate and review a completed media entry
+     * @param vault List of media entries
+     *
+     * @return void
+     */
     public static void promptAssign(MediaVault vault)
     {
         ArrayList<String> entries = new ArrayList<>();
@@ -306,6 +330,12 @@ abstract public class Interaction {
 
     /* FILTERS */
 
+
+    /**
+     * Filters media entries by media type (anime, novel, video game)
+     *
+     * @return void
+     */
     private static MediaType filterByMediaType()
     {
         Display.createBoard("Media Type", List.of(
@@ -333,6 +363,11 @@ abstract public class Interaction {
         return media;
     }
 
+    /**
+     * Filters media entries by genres
+     *
+     * @return void
+     */
     private static ArrayList<Genre> filterByGenre()
     {
         ArrayList<String> validIds = new ArrayList<>();
@@ -352,6 +387,11 @@ abstract public class Interaction {
         return genre;
     }
 
+    /**
+     * Filters media entries by status
+     *
+     * @return void
+     */
     private static Status filterByStatus()
     {
         Display.createBoard("Status", List.of(
@@ -379,6 +419,12 @@ abstract public class Interaction {
         return status;
     }
 
+    /**
+     * Displays filtered media entries
+     * @param vault List of media entries
+     *
+     * @return void
+     */
     public static void showEntries(MediaVault vault)
     {
 
