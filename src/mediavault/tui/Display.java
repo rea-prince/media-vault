@@ -49,12 +49,22 @@ abstract public class Display
 
         for (Genre g : Genre.values()) {
             if (g != Genre.INVALID) {
-                genreOptions.add(String.format("[%d] - %s", g.getId(), g.name()));
+                genreOptions.add(String.format("[%d] - %s", g.getId(), g.getName()));
                 validIds.add(String.valueOf(g.getId()));
             }
         }
 
         Display.createBoard("Genre", genreOptions);
+    }
+
+    public static void displayEntryDetails(MediaEntry entry) {
+        System.out.println(entry.getDetails().getTitle());
+        System.out.println("Release year: " + entry.getDetails().getYear());
+        System.out.println("Synopsis: " + entry.getDetails().getSynopsis());
+        System.out.print("Genres: ");
+        for (Genre entryGenre : entry.getGenres())
+            System.out.print(entryGenre.getName() + ", ");
+        System.out.println("Status: " + entry.getStatus());
     }
 
     public static void mainMenu()
@@ -71,64 +81,65 @@ abstract public class Display
         ));
     }
 
-    public static void addEntry(MediaVault vault)
-    {
-        Input.promptAdd(vault);
-    }
-
-    public static void addAnimeEpisodes(MediaVault vault)
-    {
-        Input.promptAddAnimeEpisodes(vault);
-    }
-
-    public static void deleteEntry(MediaVault vault)
-    {
-        Input.promptDelete(vault);
-    }
-
-    public static void updateEntry(MediaVault vault)
-    {
-        Input.promptUpdate(vault);
-    }
-
-    public static void rateEntry(MediaVault vault)
-    {
-        Input.promptAssign(vault);
-    }
-
-    public static void showEntries(MediaVault vault)
-    {
-
-    }
-
     public static void summarize(MediaVault vault)
     {
-        System.out.println("Total number of entries: " + vault.getTotalByAttributes(null, null, null));
+        List<String> tempEntries = new ArrayList<String>();
 
-        System.out.println("\nNumber of entries by media type: ");
-        MediaType[] types = MediaType.values();
-        for (MediaType type : types)
-            System.out.println(type + ": " + vault.getTotalByAttributes(type, null, null));
+        createBoard("Library Summary", List.of());
 
-        System.out.println("\nNumber of entries by genre: ");
-        Genre[] genreList = Genre.values();
-        for (Genre genre : genreList)
-        {
-            ArrayList<Genre> genreDisp = new ArrayList<>();
-            genreDisp.add(genre);
-            if (vault.getTotalByAttributes(null, null, genreDisp) > 0)
-                System.out.println(genre + ": " + vault.getTotalByAttributes(null, null, genreDisp));
+        tempEntries = List.of(
+            Long.toString(vault.getTotalByAttributes(null, null, null))
+        );
+
+        createBoard("--- Total Number of Entries", tempEntries);
+
+        tempEntries.clear();
+
+        for (MediaType type : MediaType.values()) {
+            tempEntries.add(String.format("%s: %d",
+                type.getName(),
+                vault.getTotalByAttributes(type, null, null)
+            ));
         }
 
-        System.out.println("\nNumber of entries by status: ");
-        Status[] statusList = Status.values();
-        for (Status status : statusList)
-            System.out.println(status + ": " + vault.getTotalByAttributes(null, status, null));
+        createBoard("--- Number of entries by media type", tempEntries);
+
+        tempEntries.clear();
+
+        for (Genre genre : Genre.values()) {
+            if (genre == Genre.INVALID)
+                continue;
+
+            ArrayList<Genre> genreDisp = new ArrayList<>();
+            genreDisp.add(genre);
+            long total = vault.getTotalByAttributes(null, null, genreDisp);
+            if (total > 0)
+                tempEntries.add(String.format("%s: %d",
+                    genre.getName(), total
+                ));
+        }
+        createBoard("--- Number of entries by genre", tempEntries);
+
+        tempEntries.clear();
+
+        for (Status status : Status.values()) {
+            tempEntries.add(String.format("%s: %d",
+                status.getName(), vault.getTotalByAttributes(null, status, null)
+            ));
+        }
+        createBoard("--- Number of entries by status", tempEntries);
+
+        tempEntries.clear();
 
         float totalRating = 0;
         for (MediaEntry entry : vault.getEntries(null, 0, null, Status.COMPLETED, null))
             totalRating += vault.getEntry(entry.getDetails().getTitle(), 0).getRating();
         float averageRating = totalRating / vault.getTotalByAttributes(null, Status.COMPLETED, null);
-        System.out.println("\nAverage rating: " + averageRating);
+
+        tempEntries = List.of(Float.toString(averageRating));
+
+        createBoard("--- Average Rating", tempEntries);
+
+        tempEntries.clear();
     }
 }

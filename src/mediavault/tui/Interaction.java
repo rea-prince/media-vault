@@ -45,7 +45,7 @@ abstract public class Interaction {
         ArrayList<String> validIds = new ArrayList<String>();
         for (Genre g : Genre.values()) {
             if (g != Genre.INVALID) {
-                genreList.add(String.format("[%d] - %s", g.getId(), g.name()));
+                genreList.add(String.format("[%d] - %s", g.getId(), g.getName()));
                 validIds.add(String.valueOf(g.getId()));
             }
         }
@@ -380,45 +380,27 @@ abstract public class Interaction {
 
         }
 
-        ArrayList<MediaEntry> mediaList = vault.getEntries(null, year, media, status, genre);
-        for (MediaEntry entry : mediaList)
+        for (MediaEntry entry : vault.getEntries(null, year, media, status, genre))
         {
-            System.out.println(entry.getDetails().getTitle());
-            System.out.println("Release year: " + entry.getDetails().getYear());
-            System.out.println("Synopsis: " + entry.getDetails().getSynopsis());
-            System.out.print("Genres: ");
-            ArrayList<Genre> genreList = entry.getGenres();
-            for (Genre entryGenre : genreList)
-                System.out.print(entryGenre + ", ");
-            System.out.println("Status: " + entry.getStatus());
+            Display.displayEntryDetails(entry);
 
-            if(entry instanceof Anime)
-            {
-                Anime anime = new Anime(entry.getDetails().getYear(), entry.getDetails().getTitle(), entry.getDetails().getSynopsis(),
-                                        entry.getGenres(), null, null, entry.getStatus());
+            if(entry instanceof Anime) {
+                Anime anime = (Anime) entry;
                 System.out.println("Alternate title: " + anime.getAlternativeTitle());
                 System.out.println("Studio: " + anime.getStudio());
             }
-            else if(entry instanceof Novel)
-            {
-                Novel novel = new Novel(entry.getDetails().getYear(), entry.getDetails().getTitle(), entry.getDetails().getSynopsis(),
-                                        entry.getGenres(), null, null, entry.getStatus(), 0);
+            else if(entry instanceof Novel) {
+                Novel novel = (Novel) entry;
                 System.out.println("Author: " + novel.getAuthor());
                 System.out.println("Publisher: " + novel.getPublisher());
                 System.out.println("Number of chapters: " + novel.getChapters());
             }
-            else if(entry instanceof VideoGame)
-            {
-                VideoGame videoGame = new VideoGame(entry.getDetails().getYear(), entry.getDetails().getTitle(),
-                                                    entry.getDetails().getSynopsis(), entry.getGenres(),
-                                                    null, null, entry.getStatus());
+            else if(entry instanceof VideoGame) {
+                VideoGame videoGame = (VideoGame) entry;
+
                 System.out.println("Studio: " + videoGame.getStudio());
                 System.out.println("Publisher: " + videoGame.getPublisher());
             }
-            System.out.print("\nView next entry? Press 'B' to go back, 'N' to proceed, or 'X' to exit. ");
         }
-
-        genre.remove(0);
-        scanner.close();
     }
 }
