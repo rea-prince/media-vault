@@ -203,7 +203,12 @@ abstract public class Interaction {
         ArrayList<String> animeTitles = new ArrayList<>();
 
         for (MediaEntry entry : vault.getEntries(null, 0, MediaType.ANIME, null, null)) {
-            animeTitles.add(entry.getDetails().getTitle());
+            animeTitles.add(
+                String.format("%s (%d)",
+                    entry.getDetails().getTitle(),
+                    entry.getDetails().getYear()
+                )
+            );
         }
 
         Display.createBoard("Add Anime Episode", animeTitles);
