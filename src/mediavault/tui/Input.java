@@ -1,18 +1,6 @@
 package mediavault.tui;
 
-import mediavault.enums.Genre;
-import mediavault.enums.MediaType;
-import mediavault.enums.Status;
-
-import mediavault.models.Anime;
-import mediavault.models.Novel;
-import mediavault.models.VideoGame;
-import mediavault.models.MediaEntry;
-import mediavault.models.MediaVault;
-
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 import java.util.Scanner;
 
 abstract public class Input

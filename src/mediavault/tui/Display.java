@@ -1,7 +1,6 @@
 package mediavault.tui;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 import java.util.List;
 
 import mediavault.enums.Genre;
@@ -33,13 +32,17 @@ abstract public class Display
             paddingSize = Math.max(0, paddingSize);
 
             String padding = "=".repeat(paddingSize);
+
+            System.out.print("\033[H\033[2J");
+            System.out.flush();
             System.out.printf("%s %s %s\n", padding, title, padding);
         }
-        for (String option : options) {
-            if (option == null || option.trim().isEmpty())
-                continue;
-
-            System.out.println(option);
+        if (options != null) {
+            for (String option : options) {
+                if (option == null || option.trim().isEmpty())
+                    continue;
+                System.out.println(option);
+            }
         }
     }
 
@@ -67,18 +70,30 @@ abstract public class Display
         System.out.println("Status: " + entry.getStatus());
     }
 
-    public static void mainMenu()
+    public static void showEntries(ArrayList<MediaEntry> entries)
     {
-        createBoard("Media Vault", List.of(
-            "[A] Add a new entry",
-            "[B] Add anime episodes",
-            "[D] Delete an entry",
-            "[U] Update an entry",
-            "[R] Rate and review an entry",
-            "[E] Display the entire library",
-            "[S] Summarize the library",
-            "[X] Exit"
-        ));
+        for (MediaEntry entry : entries)
+        {
+            Display.displayEntryDetails(entry);
+
+            if(entry instanceof Anime) {
+                Anime anime = (Anime) entry;
+                System.out.println("Alternate title: " + anime.getAlternativeTitle());
+                System.out.println("Studio: " + anime.getStudio());
+            }
+            else if(entry instanceof Novel) {
+                Novel novel = (Novel) entry;
+                System.out.println("Author: " + novel.getAuthor());
+                System.out.println("Publisher: " + novel.getPublisher());
+                System.out.println("Number of chapters: " + novel.getChapters());
+            }
+            else if(entry instanceof VideoGame) {
+                VideoGame videoGame = (VideoGame) entry;
+
+                System.out.println("Studio: " + videoGame.getStudio());
+                System.out.println("Publisher: " + videoGame.getPublisher());
+            }
+        }
     }
 
     public static void summarize(MediaVault vault)

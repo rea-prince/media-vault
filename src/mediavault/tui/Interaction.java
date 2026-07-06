@@ -15,6 +15,56 @@ import java.util.List;
 
 abstract public class Interaction {
 
+    public static void mainEntry(MediaVault vault) {
+        String option;
+        do {
+            if (vault == null) {
+                System.out.println("ERROR: Could not load vault.");
+            }
+
+            Display.createBoard("Media Vault", List.of(
+                "[A] Add a new entry",
+                "[B] Add anime episodes",
+                "[D] Delete an entry",
+                "[U] Update an entry",
+                "[R] Rate and review an entry",
+                "[E] Display the entire library",
+                "[S] Summarize the library",
+                "[X] Exit"
+            ));
+
+            option = Input.getStrInput(
+                "Choose what to do",
+                "A", "B", "D", "U", "R", "E", "S", "X"
+            );
+
+            switch(option) {
+                case "A": {
+                    promptAdd(vault);
+                } break;
+                case "B": {
+                    promptAddAnimeEpisodes(vault);
+                } break;
+                case "D": {
+                    promptDelete(vault);
+                } break;
+                case "U": {
+                    promptUpdate(vault);
+                } break;
+                case "R": {
+                    promptAssign(vault);
+                } break;
+                case "E": {
+                    showEntries(vault);
+                } break;
+                case "S": {
+                    Display.summarize(vault);
+                } break;
+            }
+        } while (!option.equals("X"));
+
+    }
+
     public static void promptAdd(MediaVault vault)
     {
         String entryType;
@@ -50,7 +100,6 @@ abstract public class Interaction {
             }
         }
 
-        // TO DO: update this
 
         Display.createBoard("--- Genre options", genreList);
         String rawIn = Input.getStrInput("Genre");
@@ -251,7 +300,7 @@ abstract public class Interaction {
             return;
         }
 
-        entry.setRating(Input.getFloatInput("Rating"));
+        entry.setRating(Input.getFloatInput("Rating", 0.0f, 5.0f));
         entry.setReview(Input.getStrInput("Review"));
     }
 
@@ -285,7 +334,7 @@ abstract public class Interaction {
         return media;
     }
 
-    private static ArrayList<Genre>  filterByGenre()
+    private static ArrayList<Genre> filterByGenre()
     {
         ArrayList<String> validIds = new ArrayList<>();
 
@@ -380,27 +429,6 @@ abstract public class Interaction {
 
         }
 
-        for (MediaEntry entry : vault.getEntries(null, year, media, status, genre))
-        {
-            Display.displayEntryDetails(entry);
-
-            if(entry instanceof Anime) {
-                Anime anime = (Anime) entry;
-                System.out.println("Alternate title: " + anime.getAlternativeTitle());
-                System.out.println("Studio: " + anime.getStudio());
-            }
-            else if(entry instanceof Novel) {
-                Novel novel = (Novel) entry;
-                System.out.println("Author: " + novel.getAuthor());
-                System.out.println("Publisher: " + novel.getPublisher());
-                System.out.println("Number of chapters: " + novel.getChapters());
-            }
-            else if(entry instanceof VideoGame) {
-                VideoGame videoGame = (VideoGame) entry;
-
-                System.out.println("Studio: " + videoGame.getStudio());
-                System.out.println("Publisher: " + videoGame.getPublisher());
-            }
-        }
+        Display.showEntries(vault.getEntries(null, year, media, status, genre));
     }
 }
