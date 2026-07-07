@@ -6,7 +6,7 @@ import mediavault.enums.*;
 
 public class Anime extends MediaEntry
 {
-    ArrayList<Details> episodes;
+    private ArrayList<Details> episodes;
     private String studio;
     private final String alternativeTitle;
 
@@ -30,7 +30,8 @@ public class Anime extends MediaEntry
         setLastModified(LocalDateTime.now());
     }
 
-    public void setStudio(String newStudio) {
+    public void setStudio(String newStudio) 
+    {
         studio = newStudio;
         setLastModified(LocalDateTime.now());
     }
@@ -43,5 +44,10 @@ public class Anime extends MediaEntry
     public String getAlternativeTitle()
     {
         return alternativeTitle;
+    }
+
+    public ArrayList<Details> getAnimeEpisodes()
+    {
+        return episodes;
     }
 }

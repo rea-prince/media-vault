@@ -8,6 +8,7 @@ import mediavault.enums.MediaType;
 import mediavault.enums.Status;
 
 import mediavault.models.Anime;
+import mediavault.models.Details;
 import mediavault.models.MediaEntry;
 import mediavault.models.Novel;
 import mediavault.models.VideoGame;
@@ -46,7 +47,8 @@ abstract public class Display
         }
     }
 
-    public static void displayGenres() {
+    public static void displayGenres() 
+    {
         ArrayList<String> genreOptions = new ArrayList<>();
         ArrayList<String> validIds = new ArrayList<>();
 
@@ -60,7 +62,8 @@ abstract public class Display
         Display.createBoard("Genre", genreOptions);
     }
 
-    public static void displayEntryDetails(MediaEntry entry) {
+    public static void displayEntryDetails(MediaEntry entry) 
+    {
 
         // TO DO: Add lastModified
 
@@ -74,6 +77,13 @@ abstract public class Display
         System.out.println(" > Status: " + entry.getStatus().getName());
     }
 
+    public static void displayAnimeEpisode(Details episode) 
+    {
+        System.out.println(episode.getTitle());
+        System.out.println(" > Release: " + episode.getYear());
+        System.out.println(" > Synopsis: " + episode.getSynopsis());
+    }
+
     public static void showEntries(ArrayList<MediaEntry> entries)
     {
         for (MediaEntry entry : entries)
@@ -84,6 +94,13 @@ abstract public class Display
                 Anime anime = (Anime) entry;
                 System.out.println(" > Alternate title: " + anime.getAlternativeTitle());
                 System.out.println(" > Studio: " + anime.getStudio());
+                int i = 0;
+                for (Details episode : anime.getAnimeEpisodes())
+                {
+                    i++;
+                    System.out.print("Episode " + i + " - ");
+                    displayAnimeEpisode(episode);
+                }
             }
             else if(entry instanceof Novel) {
                 Novel novel = (Novel) entry;
