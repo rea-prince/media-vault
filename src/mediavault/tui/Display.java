@@ -16,8 +16,12 @@ import mediavault.models.MediaVault;
 
 abstract public class Display
 {
-    /* Displays a pre-formatted board with a header and a list of strings
+    /**
+     * Displays a pre-formatted board with a header and a list of strings
+     * @param title Title of the entry
+     * @param options List of choices for user to make
      *
+     * @return void
      */
     public static void createBoard(String title, List<String> options)
     {

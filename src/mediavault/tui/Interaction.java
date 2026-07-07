@@ -5,6 +5,7 @@ import mediavault.enums.MediaType;
 import mediavault.enums.Status;
 
 import mediavault.models.Anime;
+import mediavault.models.Details;
 import mediavault.models.Novel;
 import mediavault.models.VideoGame;
 import mediavault.models.MediaEntry;
@@ -27,43 +28,44 @@ abstract public class Interaction {
             Display.createBoard("Media Vault", List.of(
                 "[1] Add a new entry",
                 "[2] Add anime episodes",
-                "[3] Delete an entry",
-                "[4] Update an entry",
-                "[5] Rate and review an entry",
-                "[6] Display the entire library",
-                "[7] Summarize the library",
+                "[3] View anime episodes",
+                "[4] Delete an entry",
+                "[5] Update an entry",
+                "[6] Rate and review an entry",
+                "[7] Display the entire library",
+                "[8] Summarize the library",
                 "[0] Exit"
             ));
 
             option = Input.getStrInput(
                 "Choose what to do",
-                "A", "B", "D", "U", "R", "E", "S", "X"
+                "1", "2", "3", "4", "5", "6", "7", "8", "0"
             );
 
             switch(option) {
-                case "A": {
+                case "1": {
                     promptAdd(vault);
                 } break;
-                case "B": {
+                case "2": {
                     promptAddAnimeEpisodes(vault);
                 } break;
-                case "D": {
+                case "3": {
                     promptDelete(vault);
                 } break;
-                case "U": {
+                case "4": {
                     promptUpdate(vault);
                 } break;
-                case "R": {
+                case "5": {
                     promptAssign(vault);
                 } break;
-                case "E": {
+                case "6": {
                     showEntries(vault);
                 } break;
-                case "S": {
+                case "7": {
                     Display.summarize(vault);
                 } break;
             }
-        } while (!option.equals("X"));
+        } while (!option.equals("0"));
 
     }
 
@@ -250,6 +252,53 @@ abstract public class Interaction {
         chosenAnime.addEpisode(release, title, synopsis);
     }
 
+    /**
+     * Allows the user to view episodes of their anime of choice
+     * @param vault List of media entries
+     *
+     * @return void
+     */
+    public static void viewAnimeEpisodes(MediaVault vault) 
+    {
+        ArrayList<String> entries = new ArrayList<>();
+
+        for (MediaEntry anime : vault.getEntries(null, 0, MediaType.ANIME, null, null)) {
+            entries.add(String.format(
+                "%s (%d)",
+                anime.getDetails().getTitle(), anime.getDetails().getYear()
+            ));
+        }
+
+        Display.createBoard("View Anime Episodes", entries);
+
+        String media = Input.getStrInput("Title");
+        int year = Input.getIntInput("Release Year");
+
+        Anime anime = (Anime) vault.getEntry(media, year);
+
+        if (anime == null) {
+            System.out.println("Entry not found.");
+            Input.holdScreen("Press ENTER to exit this view.");
+            return;
+        }
+
+        int i = 0;
+        for (Details episode : anime.getAnimeEpisodes())
+        {
+            i++;
+            System.out.print("Episode " + i + " - ");
+            Display.displayAnimeEpisode(episode);
+        }
+
+        Input.holdScreen("Press ENTER to exit this view.");
+    }
+
+    /**
+     * Allows the user to change an entry's status
+     * @param vault List of media entries
+     *
+     * @return void
+     */
     public static void promptUpdate(MediaVault vault)
     {
         ArrayList<String> entries = new ArrayList<>();
