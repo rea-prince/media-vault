@@ -210,6 +210,8 @@ abstract public class Interaction
 
         Display.createBoard("--- Episode Details", null);
 
+        // TO DO: Make this continuous
+
         String title = Input.getStrInput("Title");
         int release = Input.getIntInput("Release Year");
         String synopsis = Input.getStrInput("Synopsis");
