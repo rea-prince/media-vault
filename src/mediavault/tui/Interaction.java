@@ -14,8 +14,14 @@ import mediavault.models.MediaVault;
 import java.util.ArrayList;
 import java.util.List;
 
-abstract public class Interaction {
-
+abstract public class Interaction 
+{
+    /**
+     * Displays the main menu and triggers the user's choice of feature
+     * @param vault Container of media entries
+     *
+     * @return void
+     */
     public static void mainEntry(MediaVault vault) {
         String option;
         do {
@@ -71,7 +77,7 @@ abstract public class Interaction {
 
     /**
      * Prompts the user to add a media entry and its details to the vault
-     * @param vault List of media entries
+     * @param vault Container of media entries
      *
      * @return void
      */
@@ -175,7 +181,7 @@ abstract public class Interaction {
 
     /**
      * Prompts the user to delete a media entry of their choice
-     * @param vault List of media entries
+     * @param vault Container of media entries
      *
      * @return void
      */
@@ -211,7 +217,7 @@ abstract public class Interaction {
 
     /**
      * Prompts the user to add episodes and its details to their anime of choice
-     * @param vault List of media entries
+     * @param vault Container of media entries
      *
      * @return void
      */
@@ -254,7 +260,7 @@ abstract public class Interaction {
 
     /**
      * Allows the user to view episodes of their anime of choice
-     * @param vault List of media entries
+     * @param vault Container of media entries
      *
      * @return void
      */
@@ -295,7 +301,7 @@ abstract public class Interaction {
 
     /**
      * Allows the user to change an entry's status
-     * @param vault List of media entries
+     * @param vault Container of media entries
      *
      * @return void
      */
@@ -346,7 +352,7 @@ abstract public class Interaction {
 
     /**
      * Allows the user to rate and review a completed media entry
-     * @param vault List of media entries
+     * @param vault Container of media entries
      *
      * @return void
      */

@@ -51,6 +51,11 @@ abstract public class Display
         }
     }
 
+    /**
+     * Displays the list of genres the user can pick for their media entry
+     *
+     * @return void
+     */
     public static void displayGenres() 
     {
         ArrayList<String> genreOptions = new ArrayList<>();
@@ -66,6 +71,12 @@ abstract public class Display
         Display.createBoard("Genre", genreOptions);
     }
 
+    /**
+     * Displays the title, release year, synopsis, genres, and status of an entry
+     * @param entry Media item
+     *
+     * @return void
+     */
     public static void displayEntryDetails(MediaEntry entry) 
     {
 
@@ -81,6 +92,12 @@ abstract public class Display
         System.out.println(" > Status: " + entry.getStatus().getName());
     }
 
+    /**
+     * Displays the title, release year, and synopsis an anime episode
+     * @param episode Anime episode
+     *
+     * @return void
+     */
     public static void displayAnimeEpisode(Details episode) 
     {
         System.out.println(episode.getTitle());
@@ -88,6 +105,12 @@ abstract public class Display
         System.out.println(" > Synopsis: " + episode.getSynopsis());
     }
 
+    /**
+     * Displays the details exclusive to each media type
+     * @param entries List of media items
+     *
+     * @return void
+     */
     public static void showEntries(ArrayList<MediaEntry> entries)
     {
         for (MediaEntry entry : entries)
@@ -121,6 +144,12 @@ abstract public class Display
         }
     }
 
+    /**
+     * Displays a summary of the details of the existing media entries
+     * @param vault Container of media entries
+     *
+     * @return void
+     */
     public static void summarize(MediaVault vault)
     {
         List<String> tempEntries = new ArrayList<String>();
