@@ -1,5 +1,8 @@
 package mediavault.models;
-public class Details
+
+import java.io.Serializable;
+
+public class Details implements Serializable
 {
     private int year;
     private String title;

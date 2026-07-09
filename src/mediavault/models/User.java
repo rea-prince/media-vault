@@ -1,5 +1,8 @@
 package mediavault.models;
-public class User
+
+import java.io.Serializable;
+
+public class User implements Serializable
 {
     MediaVault vault = new MediaVault();
     private int ID;

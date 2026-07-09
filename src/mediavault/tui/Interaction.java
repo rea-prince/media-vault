@@ -334,7 +334,7 @@ abstract public class Interaction
             return;
         }
 
-        entry.setRating(Input.getFloatInput("Rating", 0.0f, 5.0f));
+        entry.setRating(Input.getFloatInput("Rating", 0.0f, 10.0f));
         entry.setReview(Input.getStrInput("Review"));
     }
 

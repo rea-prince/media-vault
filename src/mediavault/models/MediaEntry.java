@@ -2,12 +2,13 @@ package mediavault.models;
 
 import java.util.ArrayList;
 import java.time.LocalDateTime;
+import java.io.Serializable;
 
 import mediavault.enums.Genre;
 import mediavault.enums.MediaType;
 import mediavault.enums.Status;
 
-abstract public class MediaEntry
+abstract public class MediaEntry implements Serializable
 {
     private LocalDateTime lastModified;
 
@@ -29,8 +30,8 @@ abstract public class MediaEntry
 
     public void setRating(float rating)
     {
-        if (rating > 5.0) {
-            this.rating = 5.0f;
+        if (rating > 10.0f) {
+            this.rating = 10.0f;
         } else if (rating < 0.0) {
             this.rating = 0.0f;
         } else {

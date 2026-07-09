@@ -1,11 +1,12 @@
 package mediavault.models;
 import java.util.ArrayList;
+import java.io.Serializable;
 
 import mediavault.enums.Status;
 import mediavault.enums.MediaType;
 import mediavault.enums.Genre;
 
-public class MediaVault
+public class MediaVault implements Serializable
 {
     ArrayList<MediaEntry> entries;
 
