@@ -14,7 +14,7 @@ import mediavault.models.MediaVault;
 import java.util.ArrayList;
 import java.util.List;
 
-abstract public class Interaction 
+abstract public class Interaction
 {
     /**
      * Displays the main menu and triggers the user's choice of feature
@@ -23,13 +23,11 @@ abstract public class Interaction
      * @return void
      */
     public static void mainEntry(MediaVault vault) {
-        String option;
+        int option;
         do {
             if (vault == null) {
                 System.out.println("ERROR: Could not load vault.");
             }
-
-            // TO DO: Add anime episodes view
 
             Display.createBoard("Media Vault", List.of(
                 "[1] Add a new entry",
@@ -43,35 +41,22 @@ abstract public class Interaction
                 "[0] Exit"
             ));
 
-            option = Input.getStrInput(
+            option = Input.getIntInput(
                 "Choose what to do",
-                "1", "2", "3", "4", "5", "6", "7", "8", "0"
+                0, 8
             );
 
             switch(option) {
-                case "1": {
-                    promptAdd(vault);
-                } break;
-                case "2": {
-                    promptAddAnimeEpisodes(vault);
-                } break;
-                case "3": {
-                    promptDelete(vault);
-                } break;
-                case "4": {
-                    promptUpdate(vault);
-                } break;
-                case "5": {
-                    promptAssign(vault);
-                } break;
-                case "6": {
-                    showEntries(vault);
-                } break;
-                case "7": {
-                    Display.summarize(vault);
-                } break;
+                case 1: { promptAdd(vault); } break;
+                case 2: { promptAddAnimeEpisodes(vault); } break;
+                case 3: { viewAnimeEpisodes(vault); } break;
+                case 4: { promptDelete(vault); } break;
+                case 5: { promptUpdate(vault); } break;
+                case 6: { promptAssign(vault); } break;
+                case 7: { showEntries(vault); } break;
+                case 8: { Display.summarize(vault); } break;
             }
-        } while (!option.equals("0"));
+        } while (option != 0);
 
     }
 
@@ -163,16 +148,9 @@ abstract public class Interaction
 
         if (entry != null) {
             switch (status) {
-               	case "P": {
-                    entry.setStatus(Status.PLANNED);
-                } break;
-                case "I": {
-                    entry.setStatus(Status.IN_PROGRESS);
-                } break;
-                case "C": {
-                    entry.setStatus(Status.COMPLETED);
-                } break;
-
+               	case "P": { entry.setStatus(Status.PLANNED); } break;
+                case "I": { entry.setStatus(Status.IN_PROGRESS); } break;
+                case "C": { entry.setStatus(Status.COMPLETED); } break;
             }
         }
 
@@ -187,18 +165,8 @@ abstract public class Interaction
      */
     public static void promptDelete(MediaVault vault)
     {
-        ArrayList<String> entries = new ArrayList<>();
-
-        /* PRINT */
-
-        for (MediaEntry entry : vault.getAll()) {
-            entries.add(String.format(
-                "%s (%d)",
-                entry.getDetails().getTitle(),
-                entry.getDetails().getYear()
-            ));
-        }
-        Display.createBoard("Delete", entries);
+        Display.createBoard("Delete", null);
+        Display.showTitles(vault);
 
         /* INPUT */
 
@@ -226,18 +194,8 @@ abstract public class Interaction
 
         /* print */
 
-        ArrayList<String> animeTitles = new ArrayList<>();
-
-        for (MediaEntry entry : vault.getEntries(null, 0, MediaType.ANIME, null, null)) {
-            animeTitles.add(
-                String.format("%s (%d)",
-                    entry.getDetails().getTitle(),
-                    entry.getDetails().getYear()
-                )
-            );
-        }
-
-        Display.createBoard("Add Anime Episode", animeTitles);
+        Display.createBoard("Add Anime Episode", null);
+        Display.showTitles(vault);
 
         /* option */
 
@@ -264,7 +222,7 @@ abstract public class Interaction
      *
      * @return void
      */
-    public static void viewAnimeEpisodes(MediaVault vault) 
+    public static void viewAnimeEpisodes(MediaVault vault)
     {
         ArrayList<String> entries = new ArrayList<>();
 
@@ -280,10 +238,17 @@ abstract public class Interaction
         String media = Input.getStrInput("Title");
         int year = Input.getIntInput("Release Year");
 
-        Anime anime = (Anime) vault.getEntry(media, year);
+        MediaEntry entry = vault.getEntry(media, year);
+        Anime anime;
 
-        if (anime == null) {
+        if (entry instanceof Anime) {
+            anime = (Anime) vault.getEntry(media, year);
+        } else if (entry == null) {
             System.out.println("Entry not found.");
+            Input.holdScreen("Press ENTER to exit this view.");
+            return;
+        } else {
+            System.out.println("Entry is not an anime.");
             Input.holdScreen("Press ENTER to exit this view.");
             return;
         }
@@ -307,16 +272,8 @@ abstract public class Interaction
      */
     public static void promptUpdate(MediaVault vault)
     {
-        ArrayList<String> entries = new ArrayList<>();
-
-        for (MediaEntry entry : vault.getAll()) {
-            entries.add(String.format(
-                "%s (%d)",
-                entry.getDetails().getTitle(), entry.getDetails().getYear()
-            ));
-        }
-
-        Display.createBoard("Update Available Entries", entries);
+        Display.createBoard("Update Available Entries", null);
+        Display.showTitles(vault);
 
         String media = Input.getStrInput("Title");
         int year = Input.getIntInput("Release Year");
@@ -336,17 +293,9 @@ abstract public class Interaction
         ));
 
         switch (Input.getStrInput("Status", "P", "I", "C")) {
-            case "P":
-                entry.setStatus(Status.PLANNED);
-                break;
-
-            case "I":
-                entry.setStatus(Status.IN_PROGRESS);
-                break;
-
-            case "C":
-                entry.setStatus(Status.COMPLETED);
-                break;
+            case "P": { entry.setStatus(Status.PLANNED);  }break;
+            case "I": { entry.setStatus(Status.IN_PROGRESS); } break;
+            case "C": { entry.setStatus(Status.COMPLETED); } break;
         }
     }
 
@@ -375,6 +324,13 @@ abstract public class Interaction
 
         if (entry == null) {
             System.out.println("Entry not found or status not complete.");
+            Input.holdScreen("Press ENTER to exit this view.");
+            return;
+        }
+
+        if (entry.getStatus() != Status.COMPLETED) {
+            System.out.println("Entry cannot be rated unless it is completed.");
+            Input.holdScreen("Press ENTER to exit this view.");
             return;
         }
 
@@ -402,17 +358,9 @@ abstract public class Interaction
         MediaType media = null;
 
         switch (Input.getStrInput("Media Type", "A", "N", "V")) {
-            case "A":
-                media = MediaType.ANIME;
-                break;
-
-            case "N":
-                media = MediaType.NOVEL;
-                break;
-
-            case "V":
-                media = MediaType.VIDEOGAME;
-                break;
+            case "A": { media = MediaType.ANIME; } break;
+            case "N": { media = MediaType.NOVEL; } break;
+            case "V": { media = MediaType.VIDEOGAME; } break;
         }
 
         return media;
@@ -458,17 +406,9 @@ abstract public class Interaction
         Status status = null;
 
         switch (Input.getStrInput("Status", "P", "I", "C")) {
-            case "P":
-                status = Status.PLANNED;
-                break;
-
-            case "I":
-                status = Status.IN_PROGRESS;
-                break;
-
-            case "C":
-                status = Status.COMPLETED;
-                break;
+            case "P": { status = Status.PLANNED; } break;
+            case "I": { status = Status.IN_PROGRESS; } break;
+            case "C": { status = Status.COMPLETED; } break;
         }
 
         return status;

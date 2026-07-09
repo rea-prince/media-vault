@@ -41,6 +41,7 @@ abstract public class Display
             System.out.print("\033[H\033[2J");
             System.out.flush();
             System.out.printf("%s %s %s\n", padding, title, padding);
+            System.out.flush();
         }
         if (options != null) {
             for (String option : options) {
@@ -56,7 +57,7 @@ abstract public class Display
      *
      * @return void
      */
-    public static void displayGenres() 
+    public static void displayGenres()
     {
         ArrayList<String> genreOptions = new ArrayList<>();
         ArrayList<String> validIds = new ArrayList<>();
@@ -77,17 +78,20 @@ abstract public class Display
      *
      * @return void
      */
-    public static void displayEntryDetails(MediaEntry entry) 
+    public static void displayEntryDetails(MediaEntry entry)
     {
 
         // TO DO: Add lastModified
 
-        System.out.println(entry.getDetails().getTitle());
-        System.out.println(" > Release: " + entry.getDetails().getYear());
+        System.out.printf("%s (%d)",
+            entry.getDetails().getTitle(),
+            entry.getDetails().getYear()
+        );
+        System.out.flush();
         System.out.println(" > Synopsis: " + entry.getDetails().getSynopsis());
         System.out.print(" > Genres: ");
         for (Genre entryGenre : entry.getGenres())
-            System.out.print(entryGenre.getName() + ", ");
+            System.out.print(entryGenre.getName() + "   ");
         System.out.println();
         System.out.println(" > Status: " + entry.getStatus().getName());
     }
@@ -98,10 +102,10 @@ abstract public class Display
      *
      * @return void
      */
-    public static void displayAnimeEpisode(Details episode) 
+    public static void displayAnimeEpisode(Details episode)
     {
-        System.out.println(episode.getTitle());
-        System.out.println(" > Release: " + episode.getYear());
+        System.out.printf("%s (%d)", episode.getTitle(), episode.getYear());
+        System.out.flush();
         System.out.println(" > Synopsis: " + episode.getSynopsis());
     }
 
@@ -121,13 +125,13 @@ abstract public class Display
                 Anime anime = (Anime) entry;
                 System.out.println(" > Alternate title: " + anime.getAlternativeTitle());
                 System.out.println(" > Studio: " + anime.getStudio());
-                int i = 0;
-                for (Details episode : anime.getAnimeEpisodes())
-                {
-                    i++;
-                    System.out.print("Episode " + i + " - ");
-                    displayAnimeEpisode(episode);
-                }
+                // int i = 0;
+                // for (Details episode : anime.getAnimeEpisodes())
+                // {
+                //     i++;
+                //     System.out.print("Episode " + i + " - ");
+                //     displayAnimeEpisode(episode);
+                // }
             }
             else if(entry instanceof Novel) {
                 Novel novel = (Novel) entry;
@@ -142,6 +146,16 @@ abstract public class Display
                 System.out.println(" > Publisher: " + videoGame.getPublisher());
             }
         }
+    }
+
+    public static void showTitles(MediaVault vault) {
+        for (MediaEntry entry : vault.getAll()) {
+            System.out.printf("%s (%d)",
+                entry.getDetails().getTitle(),
+                entry.getDetails().getYear()
+            );
+        }
+        System.out.flush();
     }
 
     /**

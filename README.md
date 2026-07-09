@@ -10,5 +10,5 @@ javac -d out --source-path src src/mediavault/Main.java
 Run command:
 
 ```bash
-java -cp out mediavault.main
+java -cp out mediavault.Main
 ```

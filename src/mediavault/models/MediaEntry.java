@@ -29,7 +29,13 @@ abstract public class MediaEntry
 
     public void setRating(float rating)
     {
-        this.rating = rating;
+        if (rating > 5.0) {
+            this.rating = 5.0f;
+        } else if (rating < 0.0) {
+            this.rating = 0.0f;
+        } else {
+            this.rating = rating;
+        }
         lastModified = LocalDateTime.now();
     }
 

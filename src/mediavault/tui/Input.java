@@ -93,7 +93,7 @@ abstract public class Input
     public static int getIntInput(String prompt, int min, int max)
     {
 
-        // int range
+        // int range (inclusive)
 
         while (true) {
             try {
