@@ -14,9 +14,7 @@ public class Anime extends MediaEntry
                   ArrayList<Genre> genres, String alternativeTitle,
                   String studio, Status status)
     {
-        setDetails(new Details(release, title, synopsis));
-        setGenres(genres);
-        setStatus(status);
+        super(MediaType.ANIME, new Details(release, title, synopsis), genres);
 
         this.alternativeTitle = alternativeTitle;
         this.studio = studio;
@@ -30,7 +28,7 @@ public class Anime extends MediaEntry
         setLastModified(LocalDateTime.now());
     }
 
-    public void setStudio(String newStudio) 
+    public void setStudio(String newStudio)
     {
         studio = newStudio;
         setLastModified(LocalDateTime.now());

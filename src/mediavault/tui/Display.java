@@ -83,7 +83,7 @@ abstract public class Display
 
         // TO DO: Add lastModified
 
-        System.out.printf("%s (%d)",
+        System.out.printf("%s (%d)\n",
             entry.getDetails().getTitle(),
             entry.getDetails().getYear()
         );
@@ -104,7 +104,7 @@ abstract public class Display
      */
     public static void displayAnimeEpisode(Details episode)
     {
-        System.out.printf("%s (%d)", episode.getTitle(), episode.getYear());
+        System.out.printf("%s (%d)\n", episode.getTitle(), episode.getYear());
         System.out.flush();
         System.out.println(" > Synopsis: " + episode.getSynopsis());
     }
@@ -150,7 +150,7 @@ abstract public class Display
 
     public static void showTitles(MediaVault vault) {
         for (MediaEntry entry : vault.getAll()) {
-            System.out.printf("%s (%d)",
+            System.out.printf("%s (%d)\n",
                 entry.getDetails().getTitle(),
                 entry.getDetails().getYear()
             );
@@ -166,17 +166,13 @@ abstract public class Display
      */
     public static void summarize(MediaVault vault)
     {
-        List<String> tempEntries = new ArrayList<String>();
+        ArrayList<String> tempEntries = new ArrayList<String>();
 
         createBoard("Library Summary", List.of());
 
-        tempEntries = List.of(
-            Long.toString(vault.getTotalByAttributes(null, null, null))
-        );
-
-        createBoard("--- Total Number of Entries", tempEntries);
-
-        tempEntries.clear();
+        createBoard("--- Total Number of Entries", List.of(
+            Long.toString(vault.getTotal())
+        ));
 
         for (MediaType type : MediaType.values()) {
             tempEntries.add(String.format("%s: %d",
@@ -216,13 +212,10 @@ abstract public class Display
 
         float totalRating = 0;
         for (MediaEntry entry : vault.getEntries(null, 0, null, Status.COMPLETED, null))
-            totalRating += vault.getEntry(entry.getDetails().getTitle(), 0).getRating();
+            totalRating += entry.getRating();
         float averageRating = totalRating / vault.getTotalByAttributes(null, Status.COMPLETED, null);
 
-        tempEntries = List.of(String.format("%.2f", averageRating));
+        createBoard("--- Average Rating", List.of(String.format("%.2f", averageRating)));
 
-        createBoard("--- Average Rating", tempEntries);
-
-        tempEntries.clear();
     }
 }

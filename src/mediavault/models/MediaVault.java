@@ -124,6 +124,11 @@ public class MediaVault implements Serializable
         ).count();
     }
 
+    public long getTotal()
+    {
+        return entries.size();
+    }
+
     // PROBABLY NOT THE JOB OF THIS CLASS
     // public float getAverageRating()
     // {

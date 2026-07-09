@@ -21,6 +21,12 @@ abstract public class MediaEntry implements Serializable
     private float rating;
     private String review;
 
+    protected MediaEntry(MediaType type, Details details, ArrayList<Genre> genres) {
+        this.TYPE = type;
+        this.details = details;
+        this.genres = genres;
+    }
+
 
     /* SETTERS */
 
