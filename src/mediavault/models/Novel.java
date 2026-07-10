@@ -5,9 +5,9 @@ import mediavault.enums.*;
 
 public class Novel extends MediaEntry
 {
-    private final int chapters;
-    private final String publisher;
-    private final String author;
+    private final int CHAPTERS;
+    private final String PUBLISHER;
+    private final String AUTHOR;
 
     /**
      * Constructs a new Novel media entry with its specific attributes.
@@ -30,9 +30,9 @@ public class Novel extends MediaEntry
     {
         super(MediaType.NOVEL, new Details(release, title, synopsis), genres);
 
-        this.publisher = publisher;
-        this.author = author;
-        this.chapters = chapters;
+        this.PUBLISHER = publisher;
+        this.AUTHOR = author;
+        this.CHAPTERS = chapters;
     }
 
     /**
@@ -43,7 +43,7 @@ public class Novel extends MediaEntry
      */
     public int getChapters()
     {
-        return chapters;
+        return CHAPTERS;
     }
 
     /**
@@ -54,7 +54,7 @@ public class Novel extends MediaEntry
      */
     public String getPublisher()
     {
-        return publisher;
+        return PUBLISHER;
     }
 
     /**
@@ -65,6 +65,6 @@ public class Novel extends MediaEntry
      */
     public String getAuthor()
     {
-        return author;
+        return AUTHOR;
     }
 }
