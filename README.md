@@ -1,5 +1,8 @@
 ## CCPROG3-MCO1
 
+Group 01
+- ALIP, Rafael Prince Naif E.
+- SY, Eryn Claire G.
 
 Compile command:
 
@@ -11,4 +14,10 @@ Run command:
 
 ```bash
 java -cp out mediavault.Main
+```
+
+Javadoc:
+
+```bash
+javadoc -d docs -sourcepath src -subpackages mediavault
 ```

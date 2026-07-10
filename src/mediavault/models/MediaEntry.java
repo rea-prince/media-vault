@@ -67,12 +67,14 @@ abstract public class MediaEntry implements Serializable
      */
     public void setRating(float rating)
     {
-        if (rating > 10.0f) {
-            this.rating = 10.0f;
-        } else if (rating < 0.0) {
-            this.rating = 0.0f;
-        } else {
-            this.rating = rating;
+        if (status == Status.COMPLETED) {
+            if (rating > 10.0f) {
+                this.rating = 10.0f;
+            } else if (rating < 0.0) {
+                this.rating = 0.0f;
+            } else {
+                this.rating = rating;
+            }
         }
         lastModified = LocalDateTime.now();
     }
@@ -89,7 +91,9 @@ abstract public class MediaEntry implements Serializable
      */
     public void setReview(String review)
     {
-        this.review = review;
+        if (status == Status.COMPLETED) {
+            this.review = review;
+        }
         lastModified = LocalDateTime.now();
     }
 
