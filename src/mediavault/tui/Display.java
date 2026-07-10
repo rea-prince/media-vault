@@ -100,7 +100,11 @@ abstract public class Display
         System.out.println(" > Synopsis: " + entry.getDetails().getSynopsis());
         System.out.print(" > Genres: ");
         for (Genre entryGenre : entry.getGenres())
-            System.out.print(entryGenre.getName() + " | ");
+        {
+            System.out.print(entryGenre.getName());
+            if(entryGenre != entry.getGenres().getLast())
+                System.out.print(" | ");
+        }
         System.out.println();
         System.out.println(" > Status: " + entry.getStatus().getName());
     }
