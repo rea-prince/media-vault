@@ -21,7 +21,19 @@ abstract public class MediaEntry implements Serializable
     private float rating;
     private String review;
 
-    protected MediaEntry(MediaType type, Details details, ArrayList<Genre> genres) {
+
+    /**
+     * Base constructor for initializing core fields common across all media types.
+     * <p>
+     * <b>Precondition:</b> type and details must not be null.<br>
+     * <b>Postcondition:</b> A MediaEntry subclass instance is safely configured.
+     * </p>
+     * @param type    The specific classification category from the MediaType enum.
+     * @param details The primary title, year, and synopsis details wrapper.
+     * @param genres  The initial array list of categories describing the entry.
+     */
+    protected MediaEntry(MediaType type, Details details, ArrayList<Genre> genres)
+    {
         this.TYPE = type;
         this.details = details;
         this.genres = genres;
@@ -30,10 +42,27 @@ abstract public class MediaEntry implements Serializable
 
     /* SETTERS */
 
-    public void setLastModified(LocalDateTime now) {
+    /**
+     * Updates the last time the entry was modified.
+     * <p>
+     * <b>Precondition:</b> now is not null.<br>
+     * <b>Postcondition:</b> The entry's lastModified timestamp is set to now.
+     * </p>
+     * @param now The LocalDateTime to update lastModified to.
+     */
+    public void setLastModified(LocalDateTime now)
+    {
         lastModified = now;
     }
 
+    /**
+     * Updates the user rating for the media entry and clamps the values between 0.0 and 10.0.
+     * <p>
+     * <b>Precondition:</b> None (out-of-bounds metrics are safely adjusted).<br>
+     * <b>Postcondition:</b> The entry's rating is altered and the lastModified timestamp is refreshed to the current date and time.
+     * </p>
+     * @param rating The numerical score evaluated by the user.
+     */
     public void setRating(float rating)
     {
         if (rating > 10.0f) {
@@ -46,22 +75,54 @@ abstract public class MediaEntry implements Serializable
         lastModified = LocalDateTime.now();
     }
 
+
+    /**
+     * Updates the user's review of the MediaEntry.
+     * <p>
+     * <b>Precondition:</b> review is not null.<br>
+     * <b>Postcondition:</b> The entry's review is altered and the lastModified timestamp is refreshed to the current date and time.
+     * </p>
+     * @param review The written review of the user.
+     */
     public void setReview(String review)
     {
         this.review = review;
         lastModified = LocalDateTime.now();
     }
 
+    /**
+     * Updates the status of the MediaEntry.
+     * <p>
+     * <b>Precondition:</b> status is not null.<br>
+     * <b>Postcondition:</b> The entry's status is altered and the lastModified timestamp is refreshed to the current date and time.
+     * </p>
+     * @param status The new status of the MediaEntry.
+     */
     public void setStatus(Status status)
     {
         this.status = status;
         lastModified = LocalDateTime.now();
     }
 
+    /**
+     * Updates the user rating for the media entry and clamps the values between 0.0 and 10.0.
+     * <p>
+     * <b>Precondition:</b> details is not null.<br>
+     * <b>Postcondition:</b> The entry's details are altered and the lastModified timestamp is refreshed to the current date and time.
+     * </p>
+     * @param details The updated details of the entry.
+     */
     public void setDetails(Details details) {
         this.details = details;
         lastModified = LocalDateTime.now();
     }
+
+    /**
+     * Sets the list of genres related to the MediaEntry.
+     * <b>Precondition:</b> genres is not null.<br>
+     * <b>Postcondition:</b> The entry's genres are altered and the lastModified timestamp is refreshed to the current date and time.
+     * @param genres The list of genres to set the MediaEntry's genres to.
+     */
     public void setGenres(ArrayList<Genre> genres) {
         this.genres = genres;
         lastModified = LocalDateTime.now();
@@ -69,32 +130,72 @@ abstract public class MediaEntry implements Serializable
 
     /* GETTERS */
 
+    /**
+     * Returns the MediaType Enum of the MediaEntry.
+     * <b>Precondition:</b> TYPE is not null.<br>
+     * <b>Postcondition:</b> None.
+     * @return MediaType The MediaType Enum assigned to the MediaEntry.
+     */
     public MediaType getMediaType() {
         return TYPE;
     }
 
+    /**
+     * Returns the Details of the MediaEntry.
+     * <b>Precondition:</b> details is not null.<br>
+     * <b>Postcondition:</b> None.
+     * @return Details The Details of the MediaEntry.
+     */
     public Details getDetails()
     {
         return details;
     }
 
+    /**
+     * Returns the list of Genres associated with the MediaEntry.
+     * <b>Precondition:</b> genres is not null.<br>
+     * <b>Postcondition:</b> None.
+     * @return ArrayList<Genre> The Genres associated with the MediaEntry.
+     */
     public ArrayList<Genre> getGenres()
     {
         return genres;
     }
 
+    /**
+     * Returns the MediaEntry's current Status.
+     * <b>Precondition:</b> status is not null.<br>
+     * <b>Postcondition:</b> None.
+     * @return Status The current Status of the MediaEntry.
+     */
     public Status getStatus()
     {
         return status;
     }
 
+    /**
+     * Returns the list of Genres associated with the MediaEntry.
+     * <b>Precondition:</b> rating has been assigned, and the entry has been completed.<br>
+     * <b>Postcondition:</b> None.
+     * @return float The current rating of the MediaEntry.
+     */
     public float getRating()
     {
-        return rating;
+        if (status == Status.COMPLETED)
+            return rating;
+        return -1f;
     }
 
+    /**
+     * Returns the user's review of the MediaEntry.
+     * <b>Precondition:</b> review is not null, and the entry has been completed.<br>
+     * <b>Postcondition:</b> None.
+     * @return String The user's review of the MediaEntry.
+     */
     public String getReview()
     {
-        return review;
+        if (status == Status.COMPLETED)
+            return review;
+        return null;
     }
 }

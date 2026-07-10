@@ -23,18 +23,36 @@ public enum Genre
     private final int id;
     private final String name;
 
+    /**
+     * Constructs a Genre ENUM with the given ID and name.
+     * @param id   Id of the enum to be created
+     * @param name Name of the enum to be created
+     */
     Genre(int id, String name) {
     	this.id = id;
         this.name = name;
     }
 
+    /**
+     * Returns the ID of the enum's instance.
+     * @return int ID of the enum's insstance
+     */
     public int getId() {
     	return this.id;
     }
+
+    /**
+     * Returns the name of the enum's instance.
+     * @return String ID of the enum's instance
+     */
     public String getName() {
         return this.name;
     }
 
+    /**
+     * Returns a Genre enum from an input ID
+     * @param id Id of the enum to be created
+     */
     public static Genre fromId(int id) {
     	for (Genre g : values()) {
      		if (g.id == id) {

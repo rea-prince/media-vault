@@ -15,21 +15,26 @@ abstract public class Input
         System.out.print(prompt + ": ");
         return scanner.nextLine().trim();
     }
-    public static String getStrInput(String prompt)
-    {
-
-        // this is for names and such
-
-        return readLine(prompt);
-    }
 
     /* strings */
+
 
     public static void holdScreen(String prompt) {
         System.out.print(prompt);
         scanner.nextLine();
     }
 
+
+    /**
+     * Prompts the user for a single-line string and loops until a valid token matching constraints is supplied.
+     * <p>
+     * <b>Precondition:</b> valid array contains standardized upper-case string configurations to benchmark against.<br>
+     * <b>Postcondition:</b> Returns a matching trimmed uppercase input string that successfully matched a value inside valid tokens.
+     * </p>
+     * @param prompt UI message instructions presented to the terminal.
+     * @param valid  Varargs array representing the permitted code inputs.
+     * @return String The approved user selection.
+     */
     public static String getStrInput(String prompt, String... valid)
     {
 
@@ -76,6 +81,17 @@ abstract public class Input
 
     /* integers */
 
+    /**
+     * Captures a single integer while guaranteeing that it sits safely between boundaries.
+     * <p>
+     * <b>Precondition:</b> min must be less than or equal to max.<br>
+     * <b>Postcondition:</b> Returns a structurally validated integer bounded perfectly between the minimum and maximum arguments.
+     * </p>
+     * @param prompt UI message instructions presented to the terminal.
+     * @param min    Lower numeric limit allowed (inclusive).
+     * @param max    Upper numeric limit allowed (inclusive).
+     * @return int Verified numerical choice.
+     */
     public static int getIntInput(String prompt)
     {
 
