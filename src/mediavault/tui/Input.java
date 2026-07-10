@@ -58,12 +58,12 @@ abstract public class Input
         // this is solely for menu interactions
 
         while (true) {
-            String input = readLine(prompt).toUpperCase();
+            String input = readLine(prompt);
 
             if (valid.length == 0)
-                continue;
+                return input;
 
-            if (Arrays.asList(valid).contains(input))
+            if (Arrays.asList(valid).contains(input.toUpperCase()))
                 return input;
 
             System.out.println("Invalid option, please try again.");
