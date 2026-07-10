@@ -64,11 +64,13 @@ public class MediaVault implements Serializable
         }
     }
 
-
+    /* GETTERS */
 
     /**
-     *
-     * @return int
+     * Returns the list of entries that the user has in their vault.
+     * <b>Precondition:</b> entries is not null.<br>
+     * <b>Postcondition:</b> None.
+     * @return ArrayList<MediaEntry> List of entries in the user's vault.
      */
     public ArrayList<MediaEntry> getAll()
     {
@@ -148,8 +150,10 @@ public class MediaVault implements Serializable
     }
 
     /**
-     *
-     * @return long
+     * Returns the total number of entries the user has in their vault.
+     * <b>Precondition:</b> entries is not null.<br>
+     * <b>Postcondition:</b> None.
+     * @return long The total number of entries in the user's vault
      */
     public long getTotal()
     {

@@ -10,6 +10,15 @@ abstract public class Input
 
     /* helper funcs */
 
+    /**
+     * Prompts the user and reads a trimmed line of text from standard input.
+     * <p>
+     * <b>Precondition:</b> None.<br>
+     * <b>Postcondition:</b> Returns the trimmed raw input String.
+     * </p>
+     * @param prompt UI message instructions presented to the terminal.
+     * @return String The raw input text.
+     */
     private static String readLine(String prompt)
     {
         System.out.print(prompt + ": ");
@@ -18,7 +27,15 @@ abstract public class Input
 
     /* strings */
 
-
+    /**
+     * Pauses application execution until the user presses the Enter key.
+     * <p>
+     * <b>Precondition:</b> None.<br>
+     * <b>Postcondition:</b> Blocks thread execution until a newline sequence is registered.
+     * </p>
+     * @param prompt The wait message shown to the user.
+     * @return void
+     */
     public static void holdScreen(String prompt) {
         System.out.print(prompt);
         scanner.nextLine();
@@ -53,6 +70,15 @@ abstract public class Input
         }
     }
 
+    /**
+     * Captures multiple lines of input text from the console until a blank line is submitted.
+     * <p>
+     * <b>Precondition:</b> None.<br>
+     * <b>Postcondition:</b> Returns the combined lines of text separated by newline characters.
+     * </p>
+     * @param prompt UI message instructions presented to the terminal.
+     * @return String The concatenated multiline input block.
+     */
     public static String getMultilineInput(String prompt)
     {
 
@@ -82,15 +108,13 @@ abstract public class Input
     /* integers */
 
     /**
-     * Captures a single integer while guaranteeing that it sits safely between boundaries.
+     * Captures an integer constraint while handling formatting errors.
      * <p>
-     * <b>Precondition:</b> min must be less than or equal to max.<br>
-     * <b>Postcondition:</b> Returns a structurally validated integer bounded perfectly between the minimum and maximum arguments.
+     * <b>Precondition:</b> None.<br>
+     * <b>Postcondition:</b> Returns a structurally validated integer.
      * </p>
-     * @param prompt UI message instructions presented to the terminal.
-     * @param min    Lower numeric limit allowed (inclusive).
-     * @param max    Upper numeric limit allowed (inclusive).
-     * @return int Verified numerical choice.
+     * @param prompt The console message instruction.
+     * @return int The valid integer read.
      */
     public static int getIntInput(String prompt)
     {
@@ -106,6 +130,17 @@ abstract public class Input
         }
     }
 
+    /**
+     * Captures a single integer while guaranteeing that it sits safely between boundaries.
+     * <p>
+     * <b>Precondition:</b> min must be less than or equal to max.<br>
+     * <b>Postcondition:</b> Returns a structurally validated integer bounded perfectly between the minimum and maximum arguments.
+     * </p>
+     * @param prompt UI message instructions presented to the terminal.
+     * @param min    Lower numeric limit allowed (inclusive).
+     * @param max    Upper numeric limit allowed (inclusive).
+     * @return int Verified numerical choice.
+     */
     public static int getIntInput(String prompt, int min, int max)
     {
 
@@ -132,6 +167,15 @@ abstract public class Input
 
     /* float */
 
+    /**
+     * Captures a float metric value while catching parsing errors.
+     * <p>
+     * <b>Precondition:</b> None.<br>
+     * <b>Postcondition:</b> Returns a structurally validated floating-point value.
+     * </p>
+     * @param prompt UI message instructions presented to the terminal.
+     * @return float The parsed float.
+     */
     public static float getFloatInput(String prompt)
     {
         while (true) {
@@ -144,6 +188,17 @@ abstract public class Input
         }
     }
 
+    /**
+     * Captures a float, ensuring it sits strictly within a designated range.
+     * <p>
+     * <b>Precondition:</b> min must be less than or equal to max.<br>
+     * <b>Postcondition:</b> Returns a validated float safely clamped between the min and max bounds.
+     * </p>
+     * @param prompt UI message instructions presented to the terminal.
+     * @param min    Lower bounding threshold.
+     * @param max    Upper bounding threshold.
+     * @return float The bounded floating-point choice.
+     */
     public static float getFloatInput(String prompt, float min, float max)
     {
         while (true) {

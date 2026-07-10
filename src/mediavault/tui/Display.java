@@ -17,10 +17,13 @@ import mediavault.models.MediaVault;
 abstract public class Display
 {
     /**
-     * Displays a pre-formatted board with a header and a list of strings
-     * @param title Title of the entry
-     * @param options List of choices for user to make
-     *
+     * Renders a standardized terminal information board with a title header and content options.
+     * <p>
+     * <b>Precondition:</b> title should not be null; options list may be null if only a header wrapper is needed.<br>
+     * <b>Postcondition:</b> Clears the console and prints the formatted UI board to standard output.
+     * </p>
+     * @param title   The textual header or option tag for the display block.
+     * @param options A collection of menu options or summary item lines to list.
      * @return void
      */
     public static void createBoard(String title, List<String> options)
@@ -53,8 +56,11 @@ abstract public class Display
     }
 
     /**
-     * Displays the list of genres the user can pick for their media entry
-     *
+     * Displays the list of valid genres the user can select for a media entry.
+     * <p>
+     * <b>Precondition:</b> None.<br>
+     * <b>Postcondition:</b> Iterates through all available genres and lists them in a formatted selection table via createBoard.
+     * </p>
      * @return void
      */
     public static void displayGenres()
@@ -73,9 +79,12 @@ abstract public class Display
     }
 
     /**
-     * Displays the title, release year, synopsis, genres, and status of an entry
-     * @param entry Media item
-     *
+     * Displays the title, release year, and summary layout of an individual anime episode.
+     * <p>
+     * <b>Precondition:</b> episode is not null.<br>
+     * <b>Postcondition:</b> Outputs the episode descriptive text elements directly to the console.
+     * </p>
+     * @param episode The Details record tracking episode name and tracking context.
      * @return void
      */
     public static void displayEntryDetails(MediaEntry entry)
@@ -97,9 +106,12 @@ abstract public class Display
     }
 
     /**
-     * Displays the title, release year, and synopsis an anime episode
-     * @param episode Anime episode
-     *
+     * Displays the title, release year, and summary layout of an individual anime episode.
+     * <p>
+     * <b>Precondition:</b> episode is not null.<br>
+     * <b>Postcondition:</b> Outputs the details of the episode into the console.
+     * </p>
+     * @param episode The Details record tracking episode name and tracking context.
      * @return void
      */
     public static void displayAnimeEpisode(Details episode)
@@ -110,9 +122,12 @@ abstract public class Display
     }
 
     /**
-     * Displays the details exclusive to each media type
-     * @param entries List of media items
-     *
+     * Iterates through a collection of entries, displaying base features alongside class-specific attributes.
+     * <p>
+     * <b>Precondition:</b> entries is not null.<br>
+     * <b>Postcondition:</b> Prints details specialized by MediaType (Anime, Novel, VideoGame).
+     * </p>
+     * @param entries The list of stored media items to showcase.
      * @return void
      */
     public static void showEntries(ArrayList<MediaEntry> entries)
@@ -148,6 +163,15 @@ abstract public class Display
         }
     }
 
+    /**
+     * Displays a lightweight index listing names and release years of items in the vault database.
+     * <p>
+     * <b>Precondition:</b> vault is not null.<br>
+     * <b>Postcondition:</b> Prints a baseline title map of the library collection to the console.
+     * </p>
+     * @param vault The user's MediaVault.
+     * @return void
+     */
     public static void showTitles(MediaVault vault) {
         for (MediaEntry entry : vault.getAll()) {
             System.out.printf("%s (%d)\n",
@@ -159,9 +183,12 @@ abstract public class Display
     }
 
     /**
-     * Displays a summary of the details of the existing media entries
-     * @param vault Container of media entries
-     *
+     * Displays a summary dashboard detailing existing item types, genres, status tallies, and average score metrics.
+     * <p>
+     * <b>Precondition:</b> vault is not null.<br>
+     * <b>Postcondition:</b> prints details of the user's vault onto the console.
+     * </p>
+     * @param vault The user's MediaVault.
      * @return void
      */
     public static void summarize(MediaVault vault)

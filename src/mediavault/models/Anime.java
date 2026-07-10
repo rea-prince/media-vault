@@ -45,6 +45,7 @@ public class Anime extends MediaEntry
      * @param release The release year of the specific episode.
      * @param title   The sub-title of the episode.
      * @param synopsis Brief thematic overview of the episode.
+     * @return void
      */
     public void addEpisode(int release, String title, String synopsis)
     {
@@ -57,6 +58,7 @@ public class Anime extends MediaEntry
      * <b>Precondition:</b> newStudio is not null.<br>
      * <b>Postcondition:</b> The studio assigned to the Anime is updated.
      * @param newStudio The new studio assigned to the Anime.
+     * @return void
      */
     public void setStudio(String newStudio)
     {

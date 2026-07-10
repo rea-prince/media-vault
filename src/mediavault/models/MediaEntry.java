@@ -49,6 +49,7 @@ abstract public class MediaEntry implements Serializable
      * <b>Postcondition:</b> The entry's lastModified timestamp is set to now.
      * </p>
      * @param now The LocalDateTime to update lastModified to.
+     * @return void
      */
     public void setLastModified(LocalDateTime now)
     {
@@ -62,6 +63,7 @@ abstract public class MediaEntry implements Serializable
      * <b>Postcondition:</b> The entry's rating is altered and the lastModified timestamp is refreshed to the current date and time.
      * </p>
      * @param rating The numerical score evaluated by the user.
+     * @return void
      */
     public void setRating(float rating)
     {
@@ -83,6 +85,7 @@ abstract public class MediaEntry implements Serializable
      * <b>Postcondition:</b> The entry's review is altered and the lastModified timestamp is refreshed to the current date and time.
      * </p>
      * @param review The written review of the user.
+     * @return void
      */
     public void setReview(String review)
     {
@@ -97,6 +100,7 @@ abstract public class MediaEntry implements Serializable
      * <b>Postcondition:</b> The entry's status is altered and the lastModified timestamp is refreshed to the current date and time.
      * </p>
      * @param status The new status of the MediaEntry.
+     * @return void
      */
     public void setStatus(Status status)
     {
@@ -111,6 +115,7 @@ abstract public class MediaEntry implements Serializable
      * <b>Postcondition:</b> The entry's details are altered and the lastModified timestamp is refreshed to the current date and time.
      * </p>
      * @param details The updated details of the entry.
+     * @return void
      */
     public void setDetails(Details details) {
         this.details = details;
@@ -122,6 +127,7 @@ abstract public class MediaEntry implements Serializable
      * <b>Precondition:</b> genres is not null.<br>
      * <b>Postcondition:</b> The entry's genres are altered and the lastModified timestamp is refreshed to the current date and time.
      * @param genres The list of genres to set the MediaEntry's genres to.
+     * @return void
      */
     public void setGenres(ArrayList<Genre> genres) {
         this.genres = genres;

@@ -18,11 +18,15 @@ abstract public class Interaction
 {
     /**
      * Displays the main menu and triggers the user's choice of feature
-     * @param vault Container of media entries
-     *
+     * <p>
+     * <b>Precondition:</b> vault must not be null.<br>
+     * <b>Postcondition:</b> Executes user menu choices until option 0 is selected to exit.
+     * </p>
+     * @param vault Container of media entries.
      * @return void
      */
-    public static void mainEntry(MediaVault vault) {
+    public static void mainEntry(MediaVault vault)
+    {
         int option;
         do {
             if (vault == null) {
@@ -62,9 +66,12 @@ abstract public class Interaction
 
     /**
      * Prompts the user to add a media entry and its details to the vault
-     * @param vault Container of media entries
-     *
-     * @return void
+     * <p>
+     * <b>Precondition:</b> vault must not be null.<br>
+     * <b>Postcondition:</b> Creates a new Anime, Novel, or VideoGame entry and adds it to the vault.
+     * </p>
+     * @param vault Container of media entries.
+     * return void
      */
     public static void promptAdd(MediaVault vault)
     {
@@ -159,8 +166,11 @@ abstract public class Interaction
 
     /**
      * Prompts the user to delete a media entry of their choice
-     * @param vault Container of media entries
-     *
+     * <p>
+     * <b>Precondition:</b> vault must not be null.<br>
+     * <b>Postcondition:</b> Removes the chosen entry if found; otherwise prints an error message.
+     * </p>
+     * @param vault Container of media entries.
      * @return void
      */
     public static void promptDelete(MediaVault vault)
@@ -185,8 +195,11 @@ abstract public class Interaction
 
     /**
      * Prompts the user to add episodes and its details to their anime of choice
-     * @param vault Container of media entries
-     *
+     * <p>
+     * <b>Precondition:</b> vault must not be null.<br>
+     * <b>Postcondition:</b> Appends a new episode to the chosen anime if the anime exists.
+     * </p>
+     * @param vault Container of media entries.
      * @return void
      */
     public static void promptAddAnimeEpisodes(MediaVault vault)
@@ -220,8 +233,11 @@ abstract public class Interaction
 
     /**
      * Allows the user to view episodes of their anime of choice
+     * <p>
+     * <b>Precondition:</b> vault must not be null.<br>
+     * <b>Postcondition:</b> Prints the episode list for the chosen anime or prints an error message.
+     * </p>
      * @param vault Container of media entries
-     *
      * @return void
      */
     public static void viewAnimeEpisodes(MediaVault vault)
@@ -268,8 +284,11 @@ abstract public class Interaction
 
     /**
      * Allows the user to change an entry's status
+     * <p>
+     * <b>Precondition:</b> vault must not be null.<br>
+     * <b>Postcondition:</b> Changes the entry's status to Planned, In-progress, or Completed if found.
+     * </p>
      * @param vault Container of media entries
-     *
      * @return void
      */
     public static void promptUpdate(MediaVault vault)
@@ -303,8 +322,11 @@ abstract public class Interaction
 
     /**
      * Allows the user to rate and review a completed media entry
+     * <p>
+     * <b>Precondition:</b> vault must not be null.<br>
+     * <b>Postcondition:</b> Updates the entry's rating and review fields if it is found and completed.
+     * </p>
      * @param vault Container of media entries
-     *
      * @return void
      */
     public static void promptAssign(MediaVault vault)
@@ -346,7 +368,10 @@ abstract public class Interaction
 
     /**
      * Filters media entries by media type (anime, novel, video game)
-     *
+     * <p>
+     * <b>Precondition:</b> None.<br>
+     * <b>Postcondition:</b> Returns the selected MediaType choice, or null if unmapped.
+     * </p>
      * @return void
      */
     private static MediaType filterByMediaType()
@@ -370,7 +395,10 @@ abstract public class Interaction
 
     /**
      * Filters media entries by genres
-     *
+     * <p>
+     * <b>Precondition:</b> None.<br>
+     * <b>Postcondition:</b> Returns a list of selected Genre values, or null if none were chosen.
+     * </p>
      * @return void
      */
     private static ArrayList<Genre> filterByGenre()
@@ -394,7 +422,10 @@ abstract public class Interaction
 
     /**
      * Filters media entries by status
-     *
+     * <p>
+     * <b>Precondition:</b> None.<br>
+     * <b>Postcondition:</b> Returns the selected Status choice, or null if unmapped.
+     * </p>
      * @return void
      */
     private static Status filterByStatus()
@@ -418,8 +449,11 @@ abstract public class Interaction
 
     /**
      * Displays filtered media entries
+     * <p>
+     * <b>Precondition:</b> vault must not be null.<br>
+     * <b>Postcondition:</b> Displays all matching entries to standard output based on user filters.
+     * </p>
      * @param vault List of media entries
-     *
      * @return void
      */
     public static void showEntries(MediaVault vault)
