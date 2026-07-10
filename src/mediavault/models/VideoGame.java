@@ -5,8 +5,8 @@ import mediavault.enums.*;
 
 public class VideoGame extends MediaEntry
 {
-    private final String publisher;
-    private final String studio;
+    private final String PUBLISHER;
+    private final String STUDIO;
 
     /**
      * Constructs a new VideoGame media entry with its specific production attributes.
@@ -28,8 +28,8 @@ public class VideoGame extends MediaEntry
     {
         super(MediaType.VIDEOGAME, new Details(release, title, synopsis), genres);
 
-        this.publisher = publisher;
-        this.studio = studio;
+        this.PUBLISHER = publisher;
+        this.STUDIO = studio;
     }
 
     /**
@@ -40,7 +40,7 @@ public class VideoGame extends MediaEntry
      */
     public String getPublisher ()
     {
-        return publisher;
+        return PUBLISHER;
     }
 
     /**
@@ -51,6 +51,6 @@ public class VideoGame extends MediaEntry
      */
     public String getStudio ()
     {
-        return studio;
+        return STUDIO;
     }
 }

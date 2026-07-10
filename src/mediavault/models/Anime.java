@@ -6,7 +6,7 @@ import mediavault.enums.*;
 
 public class Anime extends MediaEntry
 {
-    private final ArrayList<Details> episodes;   // List of episodes in the anime
+    private final ArrayList<Details> EPISODES;   // List of episodes in the anime
     private String studio;                 // Animation studio responsible for the anime
     private String alternativeTitle; // Alternative/untranslated title
 
@@ -33,7 +33,7 @@ public class Anime extends MediaEntry
         this.alternativeTitle = alternativeTitle;
         this.studio = studio;
 
-        episodes = new ArrayList<Details>();
+        EPISODES = new ArrayList<Details>();
     }
 
     /**
@@ -49,7 +49,7 @@ public class Anime extends MediaEntry
      */
     public void addEpisode(int release, String title, String synopsis)
     {
-        episodes.add(new Details(release, title, synopsis));
+        EPISODES.add(new Details(release, title, synopsis));
         setLastModified(LocalDateTime.now());
     }
 
@@ -96,6 +96,6 @@ public class Anime extends MediaEntry
      */
     public ArrayList<Details> getAnimeEpisodes()
     {
-        return episodes;
+        return EPISODES;
     }
 }
