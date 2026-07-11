@@ -107,8 +107,6 @@ abstract public class Display
                 System.out.print(", ");
         }
         System.out.println();
-        System.out.println(" > Status   : " + entry.getStatus().getName());
-
         if (entry instanceof Anime) {
             Anime anime = (Anime) entry;
             System.out.println(" > Alt title: " + anime.getAlternativeTitle());
@@ -133,6 +131,12 @@ abstract public class Display
 
             System.out.println(" > Studio   : " + videoGame.getStudio());
             System.out.println(" > Publisher: " + videoGame.getPublisher());
+        }
+        System.out.println(" > Status   : " + entry.getStatus().getName());
+
+        if (entry.getRating() >= 0.0) {
+            System.out.println(" > Rating   : " + entry.getRating());
+            System.out.println(" > Review   : " + entry.getReview());
         }
     }
 
