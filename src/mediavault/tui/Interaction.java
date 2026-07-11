@@ -107,6 +107,14 @@ abstract public class Interaction
         title = Input.getStrInput("Title");
 
         release = Input.getIntInput("Release Year");
+
+
+        if (vault.getEntry(title, release) != null) {
+            System.out.println("ERROR: Entry already exists.");
+            Input.holdScreen("Press ENTER to exit this view.");
+            return;
+        }
+
         synopsis = Input.getStrInput("Synopsis");
 
 

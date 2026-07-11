@@ -26,7 +26,7 @@ public class VideoGame extends MediaEntry
                       ArrayList<Genre> genres, String publisher,
                       String studio, Status status)
     {
-        super(MediaType.VIDEOGAME, new Details(release, title, synopsis), genres);
+        super(MediaType.VIDEOGAME, new Details(release, title, synopsis), genres, status);
 
         this.PUBLISHER = publisher;
         this.STUDIO = studio;

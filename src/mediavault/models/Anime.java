@@ -28,7 +28,7 @@ public class Anime extends MediaEntry
                   ArrayList<Genre> genres, String alternativeTitle,
                   String studio, Status status)
     {
-        super(MediaType.ANIME, new Details(release, title, synopsis), genres);
+        super(MediaType.ANIME, new Details(release, title, synopsis), genres, status);
 
         this.alternativeTitle = alternativeTitle;
         this.studio = studio;

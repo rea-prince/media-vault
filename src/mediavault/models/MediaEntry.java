@@ -31,13 +31,14 @@ abstract public class MediaEntry implements Serializable
      * @param type    The specific classification category from the MediaType enum.
      * @param details The primary title, year, and synopsis details wrapper.
      * @param genres  The initial array list of categories describing the entry.
+     * @param status  The current tracking status.
      */
-    protected MediaEntry(MediaType type, Details details, ArrayList<Genre> genres)
+    protected MediaEntry(MediaType type, Details details, ArrayList<Genre> genres, Status status)
     {
         this.TYPE = type;
         this.details = details;
         this.genres = genres;
-
+        this.status = status;
 
         this.rating = -1f;
         this.review = null;

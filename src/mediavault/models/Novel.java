@@ -28,7 +28,7 @@ public class Novel extends MediaEntry
                   ArrayList<Genre> genres, String publisher,
                   String author, Status status, int chapters)
     {
-        super(MediaType.NOVEL, new Details(release, title, synopsis), genres);
+        super(MediaType.NOVEL, new Details(release, title, synopsis), genres, status);
 
         this.PUBLISHER = publisher;
         this.AUTHOR = author;

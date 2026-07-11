@@ -25,8 +25,8 @@ public class Details implements Serializable
     }
 
     /**
-     *
-     * @param year
+     * Sets the release year in the details.
+     * @param year Year to set.
      */
     public void setYear (int year)
     {
@@ -34,8 +34,8 @@ public class Details implements Serializable
     }
 
     /**
-     *
-     * @param title
+     * Sets the title in the details.
+     * @param title Title to be set.
      */
     public void setTitle (String title)
     {
@@ -43,8 +43,8 @@ public class Details implements Serializable
     }
 
     /**
-     *
-     * @param synopsis
+     * Sets the synopsis of the details.
+     * @param synopsis Synopsis to be set.
      */
     public void setSynopsis (String synopsis)
     {
@@ -52,8 +52,8 @@ public class Details implements Serializable
     }
 
     /**
-     *
-     * @return int
+     * Returns the year associated with the details.
+     * @return int Release year associated with the details.
      */
     public int getYear ()
     {
@@ -61,8 +61,8 @@ public class Details implements Serializable
     }
 
     /**
-     *
-     * @return String
+     * Returns the title of the details.
+     * @return String Title of the details.
      */
     public String getTitle ()
     {
@@ -70,8 +70,8 @@ public class Details implements Serializable
     }
 
     /**
-     *
-     * @return String
+     * Returns the synopsis of the details.
+     * @return String Synopsis of the details.
      */
     public String getSynopsis ()
     {

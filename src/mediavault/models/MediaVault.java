@@ -143,9 +143,9 @@ public class MediaVault implements Serializable
                                      ArrayList<Genre> genres)
     {
         return entries.stream().filter(entry ->
-            (type != null && entry.getMediaType() == type) ||
-            (status != null && entry.getStatus() == status) ||
-            (genres != null && entry.getGenres().containsAll(genres))
+            (type == null || entry.getMediaType() == type) &&
+            (status == null || entry.getStatus() == status) &&
+            (genres == null || entry.getGenres().containsAll(genres))
         ).count();
     }
 
