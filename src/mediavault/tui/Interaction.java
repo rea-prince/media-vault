@@ -152,6 +152,12 @@ abstract public class Interaction
             "[C] - Completed"
         ));
         String status = Input.getStrInput("Status", "P", "I", "C");
+        Status entryStatus = Status.PLANNED;
+        switch (status) {
+           	case "P": { entryStatus = Status.PLANNED; } break;
+            case "I": { entryStatus = Status.IN_PROGRESS; } break;
+            case "C": { entryStatus = Status.COMPLETED; } break;
+        }
 
         MediaEntry entry = null;
 
@@ -159,27 +165,19 @@ abstract public class Interaction
             case "A": {
                 studio = Input.getStrInput("Studio");
                 alternative = Input.getStrInput("Alternative Title");
-                entry = new Anime(release, title, synopsis, genres, alternative, studio, null);
+                entry = new Anime(release, title, synopsis, genres, alternative, studio, entryStatus);
             } break;
             case "N": {
                 author = Input.getStrInput("Author");
                 publisher = Input.getStrInput("Publisher");
                 chapters = Input.getIntInput("Chapters"); // TO DO: Add safety
-                entry = new Novel(release, title, synopsis, genres, publisher, author, null, chapters);
+                entry = new Novel(release, title, synopsis, genres, publisher, author, entryStatus, chapters);
             } break;
             case "V": {
                 studio = Input.getStrInput("Studio");
                 publisher = Input.getStrInput("Publisher");
-                entry = new VideoGame(release, title, synopsis, genres, publisher, studio, null);
+                entry = new VideoGame(release, title, synopsis, genres, publisher, studio, entryStatus);
             } break;
-        }
-
-        if (entry != null) {
-            switch (status) {
-               	case "P": { entry.setStatus(Status.PLANNED); } break;
-                case "I": { entry.setStatus(Status.IN_PROGRESS); } break;
-                case "C": { entry.setStatus(Status.COMPLETED); } break;
-            }
         }
 
         vault.addEntry(entry);
