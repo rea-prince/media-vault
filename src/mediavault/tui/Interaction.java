@@ -112,7 +112,7 @@ abstract public class Interaction
         }
 
 
-        Display.createBoard("--- Genre options", genreList);
+        Display.createBoard("--- Genre options ---", genreList);
         String rawIn = Input.getStrInput("Genre");
         String[] genreChoices = rawIn.split("[,\\.\\s]+");
 
@@ -128,7 +128,7 @@ abstract public class Interaction
 
         /* STATUS */
 
-        Display.createBoard("--- Status Options", List.of(
+        Display.createBoard("--- Status Options ---", List.of(
             "[P] - Planned",
             "[I] - In-progress",
             "[C] - Completed"
@@ -179,7 +179,7 @@ abstract public class Interaction
     public static void promptDelete(MediaVault vault)
     {
         Display.createBoard("Delete", null);
-        Display.showTitles(vault);
+        Display.showTitles(vault.getAll());
 
         /* INPUT */
 
@@ -211,7 +211,7 @@ abstract public class Interaction
         /* print */
 
         Display.createBoard("Add Anime Episode", null);
-        Display.showTitles(vault);
+        Display.showTitles(vault.getEntries(null, 0, MediaType.ANIME, null, null));
 
         /* option */
 
@@ -224,7 +224,7 @@ abstract public class Interaction
             return;
         }
 
-        Display.createBoard("--- Episode Details", null);
+        Display.createBoard("--- Episode Details ---", null);
 
         // TO DO: Make this continuous
 
@@ -297,7 +297,7 @@ abstract public class Interaction
     public static void promptUpdate(MediaVault vault)
     {
         Display.createBoard("Update Available Entries", null);
-        Display.showTitles(vault);
+        Display.showTitles(vault.getAll());
 
         String media = Input.getStrInput("Title");
         int year = Input.getIntInput("Release Year");

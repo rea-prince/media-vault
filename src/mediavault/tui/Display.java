@@ -166,7 +166,6 @@ abstract public class Display
         for (MediaEntry entry : entries)
         {
             displayEntryDetails(entry);
-
         }
     }
 
@@ -179,8 +178,9 @@ abstract public class Display
      * @param vault The user's MediaVault.
      * @return void
      */
-    public static void showTitles(MediaVault vault) {
-        for (MediaEntry entry : vault.getAll()) {
+    public static void showTitles(ArrayList<MediaEntry> entries) {
+        for (MediaEntry entry : entries) 
+        {
             System.out.printf("%s (%d)\n",
                 entry.getDetails().getTitle(),
                 entry.getDetails().getYear()
