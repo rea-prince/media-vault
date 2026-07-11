@@ -33,22 +33,32 @@ abstract public class Interaction
                 System.out.println("ERROR: Could not load vault.");
             }
 
-            Display.createBoard("Media Vault", List.of(
-                "[1] Add a new entry",
-                "[2] Add anime episodes",
-                "[3] View anime episodes",
-                "[4] Delete an entry",
-                "[5] Update an entry",
-                "[6] Rate and review an entry",
-                "[7] Display the entire library",
-                "[8] Summarize the library",
-                "[0] Exit"
-            ));
-
-            option = Input.getIntInput(
-                "Choose what to do",
-                0, 8
-            );
+            if (vault.getTotal() == 0) {
+                Display.createBoard("Media Vault", List.of(
+                    "[1] Add a new entry",
+                    "[0] Exit"
+                ));
+                option = Input.getIntInput(
+                    "Choose what to do",
+                    0, 1
+                );
+            } else {
+                Display.createBoard("Media Vault", List.of(
+                    "[1] Add a new entry",
+                    "[2] Add anime episodes",
+                    "[3] View anime episodes",
+                    "[4] Delete an entry",
+                    "[5] Update an entry",
+                    "[6] Rate and review an entry",
+                    "[7] Display the entire library",
+                    "[8] Summarize the library",
+                    "[0] Exit"
+                ));
+                option = Input.getIntInput(
+                    "Choose what to do",
+                    0, 8
+                );
+            }
 
             switch(option) {
                 case 1: { promptAdd(vault); } break;
