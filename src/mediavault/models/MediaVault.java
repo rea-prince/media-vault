@@ -120,11 +120,11 @@ public class MediaVault implements Serializable
     {
         return new ArrayList<MediaEntry>(entries.stream().filter(
             entry ->
-                (title != null && entry.getDetails().getTitle().contains(title)) ||
-                (year > 0 && entry.getDetails().getYear() == year) ||
-                (type != null && entry.getMediaType() == type) ||
-                (status != null && entry.getStatus() == status) ||
-                (genres != null && entry.getGenres().containsAll(genres))
+                (title == null || entry.getDetails().getTitle().contains(title)) &&
+                (year <= 0 || entry.getDetails().getYear() == year) &&
+                (type == null || entry.getMediaType() == type) &&
+                (status == null || entry.getStatus() == status) &&
+                (genres == null || genres.isEmpty() || entry.getGenres().containsAll(genres))
         ).toList());
     }
 

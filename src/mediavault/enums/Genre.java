@@ -61,4 +61,17 @@ public enum Genre
      	}
       return INVALID;
     }
+
+    /**
+     * Returns a Genre enum from an input string
+     * @param name Name of enum to be created
+     */
+    public static Genre fromString(String name) {
+    	for (Genre g : values()) {
+     		if (g.getName().equals(name)) {
+                return g;
+            }
+     	}
+      return INVALID;
+    }
 }

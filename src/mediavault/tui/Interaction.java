@@ -58,7 +58,10 @@ abstract public class Interaction
                 case 5: { promptUpdate(vault); } break;
                 case 6: { promptAssign(vault); } break;
                 case 7: { showEntries(vault); } break;
-                case 8: { Display.summarize(vault); } break;
+                case 8: {
+                    Display.summarize(vault);
+                    Input.holdScreen("Press ENTER to exit this view.");
+                } break;
             }
         } while (option != 0);
 
@@ -403,14 +406,16 @@ abstract public class Interaction
      */
     private static ArrayList<Genre> filterByGenre()
     {
-        ArrayList<String> validIds = new ArrayList<>();
+        ArrayList<Genre> validGenres = new ArrayList<>(List.of(Genre.values()));
 
         Display.displayGenres();
 
         ArrayList<Genre> genre = new ArrayList<Genre>();
 
         for (String choice : Input.getStrInput("Genre").split("[,\\.\\s]+")) {
-            if (validIds.contains(choice))
+            Genre genreChoice = Genre.fromId(Integer.parseInt(choice));
+
+            if (validGenres.contains(genreChoice) && genreChoice != Genre.INVALID)
                 genre.add(Genre.fromId(Integer.parseInt(choice)));
         }
 
@@ -467,10 +472,12 @@ abstract public class Interaction
 
         MediaType media = null;
         int year = 0;
-        ArrayList<Genre> genre = new ArrayList<>();
+        ArrayList<Genre> genre = null;
         Status status = null;
 
-        if(yesOrNo.equals("Y")) {
+        ArrayList<String> options = new ArrayList<>(List.of("1", "2", "3", "4"));
+
+        if(yesOrNo.equalsIgnoreCase("Y")) {
 
             Display.createBoard("Filter entries by ...", List.of(
                 "[1] Media type",
@@ -484,8 +491,12 @@ abstract public class Interaction
             ).split("[,\\.\\s]+");
 
             for (String filter : filters) {
+                if (!options.contains(filter)) {
+                    System.out.println("Skipping invalid option: " + filter);
+                    continue;
+                }
                 switch (filter) {
-                    case "1": { filterByMediaType(); } break;
+                    case "1": { media = filterByMediaType(); } break;
                     case "2": { year = Input.getIntInput("Year"); } break;
                     case "3": { genre = filterByGenre(); } break;
                     case "4": { status = filterByStatus(); } break;

@@ -92,9 +92,10 @@ abstract public class Display
 
         // TO DO: Add lastModified
 
-        System.out.printf("%s (%d)\n",
+        System.out.printf("%s (%d) | %s\n",
             entry.getDetails().getTitle(),
-            entry.getDetails().getYear()
+            entry.getDetails().getYear(),
+            entry.getMediaType().getName()
         );
         System.out.flush();
         System.out.println(" > Synopsis: " + entry.getDetails().getSynopsis());
@@ -103,7 +104,7 @@ abstract public class Display
         {
             System.out.print(entryGenre.getName());
             if(entryGenre != entry.getGenres().getLast())
-                System.out.print(" | ");
+                System.out.print(", ");
         }
         System.out.println();
         System.out.println(" > Status: " + entry.getStatus().getName());
@@ -112,6 +113,7 @@ abstract public class Display
             Anime anime = (Anime) entry;
             System.out.println(" > Alternate title: " + anime.getAlternativeTitle());
             System.out.println(" > Studio: " + anime.getStudio());
+            System.out.println(" > Episodes: " + anime.getAnimeEpisodes().size());
             // int i = 0;
             // for (Details episode : anime.getAnimeEpisodes())
             // {
@@ -124,7 +126,7 @@ abstract public class Display
             Novel novel = (Novel) entry;
             System.out.println(" > Author: " + novel.getAuthor());
             System.out.println(" > Publisher: " + novel.getPublisher());
-            System.out.println(" > Number of chapters: " + novel.getChapters());
+            System.out.println(" > Chapters: " + novel.getChapters());
         }
         else if (entry instanceof VideoGame) {
             VideoGame videoGame = (VideoGame) entry;
