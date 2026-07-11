@@ -37,6 +37,10 @@ abstract public class MediaEntry implements Serializable
         this.TYPE = type;
         this.details = details;
         this.genres = genres;
+
+
+        this.rating = -1f;
+        this.review = null;
     }
 
 
