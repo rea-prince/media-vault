@@ -217,11 +217,10 @@ abstract public class Interaction
      */
     public static void promptAddAnimeEpisodes(MediaVault vault)
     {
-
         /* print */
 
         Display.createBoard("Add Anime Episode", null);
-        Display.showTitles(vault.getAll());
+        Display.showTitles(vault.getEntries(null, 0, MediaType.ANIME, null, null));
 
         /* option */
 
