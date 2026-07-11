@@ -175,7 +175,7 @@ abstract public class Display
      * <b>Precondition:</b> vault is not null.<br>
      * <b>Postcondition:</b> Prints a baseline title map of the library collection to the console.
      * </p>
-     * @param vault The user's MediaVault.
+     * @param entries The list of stored media items to showcase.
      * @return void
      */
     public static void showTitles(ArrayList<MediaEntry> entries) {

@@ -112,7 +112,7 @@ abstract public class Interaction
         }
 
 
-        Display.createBoard("--- Genre options ---", genreList);
+        Display.createBoard("--- Genre options", genreList);
         String rawIn = Input.getStrInput("Genre");
         String[] genreChoices = rawIn.split("[,\\.\\s]+");
 
@@ -128,7 +128,7 @@ abstract public class Interaction
 
         /* STATUS */
 
-        Display.createBoard("--- Status Options ---", List.of(
+        Display.createBoard("--- Status Options", List.of(
             "[P] - Planned",
             "[I] - In-progress",
             "[C] - Completed"
@@ -207,7 +207,6 @@ abstract public class Interaction
      */
     public static void promptAddAnimeEpisodes(MediaVault vault)
     {
-
         /* print */
 
         Display.createBoard("Add Anime Episode", null);
@@ -224,7 +223,7 @@ abstract public class Interaction
             return;
         }
 
-        Display.createBoard("--- Episode Details ---", null);
+        Display.createBoard("--- Episode Details", null);
 
         // TO DO: Make this continuous
 
