@@ -504,7 +504,8 @@ abstract public class Interaction
             }
         }
 
-        Display.showEntries(vault.getEntries(null, year, media, status, genre));
+        for (MediaEntry entry : vault.getEntries(null, year, media, status, genre))
+            Display.displayEntryDetails(entry);
 
         Input.holdScreen("Press ENTER to exit this view.");
     }

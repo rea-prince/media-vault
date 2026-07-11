@@ -153,23 +153,6 @@ abstract public class Display
     }
 
     /**
-     * Iterates through a collection of entries, displaying base features alongside class-specific attributes.
-     * <p>
-     * <b>Precondition:</b> entries is not null.<br>
-     * <b>Postcondition:</b> Prints details specialized by MediaType (Anime, Novel, VideoGame).
-     * </p>
-     * @param entries The list of stored media items to showcase.
-     * @return void
-     */
-    public static void showEntries(ArrayList<MediaEntry> entries)
-    {
-        for (MediaEntry entry : entries)
-        {
-            displayEntryDetails(entry);
-        }
-    }
-
-    /**
      * Displays a lightweight index listing names and release years of items in the vault database.
      * <p>
      * <b>Precondition:</b> vault is not null.<br>
