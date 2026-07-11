@@ -235,7 +235,7 @@ abstract public class Display
                 withRating++;
             }
         }
-        float averageRating = totalRating / withRating;
+        float averageRating = withRating > 0 ? totalRating / withRating : 0;
 
         createBoard("--- Average Rating", List.of(String.format("%.2f", averageRating)));
 

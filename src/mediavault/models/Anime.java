@@ -49,7 +49,8 @@ public class Anime extends MediaEntry
      */
     public void addEpisode(int release, String title, String synopsis)
     {
-        EPISODES.add(new Details(release, title, synopsis));
+        if (release > 0 && title != null && synopsis != null)
+            EPISODES.add(new Details(release, title, synopsis));
         setLastModified(LocalDateTime.now());
     }
 
