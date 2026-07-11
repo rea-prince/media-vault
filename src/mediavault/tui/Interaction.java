@@ -189,7 +189,7 @@ abstract public class Interaction
     public static void promptDelete(MediaVault vault)
     {
         Display.createBoard("Delete", null);
-        Display.showTitles(vault);
+        Display.showTitles(vault.getAll());
 
         /* INPUT */
 
@@ -221,7 +221,7 @@ abstract public class Interaction
         /* print */
 
         Display.createBoard("Add Anime Episode", null);
-        Display.showTitles(vault);
+        Display.showTitles(vault.getAll());
 
         /* option */
 
@@ -307,7 +307,7 @@ abstract public class Interaction
     public static void promptUpdate(MediaVault vault)
     {
         Display.createBoard("Update Available Entries", null);
-        Display.showTitles(vault);
+        Display.showTitles(vault.getAll());
 
         String media = Input.getStrInput("Title");
         int year = Input.getIntInput("Release Year");
