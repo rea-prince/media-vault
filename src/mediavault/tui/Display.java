@@ -98,8 +98,8 @@ abstract public class Display
             entry.getMediaType().getName()
         );
         System.out.flush();
-        System.out.println(" > Synopsis: " + entry.getDetails().getSynopsis());
-        System.out.print(" > Genres: ");
+        System.out.println(" > Synopsis : " + entry.getDetails().getSynopsis());
+        System.out.print(" > Genres   : ");
         for (Genre entryGenre : entry.getGenres())
         {
             System.out.print(entryGenre.getName());
@@ -107,13 +107,13 @@ abstract public class Display
                 System.out.print(", ");
         }
         System.out.println();
-        System.out.println(" > Status: " + entry.getStatus().getName());
+        System.out.println(" > Status   : " + entry.getStatus().getName());
 
         if (entry instanceof Anime) {
             Anime anime = (Anime) entry;
-            System.out.println(" > Alternate title: " + anime.getAlternativeTitle());
-            System.out.println(" > Studio: " + anime.getStudio());
-            System.out.println(" > Episodes: " + anime.getAnimeEpisodes().size());
+            System.out.println(" > Alt title: " + anime.getAlternativeTitle());
+            System.out.println(" > Studio   : " + anime.getStudio());
+            System.out.println(" > Episodes : " + anime.getAnimeEpisodes().size());
             // int i = 0;
             // for (Details episode : anime.getAnimeEpisodes())
             // {
@@ -124,14 +124,14 @@ abstract public class Display
         }
         else if (entry instanceof Novel) {
             Novel novel = (Novel) entry;
-            System.out.println(" > Author: " + novel.getAuthor());
+            System.out.println(" > Author   : " + novel.getAuthor());
             System.out.println(" > Publisher: " + novel.getPublisher());
-            System.out.println(" > Chapters: " + novel.getChapters());
+            System.out.println(" > Chapters : " + novel.getChapters());
         }
         else if (entry instanceof VideoGame) {
             VideoGame videoGame = (VideoGame) entry;
 
-            System.out.println(" > Studio: " + videoGame.getStudio());
+            System.out.println(" > Studio   : " + videoGame.getStudio());
             System.out.println(" > Publisher: " + videoGame.getPublisher());
         }
     }
@@ -166,7 +166,6 @@ abstract public class Display
         for (MediaEntry entry : entries)
         {
             displayEntryDetails(entry);
-
         }
     }
 
