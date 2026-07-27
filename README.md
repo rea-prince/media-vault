@@ -27,9 +27,12 @@ java --module-path %PATH_TO_FX% --add-modules javafx.controls -cp out mediavault
 ```bash
 export PATH_TO_FX=path/to/javafx-sdk-26.0.1/lib # replace path with actual one
 
-javac --module-path $PATH_TO_FX --add-modules javafx.controls -d out --source-path src src/mediavault/Main.java
-java --module-path $PATH_TO_FX --add-modules javafx.controls -cp out mediavault.Main
+./build.sh
+./run.sh
 ```
+
+<!-- javac --module-path "$PATH_TO_FX" --add-modules javafx.controls,javafx.fxml -d out --source-path src src/mediavault/gui/Controller.java -->
+<!-- java --module-path "$PATH_TO_FX" --add-modules javafx.controls,javafx.fxml -cp out mediavault.gui.Controller  -->
 
 ## Documentation
 
