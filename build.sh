@@ -11,7 +11,7 @@ javac \
 	--add-modules javafx.controls,javafx.fxml \
 	--source-path src \
 	-d out \
-	src/mediavault/gui/Controller.java
+	src/mediavault/MainGUI.java
 
 cp -r resources/* out/
 
