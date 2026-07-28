@@ -26,6 +26,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 import javafx.scene.layout.VBox;
 
+import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 
@@ -46,6 +47,12 @@ public class EntryCardController {
     @FXML
     private ChoiceBox<Status> entryStatus;
 
+    @FXML
+    private Button reviewButton;
+
+    @FXML
+    private Button viewEpisodesButton;
+
     public void setEntry(MediaEntry entry) {
 
         entryTitle.setText(entry.getDetails().getTitle());
@@ -58,7 +65,15 @@ public class EntryCardController {
             entry.setStatus(entryStatus.getValue())
         );
 
-        // Display type-specific information
+        if (!(entry instanceof Anime)) {
+      		viewEpisodesButton.setVisible(false);
+        }
+        if (entry.getStatus() != Status.COMPLETED) {
+        	reviewButton.setVisible(false);
+        }
+
+
+        // type specific information
         if (entry instanceof Novel novel) {
 
             entryType.setText("Novel");
@@ -75,7 +90,6 @@ public class EntryCardController {
             entryDetails.setText( anime.getStudio()
                 // show.getCurrentEpisode() + "/" + show.getEpisodeCount()
             );
-
         } else {
 
             entryType.setText(entry.getClass().getSimpleName());

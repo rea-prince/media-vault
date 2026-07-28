@@ -56,7 +56,6 @@ public class MainGUI extends Application {
 
 			Parent root = loader.load();
 
-
 			// setup controller
 
 			MainController controller = loader.getController();
@@ -65,6 +64,7 @@ public class MainGUI extends Application {
 			// render
 
 			Scene scene = new Scene(root);
+			scene.getStylesheets().add("/css/dracula.css");
 
 			stage.setTitle("Media Vault");
 			stage.setScene(scene);

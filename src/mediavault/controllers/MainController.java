@@ -20,14 +20,15 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.Parent;
 import javafx.scene.Node;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.paint.Color;
+
+import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
 
 public class MainController {
 
 	@FXML
 	private VBox entryList;
+
 
 	private MediaVault vault;
 
