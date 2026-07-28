@@ -55,15 +55,23 @@ public class EntryCardController {
 
     public void setEntry(MediaEntry entry) {
 
+    	// set details
+
         entryTitle.setText(entry.getDetails().getTitle());
         entrySynopsis.setText(entry.getDetails().getSynopsis());
+
+        // s et status
 
         entryStatus.getItems().setAll(Status.values());
         entryStatus.setValue(entry.getStatus());
 
+        // attach event
+
         entryStatus.setOnAction(e ->
             entry.setStatus(entryStatus.getValue())
         );
+
+        // optional stuff
 
         if (!(entry instanceof Anime)) {
       		viewEpisodesButton.setVisible(false);
@@ -72,8 +80,8 @@ public class EntryCardController {
         	reviewButton.setVisible(false);
         }
 
-
         // type specific information
+
         if (entry instanceof Novel novel) {
 
             entryType.setText("Novel");
@@ -87,9 +95,7 @@ public class EntryCardController {
         } else if (entry instanceof Anime anime) {
 
             entryType.setText("Anime");
-            entryDetails.setText( anime.getStudio()
-                // show.getCurrentEpisode() + "/" + show.getEpisodeCount()
-            );
+            entryDetails.setText(anime.getStudio());
         } else {
 
             entryType.setText(entry.getClass().getSimpleName());
