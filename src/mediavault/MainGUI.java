@@ -67,7 +67,7 @@ public class MainGUI extends Application {
 			scene.getStylesheets().add("/css/browny.css");
 
 			stage.setMinWidth(800);
-			// stage.setMinHeight(600);
+			stage.setMinHeight(600);
 			stage.setTitle("Media Vault");
 			stage.setScene(scene);
 			stage.show();
