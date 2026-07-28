@@ -9,34 +9,32 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="142.0" prefWidth="463.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mediavault.controllers.EntryCardController">
+<VBox prefHeight="154.0" prefWidth="561.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mediavault.controllers.EntryCardController">
    <children>
-      <HBox prefHeight="31.0" prefWidth="439.0">
+      <HBox alignment="BASELINE_LEFT" prefHeight="31.0" prefWidth="439.0">
          <children>
-            <HBox alignment="CENTER_LEFT" prefHeight="35.0" prefWidth="358.0">
-               <children>
-                  <Label fx:id="entryTitle" text="Entry Title">
-                     <font>
-                        <Font size="24.0" />
-                     </font>
-                  </Label>
-                  <Region prefHeight="43.0" prefWidth="18.0" />
-                  <Label fx:id="entryType" text="entry type" />
-                  <Region prefHeight="43.0" prefWidth="18.0" />
-                  <Label fx:id="entryDetails" text="Entry-specific details" />
-               </children>
-            </HBox>
-            <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="70.0" text="Delete" textAlignment="RIGHT" />
+            <Label fx:id="entryTitle" text="Entry Title">
+               <font>
+                  <Font name="System Bold" size="22.0" />
+               </font>
+            </Label>
+            <Region prefHeight="35.0" prefWidth="6.0" />
+            <Label fx:id="entryType" text="entry type" />
+            <Region prefHeight="35.0" prefWidth="6.0" />
+            <Label fx:id="entryDetails" text="Entry-specific details" />
+            <Region prefHeight="43.0" prefWidth="18.0" HBox.hgrow="ALWAYS" />
+            <Button cancelButton="true" mnemonicParsing="false" text="Delete" textAlignment="RIGHT" />
          </children>
       </HBox>
       <Label fx:id="entrySynopsis" text="Entry synopsis/ description" />
-      <Region prefHeight="39.0" prefWidth="463.0" />
+      <Region prefHeight="36.0" prefWidth="537.0" VBox.vgrow="ALWAYS" />
       <HBox alignment="CENTER_LEFT" prefHeight="45.0" prefWidth="463.0">
          <children>
             <ChoiceBox fx:id="entryStatus" prefWidth="150.0" />
-            <Region prefHeight="36.0" prefWidth="112.0" />
-            <Button fx:id="viewEpisodesButton" mnemonicParsing="false" text="View episodes" />
-            <Button fx:id="reviewButton" mnemonicParsing="false" text="Rate/review" />
+            <Region prefHeight="36.0" prefWidth="112.0" HBox.hgrow="ALWAYS" />
+            <Button fx:id="viewEpisodesButton" defaultButton="true" mnemonicParsing="false" text="View episodes" HBox.hgrow="ALWAYS" />
+            <Region prefHeight="45.0" prefWidth="14.0" />
+            <Button fx:id="reviewButton" defaultButton="true" mnemonicParsing="false" text="Rate/review" HBox.hgrow="ALWAYS" />
          </children>
       </HBox>
    </children>

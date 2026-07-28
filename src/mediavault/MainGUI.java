@@ -66,6 +66,8 @@ public class MainGUI extends Application {
 			Scene scene = new Scene(root);
 			scene.getStylesheets().add("/css/dracula.css");
 
+			stage.setMinWidth(600);
+			stage.setMinHeight(450);
 			stage.setTitle("Media Vault");
 			stage.setScene(scene);
 			stage.show();
