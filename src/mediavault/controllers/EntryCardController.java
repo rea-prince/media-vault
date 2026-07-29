@@ -60,7 +60,7 @@ public class EntryCardController {
         entryTitle.setText(entry.getDetails().getTitle());
         entrySynopsis.setText(entry.getDetails().getSynopsis());
 
-        // s et status
+        // set status
 
         entryStatus.getItems().setAll(Status.values());
         entryStatus.setValue(entry.getStatus());
