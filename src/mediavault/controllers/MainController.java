@@ -22,6 +22,7 @@ import javafx.scene.Parent;
 import javafx.scene.Node;
 
 import javafx.scene.control.Button;
+import javafx.scene.control.Menu;
 import javafx.scene.layout.VBox;
 
 public class MainController {
@@ -29,8 +30,16 @@ public class MainController {
 	@FXML
 	private VBox entryList;
 
+	@FXML
+	private Menu filterButton;
+
 
 	private MediaVault vault;
+
+
+	public void openFilterMenu() {
+		
+	}
 
 	public void setVault(MediaVault vault) throws IOException {
 		this.vault = vault;

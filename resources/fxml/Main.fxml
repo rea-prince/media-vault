@@ -76,6 +76,11 @@
                   <MenuItem mnemonicParsing="false" text="Last modified" />
               </items>
             </Menu>
+            <Menu fx:id="filterButton" mnemonicParsing="false" text="Filter">
+              <items>
+                <MenuItem mnemonicParsing="false" text="Action 1" />
+              </items>
+            </Menu>
          </menus>
       </MenuBar>
    </top>

@@ -40,13 +40,13 @@ public class FilterController
     private Label entryTitle;
 
     @FXML
-    private Label entryType;
+    private Label entryYear;
 
     @FXML
-    private Label entryDetails;
+    private ChoiceBox<MediaType> entryType;
 
     @FXML
-    private Label entrySynopsis;
+    private ChoiceBox<Genre> entryGenre;
 
     @FXML
     private ChoiceBox<Status> entryStatus;
@@ -64,17 +64,15 @@ public class FilterController
      * </p>
      * @return void
      */
-    private static MediaType filterByMediaType()
+    public void filterByMediaType(MediaEntry entry)
     {
-        MediaType media = null;
+        entryType.getItems().setAll(MediaType.values());
+        entryType.setValue(entry.getMediaType());
+    }
 
-        switch (Input.getStrInput("Media Type", "A", "N", "V")) {
-            case "A": { media = MediaType.ANIME; } break;
-            case "N": { media = MediaType.NOVEL; } break;
-            case "V": { media = MediaType.VIDEOGAME; } break;
-        }
-
-        return media;
+    public void filterByYear(MediaEntry entry)
+    {
+        entryYear.setValue(entry.getDetails().getYear());
     }
 
     /**
@@ -85,25 +83,10 @@ public class FilterController
      * </p>
      * @return void
      */
-    private static ArrayList<Genre> filterByGenre()
+    public void filterByGenre(MediaEntry entry)
     {
-        ArrayList<Genre> validGenres = new ArrayList<>(List.of(Genre.values()));
-
-        Display.displayGenres();
-
-        ArrayList<Genre> genre = new ArrayList<Genre>();
-
-        for (String choice : Input.getStrInput("Genre").split("[,\\.\\s]+")) {
-            Genre genreChoice = Genre.fromId(Integer.parseInt(choice));
-
-            if (validGenres.contains(genreChoice) && genreChoice != Genre.INVALID)
-                genre.add(Genre.fromId(Integer.parseInt(choice)));
-        }
-
-        if (genre.size() == 0)
-            return null;
-
-        return genre;
+        entryGenre.getItems().setAll(Genre.values());
+        entryGenre.setValue(entry.getGenres());
     }
 
     /**
@@ -114,22 +97,9 @@ public class FilterController
      * </p>
      * @return void
      */
-    private static Status filterByStatus()
+    public void filterByStatus(MediaEntry entry)
     {
-        Display.createBoard("Status", List.of(
-            "[P] - Planned",
-            "[I] - In-progress",
-            "[C] - Completed"
-        ));
-
-        Status status = null;
-
-        switch (Input.getStrInput("Status", "P", "I", "C")) {
-            case "P": { status = Status.PLANNED; } break;
-            case "I": { status = Status.IN_PROGRESS; } break;
-            case "C": { status = Status.COMPLETED; } break;
-        }
-
-        return status;
+        entryStatus.getItems().setAll(Status.values());
+        entryStatus.setValue(entry.getStatus());
     }
 }
