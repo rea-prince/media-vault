@@ -49,7 +49,13 @@ public class FilterController
     @FXML
     private ChoiceBox<Status> entryStatus;
 
-    private MediaVault vault;
+
+    @FXML
+	public void initialize() {
+		entryType.getItems().setAll(MediaType.values());
+		entryGenre.getItems().setAll(Genre.values());
+		entryStatus.getItems().setAll(Status.values());
+	}
 
     /**
      * Filters media entries by media type (anime, novel, video game)
@@ -67,7 +73,7 @@ public class FilterController
 
     public void filterByYear(MediaEntry entry)
     {
-        entryYear.setValue(entry.getDetails().getYear());
+    	entryYear.setText(String.valueOf(entry.getDetails().getYear()));
     }
 
     /**
@@ -81,7 +87,7 @@ public class FilterController
     public void filterByGenre(MediaEntry entry)
     {
         entryGenre.getItems().setAll(Genre.values());
-        entryGenre.setValue(entry.getGenres());
+        entryGenre.setValue(entry.getGenres().get(0));
     }
 
     /**

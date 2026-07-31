@@ -67,6 +67,7 @@
                <items>
                   <MenuItem mnemonicParsing="false" text="Search" />
                   <MenuItem mnemonicParsing="false" text="Summarize" />
+                  <MenuItem fx:id="filterButton" mnemonicParsing="false" onAction="#openFilterMenu" text="Filter" />
                </items>
             </Menu>
             <Menu mnemonicParsing="false" text="Sort">
@@ -77,18 +78,13 @@
                   <MenuItem mnemonicParsing="false" text="Last modified" />
               </items>
             </Menu>
-            <Menu fx:id="filterButton" mnemonicParsing="false" text="Filter">
-              <items>
-                <MenuItem mnemonicParsing="false" text="Action 1" />
-              </items>
-            </Menu>
          </menus>
       </MenuBar>
    </top>
    <center>
       <HBox fx:id="contentContainer" alignment="CENTER" BorderPane.alignment="CENTER">
          <children>
-            <StackPane>
+            <StackPane fx:id="stackView">
                <HBox.margin>
                   <Insets />
                </HBox.margin>

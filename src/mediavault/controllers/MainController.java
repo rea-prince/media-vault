@@ -22,7 +22,7 @@ import javafx.scene.Parent;
 import javafx.scene.Node;
 
 import javafx.scene.control.Button;
-import javafx.scene.control.Menu;
+import javafx.scene.control.MenuItem;
 import javafx.scene.layout.VBox;
 import javafx.scene.layout.StackPane;
 
@@ -32,31 +32,42 @@ public class MainController {
 	private VBox entryList;
 
 	@FXML
-	private Menu filterButton;
+	private MenuItem filterButton;
 
 	@FXML
-	private StackPane stack;
+	private StackPane stackView;
 
 
 	private MediaVault vault;
 
+	public void initComponent() throws IOException {
+		stackView.getChildren().clear();
 
-	public void openFilterMenu() {
+		showEntries();
+
+		stackView.getChildren().add(entryList);
+	}
+
+	@FXML
+	public void openFilterMenu(ActionEvent e) throws IOException {
 		FXMLLoader loader = new FXMLLoader(
-			getClass().getRrsource("/fxml/FilterPrompt.fxml")
+			getClass().getResource("/fxml/FilterPrompt.fxml")
 		);
 
 		Parent popup = loader.load();
-
+		stackView.getChildren().add(popup);
 	}
 
-	public void setVault(MediaVault vault) throws IOException {
+	public void setVault(MediaVault vault) {
 		this.vault = vault;
-		showEntries();
 	}
 
-	public void showEntries() throws IOException {
+	private void showEntries() throws IOException {
 		entryList.getChildren().clear();
+
+		if (vault == null) {
+			return;
+		}
 
 		for (MediaEntry entry : vault.getAll()) {
 			FXMLLoader loader = new FXMLLoader(

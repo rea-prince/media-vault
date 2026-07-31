@@ -22,6 +22,7 @@ import javafx.scene.layout.VBox;
 
 import mediavault.controllers.MainController;
 import mediavault.controllers.EntryCardController;
+import mediavault.controllers.FilterController;
 import mediavault.models.MediaEntry;
 import mediavault.models.MediaVault;
 
@@ -60,6 +61,7 @@ public class MainGUI extends Application {
 
 			MainController controller = loader.getController();
 			controller.setVault(vault);
+			controller.initComponent();
 
 			// render
 
