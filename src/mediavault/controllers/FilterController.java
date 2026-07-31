@@ -33,14 +33,12 @@ import javafx.scene.layout.VBox;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 
-public class FilterController 
+public class FilterController
 {
     @FXML
-    private Label entryTitle;
-
-    @FXML
-    private Label entryYear;
+    private TextField entryYear;
 
     @FXML
     private ChoiceBox<MediaType> entryType;
@@ -51,10 +49,7 @@ public class FilterController
     @FXML
     private ChoiceBox<Status> entryStatus;
 
-    public FilterController ()
-    {
-
-    }
+    private MediaVault vault;
 
     /**
      * Filters media entries by media type (anime, novel, video game)

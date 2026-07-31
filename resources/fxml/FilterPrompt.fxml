@@ -32,72 +32,52 @@
   OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 -->
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="240.0" prefWidth="480.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1">
+<VBox alignment="CENTER" prefHeight="233.0" prefWidth="264.0" style="-fx-background-radius: 16;" styleClass="bg-default" stylesheets="@../css/blue-dark.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mediavault.controllers.FilterPrompt">
    <children>
-      <HBox alignment="CENTER" prefHeight="60.0" prefWidth="480.0">
+      <Label text="Filter by . . .">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <HBox alignment="CENTER_RIGHT" VBox.vgrow="ALWAYS">
          <children>
-            <Label text="Filter by . . .">
-               <font>
-                  <Font size="20.0" />
-               </font>
-            </Label>
+            <Label text="Media Type" />
+            <Region HBox.hgrow="ALWAYS" />
+            <ChoiceBox fx:id="entryType" />
          </children>
       </HBox>
-      <HBox alignment="TOP_CENTER" layoutY="180.0" prefHeight="60.0" prefWidth="240.0">
+      <HBox alignment="CENTER_RIGHT" VBox.vgrow="ALWAYS">
          <children>
-            <ChoiceBox prefWidth="150.0" />
+            <Label text="Status" />
+            <Region HBox.hgrow="ALWAYS" />
+            <ChoiceBox fx:id="entryStatus" />
          </children>
       </HBox>
-      <HBox alignment="TOP_CENTER" layoutX="240.0" layoutY="180.0" prefHeight="60.0" prefWidth="240.0">
+      <HBox alignment="CENTER_RIGHT" VBox.vgrow="ALWAYS">
          <children>
-            <ChoiceBox prefWidth="150.0" />
+            <Label text="Genre" />
+            <Region HBox.hgrow="ALWAYS" />
+            <ChoiceBox fx:id="entryGenre" />
          </children>
       </HBox>
-      <Label layoutX="79.0" layoutY="91.0" text="Media Type">
-         <font>
-            <Font size="16.0" />
-         </font>
-      </Label>
-      <Label layoutX="344.0" layoutY="91.0" text="Year">
-         <font>
-            <Font size="16.0" />
-         </font>
-      </Label>
-      <Label layoutX="99.0" layoutY="154.0" text="Genre">
-         <font>
-            <Font size="16.0" />
-         </font>
-      </Label>
-      <Label layoutX="338.0" layoutY="154.0" text="Status">
-         <font>
-            <Font size="16.0" />
-         </font>
-      </Label>
-      <VBox layoutY="120.0" prefHeight="120.0" prefWidth="240.0">
+      <HBox alignment="CENTER_RIGHT" VBox.vgrow="ALWAYS">
          <children>
-            <HBox alignment="TOP_CENTER" prefHeight="120.0" prefWidth="240.0">
-               <children>
-                  <ChoiceBox prefWidth="150.0" />
-               </children>
-            </HBox>
+            <Label text="Year" />
+            <Region HBox.hgrow="ALWAYS" />
+            <TextField fx:id="entryYear" prefHeight="36.0" prefWidth="102.0" />
          </children>
-      </VBox>
-      <VBox layoutX="240.0" layoutY="122.0" prefHeight="120.0" prefWidth="240.0">
-         <children>
-            <HBox alignment="TOP_CENTER" prefHeight="120.0" prefWidth="240.0">
-               <children>
-                  <TextField />
-               </children>
-            </HBox>
-         </children>
-      </VBox>
+      </HBox>
    </children>
-</AnchorPane>
+   <padding>
+      <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
+   </padding>
+</VBox>

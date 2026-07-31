@@ -24,6 +24,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Menu;
 import javafx.scene.layout.VBox;
+import javafx.scene.layout.StackPane;
 
 public class MainController {
 
@@ -33,12 +34,20 @@ public class MainController {
 	@FXML
 	private Menu filterButton;
 
+	@FXML
+	private StackPane stack;
+
 
 	private MediaVault vault;
 
 
 	public void openFilterMenu() {
-		
+		FXMLLoader loader = new FXMLLoader(
+			getClass().getRrsource("/fxml/FilterPrompt.fxml")
+		);
+
+		Parent popup = loader.load();
+
 	}
 
 	public void setVault(MediaVault vault) throws IOException {
