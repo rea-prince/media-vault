@@ -96,6 +96,6 @@
       <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
    </padding>
    <effect>
-      <DropShadow blurType="GAUSSIAN" height="50.31" radius="26.12" width="56.17" />
+      <DropShadow blurType="GAUSSIAN" height="55.0" radius="27.0" width="55.0" />
    </effect>
 </VBox>
