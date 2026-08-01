@@ -5,6 +5,9 @@ import mediavault.models.Anime;
 import mediavault.models.Novel;
 import mediavault.models.VideoGame;
 
+
+import java.util.stream.*;
+import java.util.List;
 import java.io.IOException;
 import java.util.function.Consumer;
 
@@ -24,7 +27,7 @@ public class EntryCardController {
 	@FXML private Label entryType;
 	@FXML private Label entryDetails;
 	@FXML private Label entrySynopsis;
-	@FXML private ChoiceBox<Status> entryStatus;
+	@FXML private ChoiceBox<String> entryStatus;
 	@FXML private Button reviewButton;
 	@FXML private Button viewEpisodesButton;
 	@FXML private VBox entryBox;
@@ -81,13 +84,15 @@ public class EntryCardController {
 
 		// set status
 
-		entryStatus.getItems().setAll(Status.values());
-		entryStatus.setValue(entry.getStatus());
+		entryStatus.getItems().setAll(
+		    Stream.of(Status.values()).map(Status::getName).toList()
+		);
+		entryStatus.setValue(entry.getStatus().getName());
 
 		// attach event
 
 		entryStatus.setOnAction(e ->
-			entry.setStatus(entryStatus.getValue())
+			entry.setStatus(Status.fromString(entryStatus.getValue()))
 		);
 
 		// optional stuff
