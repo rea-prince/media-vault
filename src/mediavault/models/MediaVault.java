@@ -1,4 +1,5 @@
 package mediavault.models;
+import java.util.List;
 import java.util.ArrayList;
 import java.io.Serializable;
 
@@ -116,7 +117,7 @@ public class MediaVault implements Serializable
      * @return ArrayList<MediaEntry> All entries that match the given parameters.
      */
     public ArrayList<MediaEntry> getEntries(String title, int year, MediaType type,
-                                            Status status, ArrayList<Genre> genres)
+                                            Status status, List<Genre> genres)
     {
         return new ArrayList<MediaEntry>(entries.stream().filter(
             entry ->

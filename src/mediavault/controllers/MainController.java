@@ -1,9 +1,6 @@
 package mediavault.controllers;
-import mediavault.models.MediaEntry;
-import mediavault.models.MediaVault;
-import mediavault.enums.MediaType;
-import mediavault.enums.Genre;
-import mediavault.enums.Status;
+import mediavault.models.*;
+import mediavault.enums.*;
 
 import java.util.Arrays;
 import java.util.ArrayList;
@@ -34,8 +31,11 @@ public class MainController {
 	@FXML private StackPane stackView;
 	@FXML private VBox popupPane;
 
-
 	private MediaVault vault;
+
+	public MediaVault getVault() {
+		return vault;
+	}
 
 	@FXML
 	public void openDeleteTab(ActionEvent e) throws IOException {
@@ -56,6 +56,7 @@ public class MainController {
 		Parent popup = loader.load();
 		stackView.getChildren().add(popup);
 	}
+
 
 	private void showEntries(ArrayList<MediaEntry> entries) throws IOException {
 		entryList.getChildren().clear();
@@ -95,6 +96,24 @@ public class MainController {
 		);
 
 		Parent popup = loader.load();
+		FilterController controller = loader.getController();
+		controller.setOnApply(cont -> {
+			try {
+				showEntries(vault.getEntries(
+					null,
+					cont.getSelectedYear().intValue(),
+			        cont.getSelectedMediaType(),
+					cont.getSelectedStatus(),
+			        cont.getSelectedGenre()
+    			));
+			} catch (IOException except) {
+				except.printStackTrace();
+			}
+			popupPane.getChildren().remove(popup);
+		});
+		controller.setOnCancel(() -> {
+			popupPane.getChildren().remove(popup);
+		});
 
 		popupPane.getChildren().add(popup);
 	}

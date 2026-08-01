@@ -1,10 +1,9 @@
 package mediavault.controllers;
-import mediavault.enums.Genre;
-import mediavault.enums.MediaType;
-import mediavault.enums.Status;
-import mediavault.models.MediaEntry;
+import mediavault.enums.*;
+import mediavault.models.*;
 
-
+import java.util.List;
+import java.util.function.Consumer;
 import javafx.scene.control.Button;
 import javafx.event.ActionEvent;
 
@@ -24,6 +23,18 @@ public class FilterController
     @FXML private Button cancelFilters;
 
 
+    // behavior stuff
+    private Consumer<FilterController> onApply;
+    private Runnable onCancel;
+
+    public void setOnCancel(Runnable onCancel) {
+		this.onCancel = onCancel;
+	}
+
+	public void setOnApply(Consumer<FilterController> onApply) {
+		this.onApply = onApply;
+	}
+
     @FXML
 	public void initialize() {
 		entryType.getItems().setAll(MediaType.values());
@@ -36,13 +47,27 @@ public class FilterController
 		initialize();
 	}
 
+	@FXML
+	private void apply() {
+		onApply.accept(this);
+	}
+	@FXML
+	private void cancel() {
+		onCancel.run();
+	}
 
 	public MediaType getSelectedMediaType() {
 		return entryType.getValue();
 	}
 
-	public Genre getSelectedGenre() {
-		return entryGenre.getValue();
+	public List<Genre> getSelectedGenre() {
+		Genre genre = entryGenre.getValue();
+
+		if (genre == null) {
+			return null;
+		}
+
+		return List.of(genre);
 	}
 
 	public Status getSelectedStatus() {
@@ -53,7 +78,7 @@ public class FilterController
 		String text = entryYear.getText();
 
 		if (text.isBlank()) {
-		    return null;
+		    return Integer.valueOf(-1);
 		}
 
 		return Integer.parseInt(text);
