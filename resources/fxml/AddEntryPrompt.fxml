@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="450.0" style="-fx-background-radius: 16;" styleClass="bg-default" stylesheets="@../css/blue-dark.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <HBox alignment="CENTER_RIGHT" layoutY="60.0" prefHeight="60.0" prefWidth="360.0">
+         <children>
+            <ChoiceBox prefHeight="45.0" prefWidth="180.0" />
+         </children>
+      </HBox>
+      <HBox alignment="CENTER_RIGHT" layoutY="120.0" prefHeight="60.0" prefWidth="360.0">
+         <children>
+            <TextField prefHeight="45.0" prefWidth="180.0" />
+         </children>
+      </HBox>
+      <HBox alignment="CENTER_RIGHT" layoutY="180.0" prefHeight="60.0" prefWidth="360.0">
+         <children>
+            <TextField prefHeight="45.0" prefWidth="180.0" />
+         </children>
+      </HBox>
+      <HBox alignment="CENTER_RIGHT" layoutY="240.0" prefHeight="60.0" prefWidth="360.0">
+         <children>
+            <ChoiceBox prefHeight="45.0" prefWidth="180.0" />
+         </children>
+      </HBox>
+   </children>
+</AnchorPane>

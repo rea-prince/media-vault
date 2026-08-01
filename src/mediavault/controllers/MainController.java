@@ -38,6 +38,16 @@ public class MainController {
 	}
 
 	@FXML
+	public void openAddEntryTab(ActionEvent e) throws IOException {
+		FXMLLoader loader = new FXMLLoader(
+			getClass().getResource("/fxml/DeletePrompt.fxml")
+		);
+
+		Parent popup = loader.load();
+		stackView.getChildren().add(popup);
+	}
+
+	@FXML
 	public void openDeleteTab(ActionEvent e) throws IOException {
 		FXMLLoader loader = new FXMLLoader(
 			getClass().getResource("/fxml/DeletePrompt.fxml")
