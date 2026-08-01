@@ -48,7 +48,7 @@
                   <Region HBox.hgrow="ALWAYS" />
                   <Button fx:id="viewEpisodesButton" defaultButton="true" mnemonicParsing="false" onAction="#viewEpisodes" text="View episodes" HBox.hgrow="ALWAYS" />
                   <Region prefHeight="45.0" prefWidth="14.0" />
-                  <Button fx:id="reviewButton" defaultButton="true" mnemonicParsing="false" text="Rate/review" HBox.hgrow="ALWAYS" />
+                  <Button fx:id="reviewButton" defaultButton="true" mnemonicParsing="false" onAction="#openReview" text="Rate/review" HBox.hgrow="ALWAYS" />
                </children>
                <VBox.margin>
                   <Insets top="12.0" />
@@ -56,7 +56,7 @@
             </HBox>
          </children>
          <VBox.margin>
-            <Insets bottom="6.0" left="12.0" right="12.0" top="6.0" />
+            <Insets bottom="8.0" left="16.0" right="16.0" top="8.0" />
          </VBox.margin>
          <padding>
             <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />

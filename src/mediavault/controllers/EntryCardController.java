@@ -20,88 +20,105 @@ import javafx.scene.Parent;
 
 public class EntryCardController {
 
-    @FXML private Label entryTitle;
-    @FXML private Label entryType;
-    @FXML private Label entryDetails;
-    @FXML private Label entrySynopsis;
-    @FXML private ChoiceBox<Status> entryStatus;
-    @FXML private Button reviewButton;
-    @FXML private Button viewEpisodesButton;
-    @FXML private VBox entryBox;
+	@FXML private Label entryTitle;
+	@FXML private Label entryType;
+	@FXML private Label entryDetails;
+	@FXML private Label entrySynopsis;
+	@FXML private ChoiceBox<Status> entryStatus;
+	@FXML private Button reviewButton;
+	@FXML private Button viewEpisodesButton;
+	@FXML private VBox entryBox;
 
-    private MediaEntry entry;
+	private MediaEntry entry;
 
-    @FXML
-    public void viewEpisodes() throws IOException {
-        FXMLLoader loader = new FXMLLoader(
-            getClass().getResource("/fxml/EpisodeList.fxml")
-        );
+	@FXML
+	public void openReview() throws IOException {
+		FXMLLoader loader = new FXMLLoader(
+			getClass().getResource("/fxml/Review.fxml")
+		);
 
-        Parent listRoot = loader.load();
+		Parent reviewRoot = loader.load();
 
-        EpisodeListController controller = loader.getController();
-        if (entry instanceof Anime anime) {
-            controller.setAnime(anime);
-        }
+		ReviewController controller = loader.getController();
+		controller.setEntry(entry);
 
-        Pane popupPane = (Pane) viewEpisodesButton.getScene().lookup("#popupPane");
-        if (popupPane != null) {
-            popupPane.getChildren().setAll(listRoot);
-        }
-    }
+		Pane popupPane = (Pane) reviewButton.getScene().lookup("#popupPane");
+		if (popupPane != null) {
+			popupPane.getChildren().setAll(reviewRoot);
+		}
+	}
+
+	@FXML
+	public void viewEpisodes() throws IOException {
+		FXMLLoader loader = new FXMLLoader(
+			getClass().getResource("/fxml/EpisodeList.fxml")
+		);
+
+		Parent listRoot = loader.load();
+
+		EpisodeListController controller = loader.getController();
+		if (entry instanceof Anime anime) {
+			controller.setAnime(anime);
+		}
+
+		Pane popupPane = (Pane) viewEpisodesButton.getScene().lookup("#popupPane");
+		if (popupPane != null) {
+			popupPane.getChildren().setAll(listRoot);
+		}
+	}
 
 
-    public void setEntry(MediaEntry entry) {
-    	this.entry = entry;
-    }
+	public void setEntry(MediaEntry entry) {
+		this.entry = entry;
+	}
 
-    public void setEntryView() {
+	public void setEntryView() {
 
-    	// set details
+		// set details
 
-        entryTitle.setText(entry.getDetails().getTitle());
-        entrySynopsis.setText(entry.getDetails().getSynopsis());
+		entryTitle.setText(entry.getDetails().getTitle());
+		entrySynopsis.setText(entry.getDetails().getSynopsis());
 
-        // set status
+		// set status
 
-        entryStatus.getItems().setAll(Status.values());
-        entryStatus.setValue(entry.getStatus());
+		entryStatus.getItems().setAll(Status.values());
+		entryStatus.setValue(entry.getStatus());
 
-        // attach event
+		// attach event
 
-        entryStatus.setOnAction(e ->
-            entry.setStatus(entryStatus.getValue())
-        );
+		entryStatus.setOnAction(e ->
+			entry.setStatus(entryStatus.getValue())
+		);
 
-        // optional stuff
+		// optional stuff
 
-        if (!(entry instanceof Anime)) {
-      		viewEpisodesButton.setVisible(false);
-        }
-        if (entry.getStatus() != Status.COMPLETED) {
-        	reviewButton.setVisible(false);
-        }
+		if (!(entry instanceof Anime)) {
+			viewEpisodesButton.setVisible(false);
+		}
+		if (entry.getStatus() != Status.COMPLETED) {
+			reviewButton.setVisible(false);
+		}
 
-        // type specific information
+		// type specific information
 
-        if (entry instanceof Novel novel) {
+		if (entry instanceof Novel novel) {
 
-            entryType.setText("Novel");
-            entryDetails.setText(novel.getAuthor());
+			entryType.setText("Novel");
+			entryDetails.setText(novel.getAuthor());
 
-        } else if (entry instanceof VideoGame videoGame) {
+		} else if (entry instanceof VideoGame videoGame) {
 
-            entryType.setText("Video Game");
-            entryDetails.setText(videoGame.getStudio());
+			entryType.setText("Video Game");
+			entryDetails.setText(videoGame.getStudio());
 
-        } else if (entry instanceof Anime anime) {
+		} else if (entry instanceof Anime anime) {
 
-            entryType.setText("Anime");
-            entryDetails.setText(anime.getStudio());
-        } else {
+			entryType.setText("Anime");
+			entryDetails.setText(anime.getStudio());
+		} else {
 
-            entryType.setText(entry.getClass().getSimpleName());
-            entryDetails.setText("");
-        }
-    }
+			entryType.setText(entry.getClass().getSimpleName());
+			entryDetails.setText("");
+		}
+	}
 }
