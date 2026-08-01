@@ -37,15 +37,17 @@ public class MainController {
 	@FXML
 	private StackPane stackView;
 
+	@FXML
+	private VBox popupPane;
+
 
 	private MediaVault vault;
 
 	public void initComponent() throws IOException {
-		stackView.getChildren().clear();
+		entryList.getChildren().clear();
 
 		showEntries();
 
-		stackView.getChildren().add(entryList);
 	}
 
 	@FXML
@@ -55,7 +57,7 @@ public class MainController {
 		);
 
 		Parent popup = loader.load();
-		stackView.getChildren().add(popup);
+		popupPane.getChildren().add(popup);
 	}
 
 	public void setVault(MediaVault vault) {

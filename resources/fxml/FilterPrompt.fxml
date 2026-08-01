@@ -36,12 +36,13 @@
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" prefHeight="233.0" prefWidth="264.0" style="-fx-background-radius: 16;" styleClass="bg-default" stylesheets="@../css/blue-dark.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mediavault.controllers.FilterController">
+<VBox alignment="CENTER" prefHeight="300.0" prefWidth="280.0" style="-fx-background-radius: 16;" styleClass="bg-default" stylesheets="@../css/blue-dark.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mediavault.controllers.FilterController">
    <children>
       <Label text="Filter by . . .">
          <font>
@@ -80,4 +81,7 @@
    <padding>
       <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
    </padding>
+   <effect>
+      <DropShadow height="59.1" radius="29.7825" spread="0.05" width="62.03" />
+   </effect>
 </VBox>
