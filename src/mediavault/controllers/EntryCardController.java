@@ -5,11 +5,18 @@ import mediavault.models.Anime;
 import mediavault.models.Novel;
 import mediavault.models.VideoGame;
 
-import javafx.fxml.FXML;
+import java.io.IOException;
+import java.util.function.Consumer;
 
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
+import javafx.scene.Parent;
 
 public class EntryCardController {
 
@@ -20,8 +27,35 @@ public class EntryCardController {
     @FXML private ChoiceBox<Status> entryStatus;
     @FXML private Button reviewButton;
     @FXML private Button viewEpisodesButton;
+    @FXML private VBox entryBox;
+
+    private MediaEntry entry;
+
+    @FXML
+    public void viewEpisodes() throws IOException {
+        FXMLLoader loader = new FXMLLoader(
+            getClass().getResource("/fxml/EpisodeList.fxml")
+        );
+
+        Parent listRoot = loader.load();
+
+        EpisodeListController controller = loader.getController();
+        if (entry instanceof Anime anime) {
+            controller.setAnime(anime);
+        }
+
+        Pane popupPane = (Pane) viewEpisodesButton.getScene().lookup("#popupPane");
+        if (popupPane != null) {
+            popupPane.getChildren().setAll(listRoot);
+        }
+    }
+
 
     public void setEntry(MediaEntry entry) {
+    	this.entry = entry;
+    }
+
+    public void setEntryView() {
 
     	// set details
 

@@ -152,7 +152,7 @@
                         </VBox>
                      </content>
                   </ScrollPane>
-                  <VBox fx:id="popupPane" alignment="CENTER" fillWidth="false" StackPane.alignment="CENTER">
+                  <VBox id="popupPane" fx:id="popupPane" alignment="CENTER" fillWidth="false" pickOnBounds="false" StackPane.alignment="CENTER">
                      <StackPane.margin>
                         <Insets />
                      </StackPane.margin>
