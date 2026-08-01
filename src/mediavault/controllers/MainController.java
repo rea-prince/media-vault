@@ -58,6 +58,26 @@ public class MainController {
 		stackView.getChildren().add(popup);
 	}
 
+	@FXML
+	public void openDeleteTab(ActionEvent e) throws IOException {
+		FXMLLoader loader = new FXMLLoader(
+			getClass().getResource("/fxml/DeletePrompt.fxml")
+		);
+
+		Parent popup = loader.load();
+		stackView.getChildren().add(popup);
+	}
+
+	@FXML
+	public void openReviewTab(ActionEvent e) throws IOException {
+		FXMLLoader loader = new FXMLLoader(
+			getClass().getResource("/fxml/Review.fxml")
+		);
+
+		Parent popup = loader.load();
+		stackView.getChildren().add(popup);
+	}
+
 	public void setVault(MediaVault vault) {
 		this.vault = vault;
 	}
