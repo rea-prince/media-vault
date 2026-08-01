@@ -26,6 +26,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.layout.VBox;
 import javafx.scene.layout.StackPane;
 
+
 public class MainController {
 
 	@FXML
@@ -43,6 +44,25 @@ public class MainController {
 
 	private MediaVault vault;
 
+	@FXML
+	public void openDeleteTab(ActionEvent e) throws IOException {
+		FXMLLoader loader = new FXMLLoader(
+			getClass().getResource("/fxml/DeletePrompt.fxml")
+		);
+
+		Parent popup = loader.load();
+		stackView.getChildren().add(popup);
+	}
+
+	@FXML
+	public void openReviewTab(ActionEvent e) throws IOException {
+		FXMLLoader loader = new FXMLLoader(
+			getClass().getResource("/fxml/Review.fxml")
+		);
+
+		Parent popup = loader.load();
+		stackView.getChildren().add(popup);
+	}
 
 	private void showEntries(ArrayList<MediaEntry> entries) throws IOException {
 		entryList.getChildren().clear();

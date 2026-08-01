@@ -12,6 +12,7 @@ import javafx.scene.Scene;
 import javafx.scene.Parent;
 
 import mediavault.controllers.MainController;
+import mediavault.controllers.FilterController;
 import mediavault.models.MediaVault;
 
 public class MainGUI extends Application {

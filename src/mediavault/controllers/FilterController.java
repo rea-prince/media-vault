@@ -61,50 +61,50 @@ public class FilterController
 	}
 
 
-    /**
-     * Filters media entries by media type (anime, novel, video game)
-     * <p>
-     * <b>Precondition:</b> None.<br>
-     * <b>Postcondition:</b> Returns the selected MediaType choice, or null if unmapped.
-     * </p>
-     * @return void
-     */
-    public void filterByMediaType(MediaEntry entry)
-    {
-        entryType.getItems().setAll(MediaType.values());
-        entryType.setValue(entry.getMediaType());
-    }
+    // /**
+    //  * Filters media entries by media type (anime, novel, video game)
+    //  * <p>
+    //  * <b>Precondition:</b> None.<br>
+    //  * <b>Postcondition:</b> Returns the selected MediaType choice, or null if unmapped.
+    //  * </p>
+    //  * @return void
+    //  */
+    // public void filterByMediaType(MediaEntry entry)
+    // {
+    //     entryType.getItems().setAll(MediaType.values());
+    //     entryType.setValue(entry.getMediaType());
+    // }
 
-    public void filterByYear(MediaEntry entry)
-    {
-    	entryYear.setText(String.valueOf(entry.getDetails().getYear()));
-    }
+    // public void filterByYear(MediaEntry entry)
+    // {
+    // 	entryYear.setText(String.valueOf(entry.getDetails().getYear()));
+    // }
 
-    /**
-     * Filters media entries by genres
-     * <p>
-     * <b>Precondition:</b> None.<br>
-     * <b>Postcondition:</b> Returns a list of selected Genre values, or null if none were chosen.
-     * </p>
-     * @return void
-     */
-    public void filterByGenre(MediaEntry entry)
-    {
-        entryGenre.getItems().setAll(Genre.values());
-        entryGenre.setValue(entry.getGenres().get(0));
-    }
+    // /**
+    //  * Filters media entries by genres
+    //  * <p>
+    //  * <b>Precondition:</b> None.<br>
+    //  * <b>Postcondition:</b> Returns a list of selected Genre values, or null if none were chosen.
+    //  * </p>
+    //  * @return void
+    //  */
+    // public void filterByGenre(MediaEntry entry)
+    // {
+    //     entryGenre.getItems().setAll(Genre.values());
+    //     entryGenre.setValue(entry.getGenres().get(0));
+    // }
 
-    /**
-     * Filters media entries by status
-     * <p>
-     * <b>Precondition:</b> None.<br>
-     * <b>Postcondition:</b> Returns the selected Status choice, or null if unmapped.
-     * </p>
-     * @return void
-     */
-    public void filterByStatus(MediaEntry entry)
-    {
-        entryStatus.getItems().setAll(Status.values());
-        entryStatus.setValue(entry.getStatus());
-    }
+    // /**
+    //  * Filters media entries by status
+    //  * <p>
+    //  * <b>Precondition:</b> None.<br>
+    //  * <b>Postcondition:</b> Returns the selected Status choice, or null if unmapped.
+    //  * </p>
+    //  * @return void
+    //  */
+    // public void filterByStatus(MediaEntry entry)
+    // {
+    //     entryStatus.getItems().setAll(Status.values());
+    //     entryStatus.setValue(entry.getStatus());
+    // }
 }
