@@ -72,10 +72,30 @@
             </Menu>
             <Menu mnemonicParsing="false" text="Sort">
               <items>
-                <MenuItem mnemonicParsing="false" text="Rating" />
-                  <MenuItem mnemonicParsing="false" text="Title" />
-                  <MenuItem mnemonicParsing="false" text="Release year" />
-                  <MenuItem mnemonicParsing="false" text="Last modified" />
+                  <Menu mnemonicParsing="false" text="Title">
+                    <items>
+                      <MenuItem mnemonicParsing="false" text="Ascending" />
+                        <MenuItem mnemonicParsing="false" text="Descending" />
+                    </items>
+                  </Menu>
+                  <Menu mnemonicParsing="false" text="Release year">
+                    <items>
+                        <MenuItem mnemonicParsing="false" text="Ascending" />
+                        <MenuItem mnemonicParsing="false" text="Descending" />
+                    </items>
+                  </Menu>
+                  <Menu mnemonicParsing="false" text="Rating">
+                    <items>
+                        <MenuItem mnemonicParsing="false" text="Ascending" />
+                        <MenuItem mnemonicParsing="false" text="Descending" />
+                    </items>
+                  </Menu>
+                  <Menu mnemonicParsing="false" text="Last modified">
+                    <items>
+                      <MenuItem mnemonicParsing="false" text="Ascending" />
+                      <MenuItem mnemonicParsing="false" text="Descending" />
+                    </items>
+                  </Menu>
               </items>
             </Menu>
          </menus>
