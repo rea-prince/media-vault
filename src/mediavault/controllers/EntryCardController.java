@@ -1,30 +1,11 @@
 package mediavault.controllers;
 import mediavault.enums.Status;
-import mediavault.models.MediaVault;
 import mediavault.models.MediaEntry;
 import mediavault.models.Anime;
 import mediavault.models.Novel;
 import mediavault.models.VideoGame;
 
-import java.util.ArrayList;
-
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.stage.Stage;
-import javafx.scene.Group;
-import javafx.scene.Scene;
-import javafx.scene.Parent;
-import javafx.scene.Node;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.paint.Color;
-import javafx.scene.layout.VBox;
 
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;

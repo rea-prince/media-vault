@@ -7,7 +7,7 @@ echo "Compiling MediaVault class files..."
 mkdir -p out
 
 javac \
-	--module-path "$PATH_TO_FX" \
+	--module-path lib \
 	--add-modules javafx.controls,javafx.fxml \
 	--source-path src \
 	-d out \

@@ -1,29 +1,17 @@
 package mediavault;
 
-import java.util.ArrayList;
-
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
-import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.Parent;
-import javafx.scene.Node;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.paint.Color;
-import javafx.scene.layout.VBox;
 
 import mediavault.controllers.MainController;
-import mediavault.controllers.EntryCardController;
-import mediavault.controllers.FilterController;
-import mediavault.models.MediaEntry;
 import mediavault.models.MediaVault;
 
 public class MainGUI extends Application {

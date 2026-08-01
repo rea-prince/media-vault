@@ -3,7 +3,7 @@
 echo "Running project..."
 
 java \
-	--module-path "$PATH_TO_FX" \
+	--module-path lib \
 	--add-modules javafx.controls,javafx.fxml \
 	-cp out \
 	mediavault.MainGUI

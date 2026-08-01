@@ -1,7 +1,11 @@
 package mediavault.controllers;
 import mediavault.models.MediaEntry;
 import mediavault.models.MediaVault;
+import mediavault.enums.MediaType;
+import mediavault.enums.Genre;
+import mediavault.enums.Status;
 
+import java.util.Arrays;
 import java.util.ArrayList;
 
 import java.io.FileInputStream;
@@ -15,11 +19,7 @@ import javafx.event.ActionEvent;
 import javafx.application.Application;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.stage.Stage;
-import javafx.scene.Group;
-import javafx.scene.Scene;
 import javafx.scene.Parent;
-import javafx.scene.Node;
 
 import javafx.scene.control.Button;
 import javafx.scene.control.MenuItem;
@@ -43,35 +43,15 @@ public class MainController {
 
 	private MediaVault vault;
 
-	public void initComponent() throws IOException {
-		entryList.getChildren().clear();
 
-		showEntries();
-
-	}
-
-	@FXML
-	public void openFilterMenu(ActionEvent e) throws IOException {
-		FXMLLoader loader = new FXMLLoader(
-			getClass().getResource("/fxml/FilterPrompt.fxml")
-		);
-
-		Parent popup = loader.load();
-		popupPane.getChildren().add(popup);
-	}
-
-	public void setVault(MediaVault vault) {
-		this.vault = vault;
-	}
-
-	private void showEntries() throws IOException {
+	private void showEntries(ArrayList<MediaEntry> entries) throws IOException {
 		entryList.getChildren().clear();
 
 		if (vault == null) {
 			return;
 		}
 
-		for (MediaEntry entry : vault.getAll()) {
+		for (MediaEntry entry : entries) {
 			FXMLLoader loader = new FXMLLoader(
 				getClass().getResource("/fxml/EntryCard.fxml")
 			);
@@ -83,6 +63,27 @@ public class MainController {
 
 			entryList.getChildren().add(card);
 		}
+	}
+
+	public void initComponent() throws IOException {
+		entryList.getChildren().clear();
+
+		showEntries(vault.getAll());
+	}
+
+	public void setVault(MediaVault vault) {
+		this.vault = vault;
+	}
+
+	@FXML
+	public void openFilterMenu(ActionEvent e) throws IOException {
+		FXMLLoader loader = new FXMLLoader(
+			getClass().getResource("/fxml/FilterPrompt.fxml")
+		);
+
+		Parent popup = loader.load();
+
+		popupPane.getChildren().add(popup);
 	}
 
 }

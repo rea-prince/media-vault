@@ -2,37 +2,15 @@ package mediavault.controllers;
 import mediavault.enums.Genre;
 import mediavault.enums.MediaType;
 import mediavault.enums.Status;
-import mediavault.models.MediaVault;
 import mediavault.models.MediaEntry;
-import mediavault.models.Anime;
-import mediavault.models.Novel;
-import mediavault.models.VideoGame;
-import mediavault.tui.Display;
-import mediavault.tui.Input;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.stage.Stage;
-import javafx.scene.Group;
-import javafx.scene.Scene;
-import javafx.scene.Parent;
-import javafx.scene.Node;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.paint.Color;
-import javafx.scene.layout.VBox;
 
 import javafx.scene.control.Button;
+import javafx.event.ActionEvent;
+
+import javafx.fxml.FXML;
+
 import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
 public class FilterController
@@ -49,6 +27,9 @@ public class FilterController
     @FXML
     private ChoiceBox<Status> entryStatus;
 
+    @FXML
+    private Button applyFilters;
+
 
     @FXML
 	public void initialize() {
@@ -56,6 +37,29 @@ public class FilterController
 		entryGenre.getItems().setAll(Genre.values());
 		entryStatus.getItems().setAll(Status.values());
 	}
+
+	public MediaType getSelectedMediaType() {
+		return entryType.getValue();
+	}
+
+	public Genre getSelectedGenre() {
+		return entryGenre.getValue();
+	}
+
+	public Status getSelectedStatus() {
+		return entryStatus.getValue();
+	}
+
+	public Integer getSelectedYear() {
+		String text = entryYear.getText();
+
+		if (text.isBlank()) {
+		    return null;
+		}
+
+		return Integer.parseInt(text);
+	}
+
 
     /**
      * Filters media entries by media type (anime, novel, video game)
