@@ -40,7 +40,7 @@ public class MainController {
 	@FXML
 	public void openAddEntryTab(ActionEvent e) throws IOException {
 		FXMLLoader loader = new FXMLLoader(
-			getClass().getResource("/fxml/DeletePrompt.fxml")
+			getClass().getResource("/fxml/AddEntryPrompt.fxml")
 		);
 
 		Parent popup = loader.load();
