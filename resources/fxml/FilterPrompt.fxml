@@ -54,36 +54,41 @@
          <children>
             <Label text="Media Type" />
             <Region HBox.hgrow="ALWAYS" />
-            <ChoiceBox fx:id="entryType" />
+            <ChoiceBox fx:id="entryType" HBox.hgrow="ALWAYS" />
          </children>
       </HBox>
+      <Region prefHeight="400.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
       <HBox alignment="CENTER_RIGHT" VBox.vgrow="ALWAYS">
          <children>
             <Label text="Status" />
             <Region HBox.hgrow="ALWAYS" />
-            <ChoiceBox fx:id="entryStatus" />
+            <ChoiceBox fx:id="entryStatus" HBox.hgrow="ALWAYS" />
          </children>
       </HBox>
+      <Region prefHeight="400.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
       <HBox alignment="CENTER_RIGHT" VBox.vgrow="ALWAYS">
          <children>
             <Label text="Genre" />
             <Region HBox.hgrow="ALWAYS" />
-            <ChoiceBox fx:id="entryGenre" />
+            <ChoiceBox fx:id="entryGenre" HBox.hgrow="ALWAYS" />
          </children>
       </HBox>
+      <Region prefHeight="400.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
       <HBox alignment="CENTER_RIGHT" VBox.vgrow="ALWAYS">
          <children>
             <Label text="Year" />
             <Region HBox.hgrow="ALWAYS" />
-            <TextField fx:id="entryYear" prefHeight="36.0" prefWidth="102.0" />
+            <TextField fx:id="entryYear" prefHeight="36.0" prefWidth="102.0" HBox.hgrow="ALWAYS" />
          </children>
       </HBox>
-      <Region prefHeight="200.0" prefWidth="200.0" />
+      <Region prefHeight="400.0" prefWidth="200.0" />
       <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
          <children>
-            <Button fx:id="Reset" cancelButton="true" mnemonicParsing="false" stylesheets="@../css/blue-dark.css" text="Reset" />
+            <Button fx:id="resetFilters" cancelButton="true" mnemonicParsing="false" onAction="#resetFilters" stylesheets="@../css/blue-dark.css" text="Reset" />
             <Region HBox.hgrow="ALWAYS" />
             <Button fx:id="applyFilters" mnemonicParsing="false" text="Apply" />
+            <Region prefHeight="36.0" prefWidth="12.0" HBox.hgrow="SOMETIMES" />
+            <Button fx:id="cancelFilters" mnemonicParsing="false" text="Cancel" />
          </children>
       </HBox>
    </children>

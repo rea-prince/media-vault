@@ -15,20 +15,13 @@ import javafx.scene.control.TextField;
 
 public class FilterController
 {
-    @FXML
-    private TextField entryYear;
-
-    @FXML
-    private ChoiceBox<MediaType> entryType;
-
-    @FXML
-    private ChoiceBox<Genre> entryGenre;
-
-    @FXML
-    private ChoiceBox<Status> entryStatus;
-
-    @FXML
-    private Button applyFilters;
+    @FXML private TextField entryYear;
+    @FXML private ChoiceBox<MediaType> entryType;
+    @FXML private ChoiceBox<Genre> entryGenre;
+    @FXML private ChoiceBox<Status> entryStatus;
+    @FXML private Button resetFilters;
+    @FXML private Button applyFilters;
+    @FXML private Button cancelFilters;
 
 
     @FXML
@@ -37,6 +30,12 @@ public class FilterController
 		entryGenre.getItems().setAll(Genre.values());
 		entryStatus.getItems().setAll(Status.values());
 	}
+
+	@FXML
+	public void resetFilters(ActionEvent e) {
+		initialize();
+	}
+
 
 	public MediaType getSelectedMediaType() {
 		return entryType.getValue();

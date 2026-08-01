@@ -29,17 +29,10 @@ import javafx.scene.layout.StackPane;
 
 public class MainController {
 
-	@FXML
-	private VBox entryList;
-
-	@FXML
-	private MenuItem filterButton;
-
-	@FXML
-	private StackPane stackView;
-
-	@FXML
-	private VBox popupPane;
+	@FXML private VBox entryList;
+	@FXML private MenuItem filterButton;
+	@FXML private StackPane stackView;
+	@FXML private VBox popupPane;
 
 
 	private MediaVault vault;

@@ -13,26 +13,13 @@ import javafx.scene.control.Label;
 
 public class EntryCardController {
 
-    @FXML
-    private Label entryTitle;
-
-    @FXML
-    private Label entryType;
-
-    @FXML
-    private Label entryDetails;
-
-    @FXML
-    private Label entrySynopsis;
-
-    @FXML
-    private ChoiceBox<Status> entryStatus;
-
-    @FXML
-    private Button reviewButton;
-
-    @FXML
-    private Button viewEpisodesButton;
+    @FXML private Label entryTitle;
+    @FXML private Label entryType;
+    @FXML private Label entryDetails;
+    @FXML private Label entrySynopsis;
+    @FXML private ChoiceBox<Status> entryStatus;
+    @FXML private Button reviewButton;
+    @FXML private Button viewEpisodesButton;
 
     public void setEntry(MediaEntry entry) {
 
