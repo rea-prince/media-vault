@@ -17,25 +17,9 @@ import mediavault.models.MediaVault;
 
 public class MainGUI extends Application {
 
-	private MediaVault loadVault(String location) throws Exception, FileNotFoundException, IOException, ClassNotFoundException {
-
-		MediaVault vault = null;
-
-        FileInputStream fileIn = new FileInputStream(location);
-        ObjectInputStream in = new ObjectInputStream(fileIn);
-
-        vault = (MediaVault) in.readObject();
-        in.close();
-        fileIn.close();
-
-        return vault;
-
-	}
 
 	@Override
 	public void start(Stage stage) throws Exception {
-
-		MediaVault vault = loadVault("./data/Vault.ser"); // TO DO: update this and make it dynamic
 
 		try {
 			// set scene
@@ -49,7 +33,7 @@ public class MainGUI extends Application {
 			// setup controller
 
 			MainController controller = loader.getController();
-			controller.setVault(vault);
+			controller.setVault(new MediaVault());
 			controller.initComponent();
 
 			// render
