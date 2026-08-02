@@ -10,16 +10,16 @@ import mediavault.enums.Status;
 
 abstract public class MediaEntry implements Serializable
 {
-    private LocalDateTime lastModified;
+    protected LocalDateTime lastModified;
 
-    private MediaType TYPE;
-    private Details details;
+    protected MediaType TYPE;
+    protected Details details;
 
-    private ArrayList<Genre> genres;
+    protected ArrayList<Genre> genres;
 
-    private Status status;
-    private float rating;
-    private String review;
+    protected Status status;
+    protected float rating;
+    protected String review;
 
 
     /**

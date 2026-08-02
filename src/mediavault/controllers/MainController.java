@@ -84,6 +84,7 @@ public class MainController {
 
 			EntryCardController entryController = loader.getController();
 			entryController.setEntry(entry);
+			entryController.setEntryView();
 
 			entryList.getChildren().add(card);
 		}

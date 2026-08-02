@@ -55,7 +55,7 @@ public class MainGUI extends Application {
 			// render
 
 			Scene scene = new Scene(root);
-			scene.getStylesheets().add("/css/browny.css");
+			// scene.getStylesheets().add("/css/browny.css");
 
 			stage.setMinWidth(800);
 			stage.setMinHeight(600);

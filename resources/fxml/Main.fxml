@@ -48,7 +48,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="600.0" prefWidth="800.0" styleClass="bg-inset" stylesheets="@../css/blue-dark.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mediavault.controllers.MainController">
+<BorderPane prefHeight="600.0" prefWidth="800.0" styleClass="bg-inset" stylesheets="@../css/fall-light.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mediavault.controllers.MainController">
    <top>
       <MenuBar BorderPane.alignment="CENTER">
          <menus>
@@ -89,75 +89,74 @@
                   <Insets />
                </HBox.margin>
                <children>
-                  <ScrollPane hbarPolicy="NEVER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
-                     <content>
-                        <VBox fx:id="entryList" alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
-                           <children>
-                              <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="135.0" text="Add an Entry">
-                                 <font>
-                                    <Font size="16.0" />
-                                 </font>
-                              </Button>
-                              <VBox fx:id="entryCard">
+                  <HBox alignment="CENTER" StackPane.alignment="CENTER">
+                     <children>
+                        <ScrollPane hbarPolicy="NEVER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
+                           <content>
+                              <VBox fx:id="entryList" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
                                  <children>
-                                    <VBox style="-fx-background-radius: 16;" styleClass="bg-default">
+                                    <VBox fx:id="entryCard">
                                        <children>
-                                          <HBox alignment="BASELINE_LEFT" prefHeight="32.0" VBox.vgrow="ALWAYS">
+                                          <VBox style="-fx-background-radius: 16;" styleClass="bg-default">
                                              <children>
-                                                <Label fx:id="entryTitle" text="Entry Title">
-                                                   <font>
-                                                      <Font name="System Bold" size="22.0" />
-                                                   </font>
+                                                <HBox alignment="BASELINE_LEFT" prefHeight="32.0" VBox.vgrow="ALWAYS">
+                                                   <children>
+                                                      <Label fx:id="entryTitle" text="Entry Title">
+                                                         <font>
+                                                            <Font name="System Bold" size="22.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <Label fx:id="entryType" text="entry type">
+                                                         <HBox.margin>
+                                                            <Insets left="6.0" right="6.0" />
+                                                         </HBox.margin>
+                                                      </Label>
+                                                      <Label fx:id="entryDetails" styleClass="det" text="Entry-specific details">
+                                                         <HBox.margin>
+                                                            <Insets left="6.0" right="6.0" />
+                                                         </HBox.margin>
+                                                      </Label>
+                                                      <Region HBox.hgrow="ALWAYS" />
+                                                      <Button cancelButton="true" mnemonicParsing="false" stylesheets="@../css/blue-dark.css" text="Remove" textAlignment="RIGHT" />
+                                                   </children>
+                                                   <VBox.margin>
+                                                      <Insets />
+                                                   </VBox.margin>
+                                                </HBox>
+                                                <Label fx:id="entrySynopsis" styleClass="description" text="Entry synopsis/ description">
+                                                   <VBox.margin>
+                                                      <Insets bottom="12.0" top="12.0" />
+                                                   </VBox.margin>
                                                 </Label>
-                                                <Label fx:id="entryType" text="entry type">
-                                                   <HBox.margin>
-                                                      <Insets left="6.0" right="6.0" />
-                                                   </HBox.margin>
-                                                </Label>
-                                                <Label fx:id="entryDetails" styleClass="det" text="Entry-specific details">
-                                                   <HBox.margin>
-                                                      <Insets left="6.0" right="6.0" />
-                                                   </HBox.margin>
-                                                </Label>
-                                                <Region HBox.hgrow="ALWAYS" />
-                                                <Button cancelButton="true" mnemonicParsing="false" stylesheets="@../css/blue-dark.css" text="Remove" textAlignment="RIGHT" />
+                                                <HBox alignment="CENTER_LEFT" prefHeight="45.0" prefWidth="463.0">
+                                                   <children>
+                                                      <ChoiceBox fx:id="entryStatus" prefWidth="150.0" />
+                                                      <Region HBox.hgrow="ALWAYS" />
+                                                      <Button fx:id="viewEpisodesButton" defaultButton="true" mnemonicParsing="false" text="View episodes" HBox.hgrow="ALWAYS" />
+                                                      <Region prefHeight="45.0" prefWidth="14.0" />
+                                                      <Button fx:id="reviewButton" defaultButton="true" mnemonicParsing="false" text="Rate/review" HBox.hgrow="ALWAYS" />
+                                                   </children>
+                                                   <VBox.margin>
+                                                      <Insets top="12.0" />
+                                                   </VBox.margin>
+                                                </HBox>
                                              </children>
                                              <VBox.margin>
-                                                <Insets />
+                                                <Insets bottom="6.0" left="12.0" right="12.0" top="6.0" />
                                              </VBox.margin>
-                                          </HBox>
-                                          <Label fx:id="entrySynopsis" styleClass="description" text="Entry synopsis/ description">
-                                             <VBox.margin>
-                                                <Insets bottom="12.0" top="12.0" />
-                                             </VBox.margin>
-                                          </Label>
-                                          <HBox alignment="CENTER_LEFT" prefHeight="45.0" prefWidth="463.0">
-                                             <children>
-                                                <ChoiceBox fx:id="entryStatus" prefWidth="150.0" />
-                                                <Region HBox.hgrow="ALWAYS" />
-                                                <Button fx:id="viewEpisodesButton" defaultButton="true" mnemonicParsing="false" text="View episodes" HBox.hgrow="ALWAYS" />
-                                                <Region prefHeight="45.0" prefWidth="14.0" />
-                                                <Button fx:id="reviewButton" defaultButton="true" mnemonicParsing="false" text="Rate/review" HBox.hgrow="ALWAYS" />
-                                             </children>
-                                             <VBox.margin>
-                                                <Insets top="12.0" />
-                                             </VBox.margin>
-                                          </HBox>
+                                             <padding>
+                                                <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
+                                             </padding>
+                                          </VBox>
                                        </children>
-                                       <VBox.margin>
-                                          <Insets bottom="6.0" left="12.0" right="12.0" top="6.0" />
-                                       </VBox.margin>
-                                       <padding>
-                                          <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
-                                       </padding>
                                     </VBox>
                                  </children>
                               </VBox>
-                           </children>
-                        </VBox>
-                     </content>
-                  </ScrollPane>
-                  <VBox fx:id="popupPane" alignment="CENTER" fillWidth="false" prefWidth="519.0" StackPane.alignment="CENTER">
+                           </content>
+                        </ScrollPane>
+                     </children>
+                  </HBox>
+                  <VBox id="popupPane" fx:id="popupPane" alignment="CENTER" fillWidth="false" pickOnBounds="false" StackPane.alignment="CENTER">
                      <StackPane.margin>
                         <Insets />
                      </StackPane.margin>

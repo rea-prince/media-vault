@@ -43,7 +43,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" prefHeight="376.0" prefWidth="314.0" style="-fx-background-radius: 16;" styleClass="bg-default" stylesheets="@../css/blue-dark.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mediavault.controllers.FilterController">
+<VBox alignment="CENTER" prefHeight="376.0" prefWidth="314.0" style="-fx-background-radius: 16;" styleClass="bg-subtle" stylesheets="@../css/blue-dark.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mediavault.controllers.FilterController">
    <children>
       <Label text="Filter by...">
          <font>
@@ -84,7 +84,7 @@
       <Region VBox.vgrow="ALWAYS" />
       <HBox alignment="CENTER" prefHeight="0.0" prefWidth="282.0" VBox.vgrow="NEVER">
          <children>
-            <Button fx:id="resetFilters" cancelButton="true" mnemonicParsing="false" stylesheets="@../css/blue-dark.css" text="Reset" />
+            <Button fx:id="resetFilters" cancelButton="true" mnemonicParsing="false" onAction="#resetFilters" stylesheets="@../css/blue-dark.css" text="Reset" />
             <Region HBox.hgrow="ALWAYS" />
             <Button fx:id="applyFilters" mnemonicParsing="false" onAction="#apply" text="Apply" />
             <Region prefHeight="36.0" prefWidth="12.0" HBox.hgrow="SOMETIMES" />
@@ -96,6 +96,6 @@
       <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
    </padding>
    <effect>
-      <DropShadow blurType="GAUSSIAN" height="50.31" radius="26.12" width="56.17" />
+      <DropShadow blurType="GAUSSIAN" height="55.0" radius="27.0" width="55.0" />
    </effect>
 </VBox>
