@@ -1,7 +1,9 @@
 package mediavault.controllers;
 
 import mediavault.models.MediaEntry;
-import javafx.fxml.FXML;
+
+import java.util.List;
+
 import mediavault.enums.MediaType;
 import mediavault.enums.Genre;
 import mediavault.enums.Status;
@@ -11,9 +13,7 @@ import mediavault.models.VideoGame;
 
 import javafx.fxml.FXML;
 
-import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
@@ -49,19 +49,65 @@ public class AddEntryController
 			return;
     }
 
+	public Integer getYear() 
+    {
+		String text = releaseYearField.getText();
+
+		if (text.isBlank())
+		    return Integer.valueOf(-1);
+
+		return Integer.parseInt(text);
+	}
+
+	public MediaType getEntryMediaType() 
+    {
+		return entryType.getValue();
+	}
+
+	public List<Genre> getEntryGenre() 
+    {
+		Genre genre = entryGenre.getValue();
+
+		if (genre == null)
+			return null;
+
+		return List.of(genre);
+	}
+
+	public Status getEntryStatus() 
+    {
+		return entryStatus.getValue();
+	}
+
+    String altTitle = null, studio = null, author = null, publisher = null;
+
+	public Integer getChapters() 
+    {
+		String text = chaptersField.getText();
+
+		if (text.isBlank())
+		    return Integer.valueOf(-1);
+
+		return Integer.parseInt(text);
+	}
+    
     public void typeSpecDisplay (MediaEntry entry)
     {
         if (entry instanceof Anime anime) 
         {
-            
+            altTitle = altTitleField.getText().trim();
+            studio = studioField.getText().trim();
         }
         else if (entry instanceof Novel novel) 
         {
-            
+            author = authorField.getText().trim();
+            publisher = authorField.getText().trim();
+            int chapters = getChapters();
         }
         else if (entry instanceof VideoGame videoGame)
         {
-            
+            studio = studioField.getText().trim();
+            publisher = publisherField.getText().trim();
         }
     }
 }

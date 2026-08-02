@@ -93,9 +93,14 @@
                      <children>
                         <ScrollPane hbarPolicy="NEVER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
                            <content>
-                              <VBox fx:id="entryList" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
+                              <VBox fx:id="entryList" alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
                                  <children>
-                                    <VBox fx:id="entryCard">
+                                    <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="150.0" text="Add an Entry">
+                                       <font>
+                                          <Font size="20.0" />
+                                       </font>
+                                    </Button>
+                                    <VBox fx:id="entryCard" alignment="TOP_CENTER">
                                        <children>
                                           <VBox style="-fx-background-radius: 16;" styleClass="bg-default">
                                              <children>
