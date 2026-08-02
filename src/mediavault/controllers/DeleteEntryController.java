@@ -20,6 +20,13 @@ public class DeleteEntryController {
         this.onDeleteConfirmed = onDeleteConfirmed;
     }
 
+    /**
+     * Executes the deletion callback for the target media entry and closes the prompt.
+     * <p>
+     * <b>Precondition:</b> targetEntry and onDeleteConfirmed consumer must be set.<br>
+     * <b>Postcondition:</b> The entry deletion callback is triggered and the view is detached from its parent layout.
+     * </p>
+     */
     @FXML
     public void deleteEntry() {
         if (onDeleteConfirmed != null && entryToDelete != null) {
@@ -28,6 +35,13 @@ public class DeleteEntryController {
         closeView();
     }
 
+    /**
+     * Removes the prompt root node from its parent layout.
+     * <p>
+     * <b>Precondition:</b> Prompt root must have a valid parent layout.<br>
+     * <b>Postcondition:</b> Prompt node is removed from the scene hierarchy.
+     * </p>
+     */
     @FXML
     public void closeView() {
         if (deleteRoot != null) {

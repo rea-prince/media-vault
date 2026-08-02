@@ -24,6 +24,13 @@ public class EpisodeListController {
 		populateEpisodes();
 	}
 
+	/**
+	 * Clears and populates the vertical container with card views for each episode in the active anime.
+	 * <p>
+	 * <b>Precondition:</b> anime instance variable and its episode collection must not be null.<br>
+	 * <b>Postcondition:</b> Episode card UI elements are instantiated, populated, and appended to the episode container.
+	 * </p>
+	 */
 	private void populateEpisodes() {
 		if (anime == null || anime.getAnimeEpisodes() == null) {
 			return;
@@ -50,6 +57,14 @@ public class EpisodeListController {
 			}
 		}
 	}
+
+	/**
+	 * Loads and displays the overlay prompt for adding a new episode to the current anime.
+	 * <p>
+	 * <b>Precondition:</b> None.<br>
+	 * <b>Postcondition:</b> The AddEpisodePrompt view is rendered, bound to the active anime, configured with a refresh callback, and added to the view hierarchy.
+	 * </p>
+	 */
 	@FXML
 	public void openAddEpisodePrompt() {
 		try {
@@ -70,6 +85,13 @@ public class EpisodeListController {
 		}
 	}
 
+	/**
+     * Removes the prompt root node from its parent layout.
+     * <p>
+     * <b>Precondition:</b> Prompt root must have a valid parent layout.<br>
+     * <b>Postcondition:</b> Prompt node is removed from the scene hierarchy.
+     * </p>
+     */
 	@FXML
 	public void closeView() {
 		Pane parent = (Pane) episodeList.getParent();

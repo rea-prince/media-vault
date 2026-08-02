@@ -34,6 +34,13 @@ public class FilterController
 		this.onApply = onApply;
 	}
 
+	/**
+	 * Populates the selection choices for media type, genre, and status drop-down controls.
+	 * <p>
+	 * <b>Precondition:</b> Control instances must be injected via FXML.<br>
+	 * <b>Postcondition:</b> Selection lists for MediaType, Genre, and Status controls are initialized with enum values.
+	 * </p>
+	 */
     @FXML
 	public void initialize() {
 		entryType.getItems().setAll(MediaType.values());
@@ -41,6 +48,14 @@ public class FilterController
 		entryStatus.getItems().setAll(Status.values());
 	}
 
+	/**
+	 * Resets all filter dropdown choices to their initial state.
+	 * <p>
+	 * <b>Precondition:</b> None.<br>
+	 * <b>Postcondition:</b> All dropdown filter menus are re-initialized.
+	 * </p>
+	 * @param e The ActionEvent triggered by clicking the reset button.
+	 */
 	@FXML
 	public void resetFilters(ActionEvent e) {
 		initialize();
@@ -59,6 +74,14 @@ public class FilterController
 		return entryType.getValue();
 	}
 
+	/**
+	 * Retrieves the user-selected genre as a single-element list.
+	 * <p>
+	 * <b>Precondition:</b> None.<br>
+	 * <b>Postcondition:</b> Returns a List containing the chosen Genre, or null if no selection was made.
+	 * </p>
+	 * @return A immutable List containing the selected Genre, or null if none selected.
+	 */
 	public List<Genre> getSelectedGenre() {
 		Genre genre = entryGenre.getValue();
 
@@ -73,6 +96,16 @@ public class FilterController
 		return entryStatus.getValue();
 	}
 
+
+	/**
+	 * Parses and retrieves the year integer entered in the text field.
+	 * <p>
+	 * <b>Precondition:</b> None.<br>
+	 * <b>Postcondition:</b> Returns the parsed year integer, or -1 if the field is empty or blank.
+	 * </p>
+	 * @return Integer representing the input year, or -1 if blank.
+	 * @throws NumberFormatException If the input string cannot be parsed into an integer.
+	 */
 	public Integer getSelectedYear() {
 		String text = entryYear.getText();
 
@@ -83,51 +116,4 @@ public class FilterController
 		return Integer.parseInt(text);
 	}
 
-
-    // /**
-    //  * Filters media entries by media type (anime, novel, video game)
-    //  * <p>
-    //  * <b>Precondition:</b> None.<br>
-    //  * <b>Postcondition:</b> Returns the selected MediaType choice, or null if unmapped.
-    //  * </p>
-    //  * @return void
-    //  */
-    // public void filterByMediaType(MediaEntry entry)
-    // {
-    //     entryType.getItems().setAll(MediaType.values());
-    //     entryType.setValue(entry.getMediaType());
-    // }
-
-    // public void filterByYear(MediaEntry entry)
-    // {
-    // 	entryYear.setText(String.valueOf(entry.getDetails().getYear()));
-    // }
-
-    // /**
-    //  * Filters media entries by genres
-    //  * <p>
-    //  * <b>Precondition:</b> None.<br>
-    //  * <b>Postcondition:</b> Returns a list of selected Genre values, or null if none were chosen.
-    //  * </p>
-    //  * @return void
-    //  */
-    // public void filterByGenre(MediaEntry entry)
-    // {
-    //     entryGenre.getItems().setAll(Genre.values());
-    //     entryGenre.setValue(entry.getGenres().get(0));
-    // }
-
-    // /**
-    //  * Filters media entries by status
-    //  * <p>
-    //  * <b>Precondition:</b> None.<br>
-    //  * <b>Postcondition:</b> Returns the selected Status choice, or null if unmapped.
-    //  * </p>
-    //  * @return void
-    //  */
-    // public void filterByStatus(MediaEntry entry)
-    // {
-    //     entryStatus.getItems().setAll(Status.values());
-    //     entryStatus.setValue(entry.getStatus());
-    // }
 }

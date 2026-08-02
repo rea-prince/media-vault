@@ -26,6 +26,13 @@ public class AddEpisodePromptController {
 		this.onEpisodeAdded = callback;
 	}
 
+	/**
+     * Attempts to add a new episode to the current anime using the input fields.
+     * <p>
+     * <b>Precondition:</b> Title, release year, and synopsis fields must not be empty. Release year must be a valid integer.<br>
+     * <b>Postcondition:</b> An episode is appended to the associated Anime object, optional callback is executed, and the UI prompt is removed.
+     * </p>
+     */
 	@FXML
 	public void addEpisode() {
 		String title = titleField.getText().trim();
@@ -55,6 +62,13 @@ public class AddEpisodePromptController {
 		closePrompt();
 	}
 
+	/**
+     * Removes the prompt root node from its parent layout.
+     * <p>
+     * <b>Precondition:</b> Prompt root must have a valid parent layout.<br>
+     * <b>Postcondition:</b> Prompt node is removed from the scene hierarchy.
+     * </p>
+     */
 	private void closePrompt() {
 		Pane parent = (Pane) promptRoot.getParent();
 		if (parent != null) {

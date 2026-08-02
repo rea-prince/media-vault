@@ -35,6 +35,14 @@ public class EntryCardController {
 
 	private Consumer<EntryCardController> onDelete;
 
+	/**
+	 * Loads and presents the review popup view for the current media entry.
+	 * <p>
+	 * <b>Precondition:</b> The layout context must contain a container with ID "popupPane".<br>
+	 * <b>Postcondition:</b> The Review view is loaded and replaces any existing content within the popup pane.
+	 * </p>
+	 * @throws IOException If the FXML resource cannot be loaded.
+	 */
 	@FXML
 	public void openReview() throws IOException {
 		FXMLLoader loader = new FXMLLoader(
@@ -52,6 +60,13 @@ public class EntryCardController {
 		}
 	}
 
+	/**
+	 * Clears any content present in the shared popup pane container.
+	 * <p>
+	 * <b>Precondition:</b> The layout context must contain a container with ID "popupPane".<br>
+	 * <b>Postcondition:</b> All children within the popup pane are removed.
+	 * </p>
+	 */
 	@FXML
 	public void closeView() {
 		Pane popupPane = (Pane) reviewButton.getScene().lookup("#popupPane");
@@ -60,6 +75,15 @@ public class EntryCardController {
 		}
 	}
 
+
+	/**
+	 * Loads and displays the episode list overlay if the entry is an Anime type.
+	 * <p>
+	 * <b>Precondition:</b> The layout context must contain a container with ID "popupPane".<br>
+	 * <b>Postcondition:</b> The EpisodeList view is initialized and assigned to the popup pane container.
+	 * </p>
+	 * @throws IOException If the FXML resource cannot be loaded.
+	 */
 	@FXML
 	public void viewEpisodes() throws IOException {
 		FXMLLoader loader = new FXMLLoader(
@@ -91,6 +115,14 @@ public class EntryCardController {
 		this.entry = entry;
 	}
 
+
+	/**
+	 * Populates and configures the UI controls based on the current MediaEntry state and type.
+	 * <p>
+	 * <b>Precondition:</b> entry instance variable must not be null.<br>
+	 * <b>Postcondition:</b> Title, synopsis, status choices, and type-specific information are updated in the card view.
+	 * </p>
+	 */
 	public void setEntryView() {
 
 		// set details
