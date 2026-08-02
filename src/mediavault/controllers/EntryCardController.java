@@ -7,9 +7,7 @@ import mediavault.models.VideoGame;
 
 
 import java.util.stream.*;
-import java.util.List;
 import java.io.IOException;
-import java.util.function.Consumer;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
