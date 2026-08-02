@@ -1,4 +1,5 @@
 mediavault
+mediavault.controllers
 mediavault.enums
 mediavault.models
 mediavault.tui
