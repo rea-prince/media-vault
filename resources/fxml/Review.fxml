@@ -22,7 +22,7 @@
             <Insets bottom="6.0" />
          </VBox.margin>
       </Label>
-      <TextArea fx:id="reviewTextArea" minHeight="-Infinity" minWidth="-Infinity" prefHeight="124.0" prefWidth="552.0" promptText="Leave a review!" styleClass="text-area" stylesheets="@../css/blue-dark.css">
+      <TextArea fx:id="reviewTextArea" minHeight="-Infinity" minWidth="-Infinity" prefHeight="124.0" prefWidth="552.0" promptText="Leave a review!" styleClass="text-area" stylesheets="@../css/blue-dark.css" wrapText="true">
          <VBox.margin>
             <Insets />
          </VBox.margin>

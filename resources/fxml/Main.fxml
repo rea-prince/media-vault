@@ -43,6 +43,7 @@
 <?import javafx.scene.control.SeparatorMenuItem?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
@@ -75,7 +76,7 @@
    <center>
       <HBox fx:id="contentContainer" alignment="CENTER" BorderPane.alignment="CENTER">
          <children>
-            <StackPane fx:id="stackView">
+            <StackPane fx:id="stackView" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS">
                <HBox.margin>
                   <Insets />
                </HBox.margin>
@@ -159,7 +160,8 @@
                         </VBox>
                      </children>
                   </HBox>
-                  <VBox id="popupPane" fx:id="popupPane" alignment="CENTER" fillWidth="false" pickOnBounds="false" StackPane.alignment="CENTER">
+                  <Pane fx:id="blockPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-background-color: rgba(0, 0, 0, 0.1);" stylesheets="@../css/fall-light.css" visible="false" StackPane.alignment="CENTER" />
+                  <VBox id="popupPane" fx:id="popupPane" alignment="CENTER" fillWidth="false" pickOnBounds="false" visible="false" StackPane.alignment="CENTER">
                      <StackPane.margin>
                         <Insets />
                      </StackPane.margin>

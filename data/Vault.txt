@@ -1,5 +1,5 @@
 Type,Title,Year,Status,Rating,Synopsis,Genres,Extra1,Extra2,Extra3
-ANIME,Frieren,2023,IN_PROGRESS,-1.0,An elf reflects on her long life.,FANTASY,Sousou no Frieren,Madhouse,
+ANIME,Frieren,2023,COMPLETED,9.5,An elf reflects on her long life.,FANTASY,Sousou no Frieren,Madhouse,
 NOVEL,The Hobbit,1937,PLANNED,-1.0,A hobbit goes on an adventure.,FANTASY,George Allen & Unwin,J.R.R. Tolkien,19
 VIDEOGAME,Celeste,2018,PLANNED,-1.0,Climb a mysterious mountain.,MUSIC,Extremely OK Games,Matt Makes Games,
-ANIME,Naruto,2003,COMPLETED,-1.0,A boy is possessed by a demon fox.,ACTION,,Studio Pierrot,
+ANIME,Naruto,2003,COMPLETED,0.0,A boy is possessed by a demon fox.,ACTION,,Studio Pierrot,

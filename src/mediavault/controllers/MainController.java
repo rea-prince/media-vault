@@ -14,7 +14,10 @@ import javafx.application.Platform;
 import javafx.stage.FileChooser;
 import java.nio.file.Files;
 import java.io.File;
+import javafx.beans.binding.Bindings;
+
 import javafx.scene.control.MenuItem;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.layout.StackPane;
 
@@ -25,6 +28,8 @@ public class MainController {
 	@FXML private MenuItem filterButton;
 	@FXML private MenuItem summarizeButton;
 	@FXML private StackPane stackView;
+
+	@FXML private Pane blockPane;
 	@FXML private VBox popupPane;
 
 	private MediaVault vault;
@@ -33,6 +38,15 @@ public class MainController {
 
 	public MediaVault getVault() {
 		return vault;
+	}
+
+
+	@FXML
+	public void initialize() {
+		blockPane.setOnMouseClicked(event -> event.consume());
+
+		blockPane.visibleProperty().bind(Bindings.isNotEmpty(popupPane.getChildren()));
+		popupPane.visibleProperty().bind(blockPane.visibleProperty());
 	}
 
 	/**
@@ -177,6 +191,29 @@ public class MainController {
 		popupPane.getChildren().add(popup);
 	}
 
+	/**
+	 * Binds the blocking overlay's visibility to popupPane's child list state.
+	 * <p>
+	 * <b>Precondition:</b> blockPane and popupPane must be injected.<br>
+	 * <b>Postcondition:</b> blockPane becomes visible and consumes mouse events whenever popupPane has active children.
+	 * </p>
+	 */
+	public void setupBlockOverlay() {
+
+		// block clicks
+
+	    blockPane.setOnMouseClicked(event -> event.consume());
+
+	    // show blockPane and popupPane only when popupPane has active popups
+
+	    blockPane.visibleProperty().bind(Bindings.isNotEmpty(popupPane.getChildren()));
+		popupPane.visibleProperty().bind(blockPane.visibleProperty());
+
+	    // initial state setup
+
+	    blockPane.setVisible(false);
+	    popupPane.setVisible(false);
+	}
 
 	/**
 	 * Renders cards for each provided media entry in the primary entry container.
