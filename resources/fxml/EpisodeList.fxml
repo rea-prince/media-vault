@@ -7,6 +7,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.Color?>
 
 <HBox fx:id="episodeList" prefHeight="500.0" style="-fx-background-radius: 16;" styleClass="bg-default" stylesheets="@../css/blue-dark.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mediavault.controllers.EpisodeListController">
    <children>
@@ -20,8 +21,8 @@
             <Region VBox.vgrow="ALWAYS" />
             <HBox spacing="8.0">
                <children>
-                  <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#openAddEpisodePrompt" text="Add Episode" HBox.hgrow="ALWAYS" />
-                  <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#closeView" text="Close" HBox.hgrow="ALWAYS" />
+                  <Button defaultButton="true" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#openAddEpisodePrompt" text="Add Episode" HBox.hgrow="ALWAYS" />
+                  <Button cancelButton="true" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#closeView" text="Close" HBox.hgrow="ALWAYS" />
                </children>
             </HBox>
          </children>
@@ -31,6 +32,9 @@
       <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
    </padding>
    <effect>
-      <DropShadow blurType="GAUSSIAN" height="55.0" radius="27.0" width="55.0" />
+      <DropShadow blurType="GAUSSIAN" height="55.0" radius="27.0" width="55.0">
+         <color>
+            <Color opacity="0.5" />
+         </color></DropShadow>
    </effect>
 </HBox>

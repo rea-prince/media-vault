@@ -58,38 +58,6 @@ public class MainController {
 		stackView.getChildren().add(popup);
 	}
 
-	private void showEntries(ArrayList<MediaEntry> entries) throws IOException {
-		entryList.getChildren().clear();
-
-		if (vault == null) {
-			return;
-		}
-
-		for (MediaEntry entry : entries) {
-			FXMLLoader loader = new FXMLLoader(
-				getClass().getResource("/fxml/EntryCard.fxml")
-			);
-
-			Parent card = loader.load();
-
-			EntryCardController entryController = loader.getController();
-			entryController.setEntry(entry);
-			entryController.setEntryView();
-
-			entryList.getChildren().add(card);
-		}
-	}
-
-	public void initComponent() throws IOException {
-		entryList.getChildren().clear();
-
-		showEntries(vault.getAll());
-	}
-
-	public void setVault(MediaVault vault) {
-		this.vault = vault;
-	}
-
 	@FXML
 	public void openFilterMenu(ActionEvent e) throws IOException {
 		FXMLLoader loader = new FXMLLoader(
@@ -133,4 +101,56 @@ public class MainController {
 		popupPane.getChildren().add(popup);
 	}
 
+	@FXML
+	public void openAddEntry(ActionEvent e) throws IOException {
+		FXMLLoader loader = new FXMLLoader(
+			getClass().getResource("/fxml/AddEntryPrompt.fxml")
+		);
+
+		Parent popup = loader.load();
+		AddEntryController controller = loader.getController();
+		controller.setOnAdd(cont -> {
+			try {
+				vault.addEntry(cont.buildEntry());
+				showEntries(vault.getAll());
+			} catch (IOException except) {
+				except.printStackTrace();
+			}
+		});
+
+		popupPane.getChildren().add(popup);
+	}
+
+
+	private void showEntries(ArrayList<MediaEntry> entries) throws IOException {
+		entryList.getChildren().clear();
+
+		if (vault == null) {
+			return;
+		}
+
+		for (MediaEntry entry : entries) {
+			FXMLLoader loader = new FXMLLoader(
+				getClass().getResource("/fxml/EntryCard.fxml")
+			);
+
+			Parent card = loader.load();
+
+			EntryCardController entryController = loader.getController();
+			entryController.setEntry(entry);
+			entryController.setEntryView();
+
+			entryList.getChildren().add(card);
+		}
+	}
+
+	public void initComponent() throws IOException {
+		entryList.getChildren().clear();
+
+		showEntries(vault.getAll());
+	}
+
+	public void setVault(MediaVault vault) {
+		this.vault = vault;
+	}
 }

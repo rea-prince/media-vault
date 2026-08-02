@@ -1,71 +1,181 @@
 package mediavault.controllers;
 
-import mediavault.models.MediaEntry;
+import mediavault.models.*;
+import mediavault.enums.*;
 
+
+import java.util.ArrayList;
 import java.util.List;
-
-import mediavault.enums.MediaType;
-import mediavault.enums.Genre;
-import mediavault.enums.Status;
-import mediavault.models.Anime;
-import mediavault.models.Novel;
-import mediavault.models.VideoGame;
+import java.util.function.Consumer;
+import java.util.stream.Stream;
 
 import javafx.fxml.FXML;
-
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 
-public class AddEntryController 
+public class AddEntryController
 {
-    @FXML private TextField titleField;
-	@FXML private TextField releaseYearField;
-	@FXML private TextArea synopsisArea;
-    @FXML private ChoiceBox<MediaType> entryType;
-    @FXML private ChoiceBox<Status> entryStatus;
-    @FXML private ChoiceBox<Genre> entryGenre;
-    @FXML private TextField altTitleField;
-	@FXML private TextField studioField;
-    @FXML private TextField authorField;
-	@FXML private TextField publisherField;
-    @FXML private TextField chaptersField;
+	@FXML private Pane addEntryRoot;
 
-    @FXML
-	public void initialize() 
-    {
-		entryType.getItems().setAll(MediaType.values());
-		entryStatus.getItems().setAll(Status.values());
-		entryGenre.getItems().setAll(Genre.values());
+	@FXML private TextField entryTitle;
+	@FXML private TextField entryYear;
+	@FXML private TextArea entrySynopsis;
+	@FXML private ChoiceBox<String> entryType;
+	@FXML private ChoiceBox<String> entryStatus;
+	@FXML private ChoiceBox<Genre> entryGenre;
+
+	// type specific
+	@FXML private TextField entryAltTitle;
+	@FXML private TextField entryStudio;
+	@FXML private TextField entryAuthor;
+	@FXML private TextField entryPublisher;
+	@FXML private TextField entryChapters;
+
+	// containers
+	@FXML private HBox altTitleRow;
+	@FXML private HBox studioRow;
+	@FXML private HBox authorRow;
+	@FXML private HBox publisherRow;
+	@FXML private HBox chaptersRow;
+
+	private Consumer<AddEntryController> onAdd;
+
+	@FXML
+	public void initialize()
+	{
+		bindRowVisibility(altTitleRow);
+		bindRowVisibility(studioRow);
+		bindRowVisibility(authorRow);
+		bindRowVisibility(publisherRow);
+		bindRowVisibility(chaptersRow);
+
+		entryType.getItems().setAll(
+			Stream.of(MediaType.values()).map(MediaType::getName).toList()
+		);
+		entryStatus.getItems().setAll(
+			Stream.of(Status.values()).map(Status::getName).toList()
+		);
+
+		for (Genre genre : Genre.values()) {
+			if (genre != Genre.INVALID) {
+				entryGenre.getItems().add(genre);
+			}
+		}
+
+		entryType.setOnAction(e -> updateFieldVisibility(getEntryMediaType()));
+
+		// default selection
+		if (!entryType.getItems().isEmpty()) {
+			entryType.setValue(entryType.getItems().get(0));
+		}
+		if (!entryStatus.getItems().isEmpty()) {
+			entryStatus.setValue(entryStatus.getItems().get(0));
+		}
 	}
 
-    public void addEntryDetails (MediaEntry entry)
-    {
-        String title = titleField.getText().trim();
-		String yearText = releaseYearField.getText().trim();
-		String synopsis = synopsisArea.getText().trim();
+	@FXML
+	public void closeView() {
+		if (addEntryRoot != null) {
+			Pane parent = (Pane) addEntryRoot.getParent();
+			if (parent != null) {
+				parent.getChildren().remove(addEntryRoot);
+			}
+		}
+	}
 
-		if (title.isEmpty() || synopsis.isEmpty() || yearText.isEmpty())
+	@FXML
+	public void onAdd() {
+		if (onAdd != null) {
+			onAdd.accept(this);
+			closeView();
+		}
+	}
+
+	private void bindRowVisibility(HBox row) {
+		if (row != null) {
+			row.managedProperty().bind(row.visibleProperty());
+		}
+	}
+
+	private void updateFieldVisibility(MediaType type) {
+		if (type == null)
 			return;
-    }
 
-	public Integer getYear() 
-    {
-		String text = releaseYearField.getText();
+		boolean isAnime = type == MediaType.ANIME;
+		boolean isNovel = type == MediaType.NOVEL;
+		boolean isGame = type == MediaType.VIDEOGAME;
+
+		if (altTitleRow != null)
+			altTitleRow.setVisible(isAnime);
+		if (studioRow != null)
+			studioRow.setVisible(isAnime || isGame);
+		if (authorRow != null)
+			authorRow.setVisible(isNovel);
+		if (publisherRow != null)
+			publisherRow.setVisible(isNovel || isGame);
+		if (chaptersRow != null)
+			chaptersRow.setVisible(isNovel);
+	}
+
+	public void setOnAdd(Consumer<AddEntryController> onAdd) {
+		this.onAdd = onAdd;
+	}
+
+	public MediaEntry buildEntry() {
+		String title = entryTitle.getText().trim();
+		String synopsis = entrySynopsis.getText().trim();
+		int year = getYear();
+
+		if (title.isEmpty() || synopsis.isEmpty() || year == -1) {
+			return null;
+		}
+
+		List<Genre> genreList = getEntryGenre();
+		ArrayList<Genre> genres = genreList != null ? new ArrayList<>(genreList) : new ArrayList<>();
+		Status status = getEntryStatus();
+		MediaType type = getEntryMediaType();
+
+		if (type == MediaType.ANIME) {
+			String altTitle = entryAltTitle.getText().trim();
+			String studio = entryStudio.getText().trim();
+			return new Anime(year, title, synopsis, genres, altTitle, studio, status);
+		}
+		else if (type == MediaType.NOVEL) {
+			String author = entryAuthor.getText().trim();
+			String publisher = entryPublisher.getText().trim();
+			int chapters = getChapters();
+			return new Novel(year, title, synopsis, genres, publisher, author, status, chapters);
+		}
+		else if (type == MediaType.VIDEOGAME) {
+			String publisher = entryPublisher.getText().trim();
+			String studio = entryStudio.getText().trim();
+			return new VideoGame(year, title, synopsis, genres, publisher, studio, status);
+		}
+
+		return null;
+	}
+
+	public Integer getYear() {
+		String text = entryYear.getText().trim();
 
 		if (text.isBlank())
-		    return Integer.valueOf(-1);
+			return -1;
 
-		return Integer.parseInt(text);
+		try {
+			return Integer.parseInt(text);
+		} catch (NumberFormatException e) {
+			return -1;
+		}
 	}
 
-	public MediaType getEntryMediaType() 
-    {
-		return entryType.getValue();
+	public MediaType getEntryMediaType() {
+		return MediaType.fromString(entryType.getValue());
 	}
 
-	public List<Genre> getEntryGenre() 
-    {
+	public List<Genre> getEntryGenre() {
 		Genre genre = entryGenre.getValue();
 
 		if (genre == null)
@@ -74,40 +184,20 @@ public class AddEntryController
 		return List.of(genre);
 	}
 
-	public Status getEntryStatus() 
-    {
-		return entryStatus.getValue();
+	public Status getEntryStatus() {
+		return Status.fromString(entryStatus.getValue());
 	}
 
-    String altTitle = null, studio = null, author = null, publisher = null;
-
-	public Integer getChapters() 
-    {
-		String text = chaptersField.getText();
+	public Integer getChapters() {
+		String text = entryChapters.getText().trim();
 
 		if (text.isBlank())
-		    return Integer.valueOf(-1);
+			return 1;
 
-		return Integer.parseInt(text);
+		try {
+			return Integer.parseInt(text);
+		} catch (NumberFormatException e) {
+			return 1;
+		}
 	}
-    
-    public void typeSpecDisplay (MediaEntry entry)
-    {
-        if (entry instanceof Anime anime) 
-        {
-            altTitle = altTitleField.getText().trim();
-            studio = studioField.getText().trim();
-        }
-        else if (entry instanceof Novel novel) 
-        {
-            author = authorField.getText().trim();
-            publisher = authorField.getText().trim();
-            int chapters = getChapters();
-        }
-        else if (entry instanceof VideoGame videoGame)
-        {
-            studio = studioField.getText().trim();
-            publisher = publisherField.getText().trim();
-        }
-    }
 }

@@ -8,6 +8,7 @@ import mediavault.models.VideoGame;
 
 import java.util.stream.*;
 import java.io.IOException;
+import java.util.function.Consumer;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -89,8 +90,13 @@ public class EntryCardController {
 
 		// attach event
 
-		entryStatus.setOnAction(e ->
-			entry.setStatus(Status.fromString(entryStatus.getValue()))
+		entryStatus.setOnAction(e -> {
+				entry.setStatus(Status.fromString(entryStatus.getValue()));
+				if (entry.getStatus() == Status.COMPLETED)
+					reviewButton.setVisible(true);
+				else
+					reviewButton.setVisible(false);
+			}
 		);
 
 		// optional stuff

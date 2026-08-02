@@ -8,6 +8,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
 <HBox fx:id="vaultSummary" prefWidth="309.0" style="-fx-background-radius: 16;" styleClass="bg-default" stylesheets="@../css/blue-dark.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mediavault.controllers.SummaryController">
@@ -75,6 +76,9 @@
       <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
    </padding>
    <effect>
-      <DropShadow blurType="GAUSSIAN" height="55.0" radius="27.0" width="55.0" />
+      <DropShadow blurType="GAUSSIAN" height="55.0" radius="27.0" width="55.0">
+         <color>
+            <Color opacity="0.5" />
+         </color></DropShadow>
    </effect>
 </HBox>
