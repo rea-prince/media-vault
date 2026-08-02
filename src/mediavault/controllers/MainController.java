@@ -29,27 +29,29 @@ public class MainController {
 	}
 
 	@FXML
-	public void openAddEntryTab(ActionEvent e) throws IOException {
-		FXMLLoader loader = new FXMLLoader(
-			getClass().getResource("/fxml/AddEntryPrompt.fxml")
-		);
-
-		Parent popup = loader.load();
-		stackView.getChildren().add(popup);
-	}
-
-	@FXML
-	public void openDeleteTab(ActionEvent e) throws IOException {
+	public void openDeleteEntry(MediaEntry selectedEntry) throws IOException {
 		FXMLLoader loader = new FXMLLoader(
 			getClass().getResource("/fxml/DeletePrompt.fxml")
 		);
 
 		Parent popup = loader.load();
-		stackView.getChildren().add(popup);
+		DeleteEntryController controller = loader.getController();
+
+		controller.setTargetEntry(selectedEntry, entry -> {
+			vault.removeEntry(entry.getDetails().getTitle(), entry.getDetails().getYear());
+			popupPane.getChildren().remove(popup);
+			try {
+				showEntries(vault.getAll());
+			} catch (IOException except) {
+				except.printStackTrace();
+			}
+		});
+
+		popupPane.getChildren().add(popup);
 	}
 
 	@FXML
-	public void openReviewTab(ActionEvent e) throws IOException {
+	public void openReview(ActionEvent e) throws IOException {
 		FXMLLoader loader = new FXMLLoader(
 			getClass().getResource("/fxml/Review.fxml")
 		);
@@ -71,10 +73,10 @@ public class MainController {
 				showEntries(vault.getEntries(
 					null,
 					cont.getSelectedYear().intValue(),
-			        cont.getSelectedMediaType(),
+					cont.getSelectedMediaType(),
 					cont.getSelectedStatus(),
-			        cont.getSelectedGenre()
-    			));
+					cont.getSelectedGenre()
+				));
 			} catch (IOException except) {
 				except.printStackTrace();
 			}
@@ -138,6 +140,14 @@ public class MainController {
 
 			EntryCardController entryController = loader.getController();
 			entryController.setEntry(entry);
+			entryController.setOnDelete(controller -> {
+				try {
+					openDeleteEntry(entry);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			});
+
 			entryController.setEntryView();
 
 			entryList.getChildren().add(card);

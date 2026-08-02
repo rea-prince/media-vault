@@ -33,6 +33,8 @@ public class EntryCardController {
 
 	private MediaEntry entry;
 
+	private Consumer<EntryCardController> onDelete;
+
 	@FXML
 	public void openReview() throws IOException {
 		FXMLLoader loader = new FXMLLoader(
@@ -47,6 +49,14 @@ public class EntryCardController {
 		Pane popupPane = (Pane) reviewButton.getScene().lookup("#popupPane");
 		if (popupPane != null) {
 			popupPane.getChildren().setAll(reviewRoot);
+		}
+	}
+
+	@FXML
+	public void closeView() {
+		Pane popupPane = (Pane) reviewButton.getScene().lookup("#popupPane");
+		if (popupPane != null) {
+			popupPane.getChildren().clear();
 		}
 	}
 
@@ -69,6 +79,13 @@ public class EntryCardController {
 		}
 	}
 
+	public void setOnDelete(Consumer<EntryCardController> onDelete) {
+		this.onDelete = onDelete;
+	}
+
+	public void deleteEntry() {
+		onDelete.accept(this);
+	}
 
 	public void setEntry(MediaEntry entry) {
 		this.entry = entry;

@@ -31,7 +31,7 @@
                      </HBox.margin>
                   </Label>
                   <Region HBox.hgrow="ALWAYS" />
-                  <Button cancelButton="true" mnemonicParsing="false" stylesheets="@../css/blue-dark.css" text="Remove" textAlignment="RIGHT" />
+                  <Button cancelButton="true" mnemonicParsing="false" onAction="#deleteEntry" stylesheets="@../css/blue-dark.css" text="Remove" textAlignment="RIGHT" />
                </children>
                <VBox.margin>
                   <Insets />

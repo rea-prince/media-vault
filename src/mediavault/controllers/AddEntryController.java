@@ -126,12 +126,14 @@ public class AddEntryController
 
 	public MediaEntry buildEntry() {
 		String title = entryTitle.getText().trim();
-		String synopsis = entrySynopsis.getText().trim();
-		int year = getYear();
+		if (title.isEmpty())
+			title = "Untitled";
 
-		if (title.isEmpty() || synopsis.isEmpty() || year == -1) {
-			return null;
-		}
+		String synopsis = entrySynopsis.getText().trim();
+		if (synopsis.isEmpty())
+			synopsis = "Synopsis unavailable.";
+
+		int year = getYear();
 
 		List<Genre> genreList = getEntryGenre();
 		ArrayList<Genre> genres = genreList != null ? new ArrayList<>(genreList) : new ArrayList<>();
@@ -162,7 +164,7 @@ public class AddEntryController
 		String text = entryYear.getText().trim();
 
 		if (text.isBlank())
-			return -1;
+			return 2026;
 
 		try {
 			return Integer.parseInt(text);
