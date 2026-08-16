@@ -1,1 +1,1 @@
-packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html","k":"18"},{"l":"mediavault"},{"l":"mediavault.enums"},{"l":"mediavault.models"},{"l":"mediavault.tui"}];updateSearchResults();
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html","k":"18"},{"l":"mediavault"},{"l":"mediavault.controllers"},{"l":"mediavault.enums"},{"l":"mediavault.models"},{"l":"mediavault.tui"}];updateSearchResults();

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.text.Font?>
+
+<HBox fx:id="vaultSummary" prefWidth="309.0" style="-fx-background-radius: 16;" styleClass="bg-default" stylesheets="@../css/blue-dark.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mediavault.controllers.SummaryController">
+   <children>
+      <VBox spacing="10.0" HBox.hgrow="ALWAYS">
+         <children>
+            <VBox spacing="6.0">
+               <children>
+                  <Label fx:id="totalEntriesLabel" text="Total entries: 0">
+                     <font>
+                        <Font name="System Bold" size="20.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="averageRatingLabel" text="Average rating: 0.00">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Label>
+
+                  <Label text="By media type">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets top="6.0" />
+                     </VBox.margin>
+                  </Label>
+                  <VBox fx:id="mediaTypeContainer" spacing="4.0" />
+
+                  <Label text="By status">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets top="6.0" />
+                     </VBox.margin>
+                  </Label>
+                  <VBox fx:id="statusContainer" spacing="4.0" />
+
+                  <Label text="By genre">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets top="6.0" />
+                     </VBox.margin>
+                  </Label>
+                  <ScrollPane fitToWidth="true" hbarPolicy="NEVER" prefHeight="150.0">
+                     <content>
+                        <VBox fx:id="genreContainer" spacing="4.0" />
+                     </content>
+                  </ScrollPane>
+               </children>
+            </VBox>
+            <Region VBox.vgrow="ALWAYS" />
+            <HBox spacing="8.0">
+               <children>
+                  <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#closeView" text="Close" HBox.hgrow="ALWAYS" />
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </children>
+   <padding>
+      <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
+   </padding>
+   <effect>
+      <DropShadow blurType="GAUSSIAN" height="55.0" radius="27.0" width="55.0">
+         <color>
+            <Color opacity="0.5" />
+         </color></DropShadow>
+   </effect>
+</HBox>

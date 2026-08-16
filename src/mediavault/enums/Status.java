@@ -22,4 +22,17 @@ public enum Status
     public String getName() {
         return this.name;
     }
+
+    /**
+     * Returns the equivalent enum based on the string.
+     * @return Status Equivalent of enum's String ID
+     */
+    public static Status fromString(String s) {
+    	for (Status stat : values()) {
+     		if  (stat.getName().equals(s)) {
+       			return stat;
+       		}
+     	}
+      	return Status.PLANNED;
+    }
 }

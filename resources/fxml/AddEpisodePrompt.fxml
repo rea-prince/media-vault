@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox fx:id="promptRoot" prefWidth="400.0" spacing="12.0" style="-fx-background-radius: 12;" styleClass="bg-default" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mediavault.controllers.AddEpisodePromptController">
+   <children>
+      <Label styleClass="header" text="Add New Episode" />
+      <TextField fx:id="titleField" promptText="Episode Title" styleClass="text-field" stylesheets="@../css/blue-dark.css" />
+      <TextField fx:id="releaseYearField" promptText="Release Year (e.g. 2026)" styleClass="text-field" stylesheets="@../css/blue-dark.css" />
+      <TextArea fx:id="synopsisArea" prefHeight="100.0" promptText="Episode Synopsis..." style="-fx-background-color: f4f6f9;" styleClass="text-area" stylesheets="@../css/blue-dark.css" wrapText="true" />
+      <HBox alignment="CENTER_RIGHT" spacing="10.0">
+         <children>
+            <Button mnemonicParsing="false" onAction="#cancel" text="Cancel" />
+            <Button defaultButton="true" mnemonicParsing="false" onAction="#addEpisode" text="Add Episode" />
+         </children>
+      </HBox>
+   </children>
+   <padding>
+      <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
+   </padding>
+</VBox>

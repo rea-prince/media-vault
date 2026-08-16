@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.text.Font?>
+
+<VBox fx:id="reviewRoot" spacing="16.0" style="-fx-background-radius: 16;" styleClass="bg-subtle" stylesheets="@../css/blue-dark.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mediavault.controllers.ReviewController">
+   <children>
+      <Label text="Rate &amp; Review">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+         <VBox.margin>
+            <Insets bottom="6.0" />
+         </VBox.margin>
+      </Label>
+      <TextArea fx:id="reviewTextArea" minHeight="-Infinity" minWidth="-Infinity" prefHeight="124.0" prefWidth="552.0" promptText="Leave a review!" styleClass="text-area" stylesheets="@../css/blue-dark.css" wrapText="true">
+         <VBox.margin>
+            <Insets />
+         </VBox.margin>
+      </TextArea>
+      <HBox alignment="BOTTOM_LEFT" prefHeight="30.0" prefWidth="552.0">
+         <children>
+            <ChoiceBox fx:id="ratingSelection" />
+            <Region HBox.hgrow="ALWAYS" />
+            <Button cancelButton="true" mnemonicParsing="false" onAction="#closePrompt" text="Cancel">
+               <HBox.margin>
+                  <Insets right="8.0" />
+               </HBox.margin>
+            </Button>
+            <Button defaultButton="true" mnemonicParsing="false" onAction="#submitReview" text="Submit" />
+         </children>
+         <VBox.margin>
+            <Insets bottom="6.0" />
+         </VBox.margin>
+      </HBox>
+   </children>
+   <padding>
+      <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
+   </padding>
+   <effect>
+      <DropShadow blurType="GAUSSIAN" height="55.0" radius="27.0" width="55.0">
+         <color>
+            <Color opacity="0.5" />
+         </color></DropShadow>
+   </effect>
+</VBox>

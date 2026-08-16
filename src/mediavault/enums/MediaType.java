@@ -23,4 +23,17 @@ public enum MediaType
     public String getName() {
         return this.name;
     }
+
+    /**
+     * Returns the equivalent enum based on the string.
+     * @return Status Equivalent of enum's String ID
+     */
+    public static MediaType fromString(String s) {
+    	for (MediaType stat : values()) {
+     		if  (stat.getName().equals(s)) {
+       			return stat;
+       		}
+     	}
+      	return MediaType.NOVEL;
+    }
 }
